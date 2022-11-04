@@ -11,7 +11,3 @@ This guide is edited by the DENOG Working Group for Routing. You don't need to b
 You can contribute to this routing guide on [github.com/denog/routing-guide/](https://github.com/denog/routing-guide/) using GitHubs issues or pull request features.
 We have a [Code of Conduct](https://github.com/denog/routing-guide/blob/main/CODE_OF_CONDUCT.md) as a common ground for collaboration.
 
-## Development
-
-To build the site you need `mkdocs` and the `mkdocs-material` theme installed. For Nix users there is a `shell.nix` file bundled.
-Then you can use `mkdocs serve` to start a local development server that updates the content automatically.

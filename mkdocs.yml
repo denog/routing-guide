@@ -1,0 +1,18 @@
+site_name: DENOG Routing Guide
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: 'yellow'
+      accent: 'yellow'
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: 'yellow'
+      accent: 'yellow'
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
