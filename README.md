@@ -13,9 +13,13 @@ We have a [Code of Conduct](https://github.com/denog/routing-guide/blob/main/COD
 
 ## Deployment
 
-The main branch is deployed to (routing.denog.de)(https://routing.denog.de/) the automtically.
+The main branch is deployed to [routing.denog.de](https://routing.denog.de/) the automtically.
 
 ## Development
 
 To build the site you need `mkdocs` and the `mkdocs-material` theme installed. For Nix users there is a `shell.nix` file bundled.
+On other systems you can use pip to install the dependencies:
+```
+pip3 install mkdocs mkdocs-material
+```
 Then you can use `mkdocs serve` to start a local development server that updates the content automatically.
