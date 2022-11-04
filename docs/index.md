@@ -4,7 +4,7 @@ This guide is intended to act as a reference for best practices in Internet back
 
 # Working Group
 
-This guide is edited by the DENOG Working Group for Routing. You don't need to be a member of the working group to contribute to the project.
+This guide is edited by the DENOG Routing Working Group. You don't need to be a member of the working group to contribute to the project.
 
 ## Contribute
 
