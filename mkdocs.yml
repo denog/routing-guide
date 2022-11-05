@@ -1,6 +1,7 @@
 site_name: DENOG Routing Guide
 theme:
   name: material
+  font: false
   palette:
     # Palette toggle for light mode
     - scheme: default
