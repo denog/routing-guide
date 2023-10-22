@@ -1,4 +1,6 @@
 site_name: DENOG Routing Guide
+extra_css:
+  - stylesheets/extra.css
 theme:
   name: material
   font: false
