@@ -8,15 +8,15 @@ The idea of these measures is to protect your TCP-based BGP sessions against att
 
 The easiest countermeasure against TCP based attacks on BGP sessions is to use  MD5 protection as described in RFC2385. When implementing this, keep in mind to also implement some key (password) handling procedures (just imagine your router has to be replaced and you have to re-create all eBGP configurations).
 
-Example for setting an MD5 password on Cisco:
-\begin{verbatim}
+Example for setting an MD5 password:
+
+=== "Cisco IOS"
+
   router bgp 64500
   ...
   neighbor 10.96.1.1 password mysecretpassword
-\end{verbatim}
 
-Example for Mikrotik:
-\begin{verbatim}
+=== "Mikrotik"
+
   add name=AS64496 remote-as=64496 \
     remote-address=10.96.1.1 tcp-md5-key=mysecretpassword
-\end{verbatim}
