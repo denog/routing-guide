@@ -1175,6 +1175,14 @@
 <h1 id="motivation">Motivation</h1>
 <p>A <em>raw</em> BGP full feed (the so-called "global routing table") contains a lot of junk you do not want in your routers. In the best case, it contains prefixes to non-routable networks; in the worst case, it can break your internal routing.</p>
 <p>There are a number of measures to filter a full BGP feed which will be explained in the following sections.</p>
+<p>In general, we have three sources of information to fill your BGP table:</p>
+<ul>
+<li>the raw input you receive from your peers</li>
+<li>one or more <em>block lists</em> where you define what you not want from that specific peer or from all peers</li>
+<li>an <em>allow list</em> or whitelist, where you define what you allow from that peer</li>
+</ul>
+<p>Job Snijders defined that at
+<a href="https://ripe77.ripe.net/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf">RIPE77</a> as intersecting sets.</p>
 
 
 
