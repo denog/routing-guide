@@ -1,6 +1,9 @@
 site_name: DENOG Routing Guide
+extra_css:
+  - stylesheets/extra.css
 theme:
   name: material
+  font: false
   palette:
     # Palette toggle for light mode
     - scheme: default
