@@ -6,7 +6,7 @@ When writing documents you often need networks or IP addresses for examples. Thi
 
 ### IPv4 Example Networks
 
-#### Source: RFC5737
+#### Source: [RFC5737](https://www.rfc-editor.org/rfc/rfc5737)
 
 The following networks are fully routable /24 networks (256 addresses), but set aside for documentation purposes:
 
@@ -20,11 +20,11 @@ The following networks are so-called private networks, they cannot be routed in 
 
 - 10.0.0.0/8 (10.0.0.0 - 10.255.255.255)
 - 172.16.0.0/12 (172.16.0.0 - 172.31.255.255)
-- 192.168.0.0/16 (192.168.0.0. - 192.168.255.255)
+- 192.168.0.0/16 (192.168.0.0 - 192.168.255.255)
 
 ### IPv6 Example Network
 
-#### Source: RFC3849
+#### Source: [RFC3849](https://www.rfc-editor.org/rfc/rfc3849)
 
 The following network block is fully routable, but set aside for documentation purposes:
 
@@ -32,14 +32,14 @@ The following network block is fully routable, but set aside for documentation p
 
 ### Autonomous System Numbers
 
-#### Source: RFC5398
+#### Source: [RFC5398](https://www.rfc-editor.org/rfc/rfc5398)
 
 The following AS numbers are set aside for documentation purposes:
 
 - 16-Bit numbers: 64496 - 64511
 - 32-Bit numbers: 65536 - 65551
 
-#### Source: RFC6996
+#### Source: [RFC6996](https://www.rfc-editor.org/rfc/rfc6996)
 
 The following AS numbers are reserved for private use:
 
@@ -48,7 +48,7 @@ The following AS numbers are reserved for private use:
 
 ### Domain Names
 
-#### Source: RFC2606
+#### Source: [RFC2606](https://www.rfc-editor.org/rfc/rfc2606)
 
 The following domain names can be used for documentation:
 
