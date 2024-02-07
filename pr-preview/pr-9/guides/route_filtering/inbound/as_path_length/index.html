@@ -20,7 +20,7 @@
     
     
       
-        <title>As path length - DENOG Routing Guide</title>
+        <title>Purpose - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#purpose" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              As path length
+              Purpose
             
           </span>
         </div>
@@ -497,12 +502,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    As path length
+    Purpose
   </span>
   
 
@@ -1104,6 +1111,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1121,9 +1130,28 @@
   
 
 
-  <h1>As path length</h1>
-
-
+<h1 id="purpose">Purpose</h1>
+<p>The AS PATH in the DFZ can become very long. At some point this can become an issue (with some Vendors/OSes). It should be considered to limit the maximum length of the AS PATH. </p>
+<h1 id="description">Description</h1>
+<h1 id="configuration">Configuration</h1>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Juniper Junos</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>```</p>
+</div>
+</div>
+</div>
+<p>[edit policy-options]
+as-path AS-PATH-MAX-LENGTH ".{50,}";</p>
+<p>[edit policy-options policy-statement 4-BASE-IN]
+term AS-PATH-WAY-TOO-LONG {
+    from {
+        as-path AS-PATH-MAX-LENGTH;
+    }
+    then reject;
+}
+    ```</p>
 
 
 
