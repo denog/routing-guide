@@ -1,8 +1,4 @@
----
-title: Overview
----
-
-## Motivation
+# Motivation
 
 When announcing prefixes to the public Internet you have to make sure to filter your announcements to your peers and transits. There are several best practices that are described separately in this chapter.
 
