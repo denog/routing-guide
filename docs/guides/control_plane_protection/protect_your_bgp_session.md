@@ -37,7 +37,7 @@ Unfortunately this is not widely implemented.
 
 Instead of using a password, relying on the *TTL* value of incoming TCP packets is easier to handle and to implement. 
 
-RFC5082 describes, how setting the TTL value of packets when sending to 255, and checking that value when receiving, makes it an impossible-to-spoof security measure. 
+[RFC5082](https://www.rfc-editor.org/rfc/rfc5082) describes, how setting the TTL value of packets when sending to 255, and checking that value when receiving, makes it an impossible-to-spoof security measure.
 
 As the TTL is decreased by every hop, when you receive a packet with TTL 255, it *must* have been sent by a directly adjacent node.
 
