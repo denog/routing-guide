@@ -1234,15 +1234,17 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>[edit policy-options]
-    as-path AS-PATH-MAX-LENGTH ".{50,}";</p>
-<p>[edit policy-options policy-statement 4-BASE-IN]
+<div class="highlight"><pre><span></span><code>[edit policy-options]
+    as-path AS-PATH-MAX-LENGTH &quot;.{50,}&quot;;
+
+[edit policy-options policy-statement 4-BASE-IN]
     term AS-PATH-WAY-TOO-LONG {
       from {
         as-path AS-PATH-MAX-LENGTH;
     }
 then reject;
-}</p>
+}
+</code></pre></div>
 </div>
 </div>
 </div>
