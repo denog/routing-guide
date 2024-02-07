@@ -1,16 +1,25 @@
 site_name: DENOG Routing Guide
+repo_url: https://github.com/denog/routing-guide
+edit_uri: edit/main/docs/
 extra_css:
   - stylesheets/extra.css
 theme:
   name: material
   font: false
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.code.copy
+  icon:
+    edit: material/pencil
+    view: material/eye
   palette:
     # Palette toggle for light mode
     - scheme: default
       primary: 'yellow'
       accent: 'yellow'
       toggle:
-        icon: material/brightness-7 
+        icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - scheme: slate
@@ -19,9 +28,6 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-  features:
-    - content.code.copy
-copyright: Copyright &copy; DENOG e.V. <br/><a href="https://www.denog.de/de/impressum.html">Imprint</a>
 markdown_extensions:
   #- pymdownx.emoji
     #emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -45,3 +51,4 @@ plugins:
 extra:
   status:
     <identifier>: <description>
+copyright: Licensed under the <a href="https://raw.githubusercontent.com/denog/routing-guide/main/LICENSE.md">Creative Commons Attribution License 4.0</a>, unless otherwise stated | <a href="https://www.denog.de/de/impressum.html">Imprint</a>
