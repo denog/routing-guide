@@ -20,7 +20,7 @@
     
     
       
-        <title>Max prefix - DENOG Routing Guide</title>
+        <title>Maximum Prefix - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#maximum-prefix" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Max prefix
+              Maximum Prefix
             
           </span>
         </div>
@@ -797,12 +802,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Max prefix
+    Maximum Prefix
   </span>
   
 
@@ -1278,6 +1285,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1308,9 +1317,16 @@
   
 
 
-  <h1>Max prefix</h1>
-
-
+<h1 id="maximum-prefix">Maximum Prefix</h1>
+<p>This parameter is configured for each eBGP session and is the simplest and easiest security measure you can use. Unfortunately, many stop here. Please do not.</p>
+<p>Maximum prefix defines a limit for the number of prefixes you accept from an eBGP peer. If the peer sends more, the eBGP session is shut down. Usually, routers keep the session down for some time, then it is automatically re-enabled. If the peer still sends more prefixes than allowed, it is shut down again.</p>
+<p>For selecting this limit, the following rules of thumb can be used:</p>
+<ul>
+<li>For sessions to <em>peers</em>, the limit should be less than the total number of prefixes in the Internet. Set it at least to ten times the normal number of prefixes your peer announces. This protects you against your peer announcing the full routing table to you, but still allows normal growth. Check and adjust from time to time (or even better: Automate this).</li>
+<li>For sessions to your <em>upstream</em> provider, you must, of course, set the limit higher than the total number of prefixes in the Internet. It must be high enough to accommodate normal growth, so either set it <em>very</em> high or check and adjust it regularly. Otherwise, there can be surprising session shutdowns. This protects you against gross misconfigurations at your upstream provider (like sending you a lot of de-aggregated prefixes).</li>
+</ul>
+<p>If you want to automate this, at <a href="https://peeringdb.com">PeeringDB</a> networks can publish suggested values for maximum prefix.</p>
+<p>Also, keep in mind that maximum prefix for IPv4 and IPv6 are two different values.</p>
 
 
 
