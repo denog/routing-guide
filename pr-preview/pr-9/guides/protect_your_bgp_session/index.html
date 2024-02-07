@@ -415,6 +415,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tcp-authentication-option" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCP Authentication Option
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1137,6 +1146,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#tcp-authentication-option" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCP Authentication Option
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1156,23 +1174,29 @@
 <h2 id="motivation">Motivation</h2>
 <p>The idea of these measures is to protect your TCP-based BGP sessions against attacks. Keep in mind, these TCP sessions are long-living (speaking of weeks and months), so an attacker can take its time to try to destroy a BGP session by sending crafted packets.</p>
 <h2 id="md5-session-password">MD5 session password</h2>
-<p>The easiest countermeasure against TCP based attacks on BGP sessions is to use  MD5 protection as described in RFC2385. When implementing this, keep in mind to also implement some key (password) handling procedures (just imagine your router has to be replaced and you have to re-create all eBGP configurations).</p>
+<p>The easiest countermeasure against TCP based attacks on BGP sessions is to use  MD5 protection as described in 
+<a href="https://www.rfc-editor.org/rfc/rfc2385.html">RFC2385</a>.
+When implementing this, keep in mind to also implement some key (password) handling procedures (just imagine your router has to be replaced and you have to re-create all eBGP configurations).</p>
 <p>Example for setting an MD5 password:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>router bgp 64500
 ...
-neighbor 10.96.1.1 password mysecretpassword
+neighbor 198.51.100.1 password mysecretpassword
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>add name=AS64496 remote-as=64496 \
-    remote-address=10.96.1.1 tcp-md5-key=mysecretpassword
+    remote-address=198.51.100.1 tcp-md5-key=mysecretpassword
 </code></pre></div>
 </div>
 </div>
 </div>
+<h2 id="tcp-authentication-option">TCP Authentication Option</h2>
+<p>MD5, which is widely used, is considered to be insecure and deprecated. To replace it, 
+<a href="https://www.rfc-editor.org/rfc/rfc5925.html">RFC5925</a>
+defines a mechanism called <em>TCP Authentication Option</em>, please read the RFC for details. In short, it uses stronger codes to protect your session.</p>
 
 
 
