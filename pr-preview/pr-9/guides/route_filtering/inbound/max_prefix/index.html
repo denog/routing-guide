@@ -1327,6 +1327,19 @@
 </ul>
 <p>If you want to automate this, at <a href="https://peeringdb.com">PeeringDB</a> networks can publish suggested values for maximum prefix.</p>
 <p>Also, keep in mind that maximum prefix for IPv4 and IPv6 are two different values.</p>
+<p>Configuration examples:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 maximum-prefix 1000 95
+</code></pre></div></p>
+</div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 
 
 
