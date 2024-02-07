@@ -19,4 +19,29 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+  features:
+    - content.code.copy
 copyright: Copyright &copy; DENOG e.V. <br/><a href="https://www.denog.de/de/impressum.html">Imprint</a>
+markdown_extensions:
+  #- pymdownx.emoji
+    #emoji_index: !!python/name:material.extensions.emoji.twemoji
+        #emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - footnotes
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+plugins:
+  - git-revision-date-localized
+extra:
+  status:
+    <identifier>: <description>
