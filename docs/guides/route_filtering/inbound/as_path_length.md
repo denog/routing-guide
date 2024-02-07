@@ -9,7 +9,27 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
 
 === "Cisco IOS"
     ```
-    please add
+    router bgp 64500
+     bgp maxas-limit 50
+    ``` 
+
+=== "Cisco IOS XR"
+    ```
+    route-policy AS-PATH-WAY-TOO-LONG
+     if as-path length ge 50 then
+      drop
+     endif
+    end-policy
+    router bgp 64500
+     neighor 198.51.100.1
+      address-family ipv4 unicast
+       route-policy AS-PATH-WAY-TOO-LONG in
+     neighor 2001:db8::1
+      address-family ipv6 unicast
+       route-policy AS-PATH-WAY-TOO-LONG in
+      exit
+     exit
+    exit
     ``` 
 
 === "Juniper Junos"  
