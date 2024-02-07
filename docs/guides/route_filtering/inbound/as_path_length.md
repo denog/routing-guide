@@ -13,7 +13,7 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
     ``` 
 
 === "Juniper Junos"  
-
+    ```
     [edit policy-options]
         as-path AS-PATH-MAX-LENGTH ".{50,}";
         
@@ -24,3 +24,4 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
         }
     then reject;
     }
+    ```
