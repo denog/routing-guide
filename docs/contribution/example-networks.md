@@ -14,7 +14,7 @@ The following networks are fully routable /24 networks (256 addresses), but set 
 - 198.51.100.0/24
 - 203.0.113.0/24
 
-#### Source: RFC1918
+#### Source: [RFC1918](https://www.rfc-editor.org/rfc/rfc1918)
 
 The following networks are so-called private networks, they cannot be routed in the global BGP table but can be freely used in private networks:
 
