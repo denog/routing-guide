@@ -14,6 +14,14 @@ You peers and upstreams might also apply incoming BGP filters to your BGP sessio
     ```
     ```
 
+=== "Cisco IOS"
+
+    Please note that Cisco IOS is permissive by default. If you do not apply any filters, all prefixes will be shared between your BGP peers.
+
+    Config snippet for Cisco IOS
+    ```
+    ```
+
 === "Cisco IOS XR"
 
     Config snippet for Cisco IOS XR
