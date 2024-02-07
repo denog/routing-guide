@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../../inbound/tier1_asn/">
+        <link rel="prev" href="../">
       
       
         <link rel="next" href="../maintenance_switch/">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Customer prefix - DENOG Routing Guide</title>
+        <title>Announce customer prefixes - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#announce-customer-prefixes" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Customer prefix
+              Announce customer prefixes
             
           </span>
         </div>
@@ -890,6 +895,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -899,16 +925,66 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Announce customer prefixes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Customer prefix
+    Announce customer prefixes
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -968,7 +1044,7 @@
         
   
   <span class="md-ellipsis">
-    Own prefix
+    Announce your own prefixes
   </span>
   
 
@@ -1104,6 +1180,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1121,9 +1225,35 @@
   
 
 
-  <h1>Customer prefix</h1>
-
-
+<h1 id="announce-customer-prefixes">Announce customer prefixes</h1>
+<h2 id="purpose">Purpose</h2>
+<p>If you do have BGP customers and need to provide IP transit to them you have to announce therr prefixes to your peers, upstreams and customers in addition to your own prefixes.</p>
+<p>Please make sure to filter the prefixes of your BGP customers directly on the BGP sessions to your customer as strict as possible. Allow your BGP customers to announce their own prefixes only. If your BGP customers also have other BGP customers you will have to accept their prefixes also. Tag the prefixes of your customers with your network specific informational BGP community and announce prefixes tagged with this BGP community to your external BGP peers.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Explain/link how to build filters based on ASN or AS-Set.</p>
+</div>
+<h2 id="configuration">Configuration</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Juniper JunOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Arista EOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Config snippet for JunOS
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>Config snippet for Cisco IOS XR
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>Config snippet for Arista EOS
+<div class="highlight"><pre><span></span><code>
+</code></pre></div></p>
+</div>
+</div>
+</div>
+<hr />
 
 
 
