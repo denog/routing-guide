@@ -11,12 +11,9 @@ The easiest countermeasure against TCP based attacks on BGP sessions is to use  
 Example for setting an MD5 password:
 
 === "Cisco IOS"
-
   router bgp 64500
   ...
   neighbor 10.96.1.1 password mysecretpassword
-
 === "Mikrotik"
-
   add name=AS64496 remote-as=64496 \
     remote-address=10.96.1.1 tcp-md5-key=mysecretpassword
