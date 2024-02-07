@@ -58,4 +58,3 @@ Configuration examples:
     add in-filter=upstream-in name=AS64496 out-filter=upstream-out \
         remote-address=198.51.100.1 remote-as=64496 ttl=255
     ```
- 
