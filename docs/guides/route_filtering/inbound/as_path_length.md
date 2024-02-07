@@ -24,4 +24,5 @@ term AS-PATH-WAY-TOO-LONG {
     }
     then reject;
 }
+
     ```
