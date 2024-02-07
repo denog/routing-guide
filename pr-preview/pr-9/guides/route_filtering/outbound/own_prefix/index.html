@@ -1394,7 +1394,10 @@
 <h1 id="announce-your-own-prefixes">Announce your own prefixes</h1>
 <h2 id="purpose">Purpose</h2>
 <p>As a network participating in the global Internet you want to tell other networks about your own prefixes and announce them to the public Internet.</p>
-<p>You peers and upstreams might also apply incoming BGP filters to your BGP sessions and filter your prefixes. Please make sure to create appropriate <a href="https://www.ripe.net/manage-ips-and-asns/resource-management/rpki/">RPKI objects</a>, route/route6 objects and AS sets, for example in the RIPE datebase. It is best practice to also create an AS set although you only have one ASN, because if your BGP peers build filters based on your AS set you don't need to inform them if you ever announce prefixes with an additional origin ASN.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You peers and upstreams might also apply incoming BGP filters to your BGP sessions and filter your prefixes. Please make sure to create appropriate <a href="https://www.ripe.net/manage-ips-and-asns/resource-management/rpki/">RPKI objects</a>, route/route6 objects and AS sets, for example in the RIPE datebase. It is best practice to also create an AS set although you currebtly only have one ASN, because if your BGP peers build filters based on your AS set you don't need to inform them if you ever announce prefixes with an additional origin ASN.</p>
+</div>
 <h2 id="configuration">Configuration</h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Juniper JunOS</label><label for="__tabbed_1_2">Cisco IOS</label><label for="__tabbed_1_3">Cisco IOS XR</label><label for="__tabbed_1_4">Arista EOS</label></div>
 <div class="tabbed-content">
