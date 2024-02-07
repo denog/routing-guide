@@ -12,3 +12,16 @@ For selecting this limit, the following rules of thumb can be used:
 If you want to automate this, at [PeeringDB](https://peeringdb.com) networks can publish suggested values for maximum prefix.
 
 Also, keep in mind that maximum prefix for IPv4 and IPv6 are two different values.
+
+Configuration examples:
+
+=== "Cisco IOS"
+    This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
+    ```
+    router bgp 64500
+    ...
+    neighbor 198.51.100.1 maximum-prefix 1000 95
+    ```
+
+=== "Mikrotik"
+
