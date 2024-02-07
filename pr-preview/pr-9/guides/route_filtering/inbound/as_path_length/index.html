@@ -1239,8 +1239,8 @@
 </div>
 </div>
 <p>[edit policy-options]
-as-path AS-PATH-MAX-LENGTH ".{50,}";</p>
-<p>[edit policy-options policy-statement 4-BASE-IN]
+as-path AS-PATH-MAX-LENGTH ".{50,}";
+[edit policy-options policy-statement 4-BASE-IN]
 term AS-PATH-WAY-TOO-LONG {
     from {
         as-path AS-PATH-MAX-LENGTH;
