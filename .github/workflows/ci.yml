@@ -22,5 +22,5 @@ jobs:
       - name: Upload artifact
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: ./site/
+          folder: site
           clean-exclude: pr-preview/
