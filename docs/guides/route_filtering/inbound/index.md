@@ -14,4 +14,4 @@ In general, we have three sources of information to fill your BGP table:
 Job Snijders defined that at
 [RIPE77](https://ripe77.ripe.net/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf) as intersecting sets.
 
-![three circles](protect_your_bgp_session_001.png)
+![three circles](/assets/images/protect_your_bgp_session_001.png)
