@@ -20,6 +20,7 @@ jobs:
       - run: pip install mkdocs-material
       - run: mkdocs build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           path: ./site/
+          clean-exclude: pr-preview/
