@@ -7,7 +7,7 @@ Of course this also protects our own network, because if our neighbor accepted t
 Configuration examples:
 
 === "FRRouting"
-    This limits the number of prefixes sent to 1000, please note that the session is *not* shut down after the number is exceeded.
+    This limits the number of prefixes sent to 1000, please note that the session is *not* shut down after the number is exceeded. Which prefixed are sent you cannot influence, this limits the usefulness of this feature.
     ```
     router bgp 64500
         address-family ipv4 unicast
