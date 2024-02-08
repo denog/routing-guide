@@ -1324,7 +1324,7 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">FRRouting</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>This limits the number of prefixes sent to 1000, please note that the session is <em>not</em> shut down after the number is exceeded.
+<p>This limits the number of prefixes sent to 1000, please note that the session is <em>not</em> shut down after the number is exceeded. Which prefixed are sent you cannot influence, this limits the usefulness of this feature.
 <div class="highlight"><pre><span></span><code>router bgp 64500
     address-family ipv4 unicast
         neighbor 198.51.100.1 maximum-prefix-out 1000
