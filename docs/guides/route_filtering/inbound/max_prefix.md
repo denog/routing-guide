@@ -23,5 +23,25 @@ Configuration examples:
     neighbor 198.51.100.1 maximum-prefix 1000 95
     ```
 
-=== "Mikrotik"
+=== "Cisco IOS XR"
+    This shuts down the session when 1000 prefixes are received, issues a warning at 95% (950 prefixes) and restarts the session after 60 minutes:
+    ```
+    router bgp 64500
+        neighbor 198.51.100.1
+        address-family ipv4 unicast
+            maximum-prefix 1000 95 restart 60
+    ```
+=== "FRRouting"
+    This shuts down the session when 1000 prefixes are received, issues a warning at 95% (950 prefixes) and restarts the session after 60 minutes:
+    ```
+    router bgp 64500
+        address-family ipv4 unicast
+            neighbor 198.51.100.1 maximum-prefix 1000 95 restart 60
+    ```
 
+=== "Mikrotik"
+    This shuts down your session when 1000 prefixes are received and restarts it after one hour:
+    ```
+    add name=AS64496 remote-as=64496 \
+        remote-address=198.51.100.1 max-prefix-limig=1000 max-prefix-restart-time=1h
+    ```
