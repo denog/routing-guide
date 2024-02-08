@@ -20,7 +20,7 @@
     
     
       
-        <title>Max prefix - DENOG Routing Guide</title>
+        <title>Maximum Prefix (Outbound) - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#maximum-prefix-outbound" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Max prefix
+              Maximum Prefix (Outbound)
             
           </span>
         </div>
@@ -1115,12 +1120,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Max prefix
+    Maximum Prefix (Outbound)
   </span>
   
 
@@ -1278,6 +1285,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1308,9 +1317,21 @@
   
 
 
-  <h1>Max prefix</h1>
-
-
+<h1 id="maximum-prefix-outbound">Maximum Prefix (Outbound)</h1>
+<p>This is a quite new feature of some BGP implementations. Here we do not protect our own network, we protect the our neighbors from us accidentally flooding too many IP prefixes towards them.</p>
+<p>Of course this also protects our own network, because if our neighbor accepted these prefixes and would send us all the traffic for them, we would drown in packets.</p>
+<p>Configuration examples:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">FRRouting</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>This limits the number of prefixes sent to 1000, please note that the session is <em>not</em> shut down after the number is exceeded.
+<div class="highlight"><pre><span></span><code>router bgp 64500
+    address-family ipv4 unicast
+        neighbor 198.51.100.1 maximum-prefix-out 1000
+</code></pre></div></p>
+</div>
+</div>
+</div>
 
 
 
