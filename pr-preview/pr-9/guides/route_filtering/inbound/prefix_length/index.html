@@ -1347,12 +1347,11 @@
 <li><strong>IPv6, maximum size</strong> is currently a /16 (please take this with a grain of salt, this number might already have changed). The remark about accepting a default-route ::0 is the same.</li>
 </ul>
 <p>Configuration examples:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Using an <em>unwanted</em> prefix-list you can add  more prefixes to it that you not want. This shortens your configuration but might also decrease readability.
-```
-ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 25 le 32
+<div class="highlight"><pre><span></span><code>ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 25 le 32
 ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 1 le 7
 !
 route-map upstream-in-v4 deny 50
@@ -1368,7 +1367,17 @@ router bgp 64500
     neighbor 198.51.100.1 route-map upstream-in-v4 in
     !
     neighbor 2001:db8::1 route-map upstream-in-v6 in
-    !</p>
+    !
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>Mikrotik works with filter-lists, for easier readability you can use sub-filters (note this example only shows the filter lists itself):
+<div class="highlight"><pre><span></span><code>/routing filter
+add action=jump chain=upstream-in-v4 jump-target=ipv4-size
+...
+add action=reject chain=ipv4-size prefix-length=0-7
+add action=reject chain=ipv4-size prefix-length=25-32
+</code></pre></div></p>
 </div>
 </div>
 </div>
