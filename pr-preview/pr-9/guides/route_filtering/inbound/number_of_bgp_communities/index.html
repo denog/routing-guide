@@ -20,7 +20,7 @@
     
     
       
-        <title>Number of bgp communities - DENOG Routing Guide</title>
+        <title>Number of BGP communities - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#number-of-bgp-communities" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Number of bgp communities
+              Number of BGP communities
             
           </span>
         </div>
@@ -818,16 +823,66 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Number of BGP communities
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Number of bgp communities
+    Number of BGP communities
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1299,6 +1354,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1329,9 +1412,70 @@
   
 
 
-  <h1>Number of bgp communities</h1>
-
-
+<h1 id="number-of-bgp-communities">Number of BGP communities</h1>
+<h2 id="purpose">Purpose</h2>
+<p>BGP Communities can give a lot of information about a prefix, for example where your BGP peer learned the prefix. As BGP Communities also consume router memory it is suggested to delete the BGP communities if too many of them are attached to a prefix.</p>
+<h2 id="configuration">Configuration</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Juniper JunOS</label><label for="__tabbed_1_4">Arista EOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>In Cisco IOS it is not possible to only delete BGP Communities from a prefix when there are more than a specific number attached. You can filter prefixes with eg. &gt;=100 BGP Communities, but then your router won't have a route to the filtered prefix if you do not have a default route.
+<div class="highlight"><pre><span></span><code>router bgp 64500
+  bgp maxcommunity-limit 99
+  bgp maxextcommunity-limit 99
+</code></pre></div></p>
+<p>If you do not want to loose any routes because of too many attached BGP Communities you could also remove all BGP Communities from the prefixes coming from your peer.
+<div class="highlight"><pre><span></span><code>ip community-list expanded ALL-COMMUNITIES permit .*
+!
+route-map BGP_FILTER_IN permit 100
+ set comm-list ALL-COMMUNITIES delete
+ set extcomm-list ALL-COMMUNITIES delete
+!
+router bgp 64500
+ neighbor 198.51.100.1 route-map BGP_FILTER_IN in
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>In Cisco IOS XR it is not possible to only delete BGP Communities from a prefix when there are more than a specific number attached. You can filter prefixes with eg. &gt;=100 BGP Communities, but then your router won't have a route to the filtered prefix if you do not have a default route.
+<div class="highlight"><pre><span></span><code>router bgp 64500
+  bgp maxcommunity-limit 99
+  bgp maxextcommunity-limit 99
+</code></pre></div></p>
+<p>If you do not want to loose any routes because of too many attached BGP Communities you could also remove all BGP Communities from the prefixes coming from your peer.
+<div class="highlight"><pre><span></span><code>ip community-list expanded ALL-COMMUNITIES permit .*
+!
+route-map BGP_FILTER_IN permit 100
+ set comm-list ALL-COMMUNITIES delete
+ set extcomm-list ALL-COMMUNITIES delete
+!
+router bgp 64500
+ neighbor 198.51.100.1 route-map BGP_FILTER_IN in
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>In this example all BGP Communities are removed from a prefix when &gt;= 100 BGP Communities are attached.
+<div class="highlight"><pre><span></span><code>policy-options {
+    community ALL-COMMUNITIES members [ *:* origin:*:* large:*:*:* ];
+    policy-statement BGP_FILTER_IN {
+      term delete-too-many-communities {
+        from community-count 100 orhigher;
+        then {
+            community delete ALL-COMMUNITIES;
+        }
+    }
+}
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>In this example all BGP Communities are removed from a prefix when &gt;= 100 BGP Communities are attached.
+<div class="highlight"><pre><span></span><code>route-map BGP_FILTER_IN permit 100
+    match community instances &gt;= 100
+    set community none
+!
+</code></pre></div></p>
+</div>
+</div>
+</div>
 
 
 
