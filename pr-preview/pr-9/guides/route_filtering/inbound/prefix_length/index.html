@@ -20,7 +20,7 @@
     
     
       
-        <title>Prefix length - DENOG Routing Guide</title>
+        <title>Prefix length filtering - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#prefix-length-filtering" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Prefix length
+              Prefix length filtering
             
           </span>
         </div>
@@ -923,12 +928,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Prefix length
+    Prefix length filtering
   </span>
   
 
@@ -1299,6 +1306,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1329,9 +1338,40 @@
   
 
 
-  <h1>Prefix length</h1>
-
-
+<h1 id="prefix-length-filtering">Prefix length filtering</h1>
+<p>Normally (there are exceptions), prefixes are announced in certain minimum and maximum lengths in the global Internet routing table. Currently, they are:</p>
+<ul>
+<li><strong>IPv4, minimum size</strong> is /24. No smaller networks should be announced. Possible exceptions: \Gls{blackholing}, or an announcement in combination with a NO-EXPORT community set from a customer to his upstream.</li>
+<li><strong>IPv6, minimum size</strong> is /48. Same exceptions as within IPv4.</li>
+<li><strong>IPv4, maximum size</strong> is a /8. Larger networks are not announced. Depending on your set-up, you might want to accept the default-route 0.0.0.0/0 from your upstream providers.</li>
+<li><strong>IPv6, maximum size</strong> is currently a /16 (please take this with a grain of salt, this number might already have changed). The remark about accepting a default-route ::0 is the same.</li>
+</ul>
+<p>Configuration examples:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Using an <em>unwanted</em> prefix-list you can add  more prefixes to it that you not want. This shortens your configuration but might also decrease readability.
+```
+ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 25 le 32
+ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 1 le 7
+!
+route-map upstream-in-v4 deny 50
+    match ip address prefix-list ipv4-unwanted
+!
+ipv6 prefix-list ipv6-unwanted permit ::/0 ge 49 le 128
+ipv6 prefix-list ipv6-unwanted permit ::/0 ge 0 le 16
+!
+route-map upstream-in-v6 deny 45
+    match ipv6 address prefix-list ipv6-unwanted
+!
+router bgp 64500
+    neighbor 198.51.100.1 route-map upstream-in-v4 in
+    !
+    neighbor 2001:db8::1 route-map upstream-in-v6 in
+    !</p>
+</div>
+</div>
+</div>
 
 
 
