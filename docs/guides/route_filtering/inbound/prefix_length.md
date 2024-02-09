@@ -2,7 +2,7 @@
 
 Normally (there are exceptions), prefixes are announced in certain minimum and maximum lengths in the global Internet routing table. Currently, they are:
 
-- **IPv4, minimum size** is /24. No smaller networks should be announced. Possible exceptions: \Gls{blackholing}, or an announcement in combination with a NO-EXPORT community set from a customer to his upstream.
+- **IPv4, minimum size** is /24. No smaller networks should be announced. Possible exceptions: blackholing, or an announcement in combination with a *NO-EXPORT* community set, from a customer to his upstream.
 - **IPv6, minimum size** is /48. Same exceptions as within IPv4.
 - **IPv4, maximum size** is a /8. Larger networks are not announced. Depending on your set-up, you might want to accept the default-route 0.0.0.0/0 from your upstream providers.
 - **IPv6, maximum size** is currently a /16 (please take this with a grain of salt, this number might already have changed). The remark about accepting a default-route ::0 is the same.
