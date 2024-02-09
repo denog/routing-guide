@@ -18,3 +18,23 @@ The following IPv4 space is still considered to be not routable and should never
 ## IPv6
 
 In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-address-space). However, for IPv6 it is easier to positive-filter for *2000::/3*, as this is the only block where **currently** unicast address assignments were made from. Currently. You might check frequently if other blocks have been added. It is strongly recommended that you automate this task.
+
+## Configuration Examples
+
+=== "Cisco IOS"
+    For IPv4, you can simply add all unwanted prefixes to the list we defined in the previous section:
+    ```
+    ip prefix-list ipv4-unwanted permit 192.168.0.0/16 le 32
+    ip prefix-list ipv4-unwanted permit 172.16.0.0/12 le 32
+    ip prefix-list ipv4-unwanted permit 10.0.0.0/8 le 32
+    ...
+    ```
+=== "Mikrotik"
+    You can add this to your existing filter or you can create a sub-filter for better readability:
+    ```
+    /routing filter
+    add action=reject chain=ipv4-unwanted prefix=192.168.0.0/16 prefix-length=16-32
+    add action=reject chain=ipv4-unwanted prefix=172.16.0.0/12 prefix-length=12-32
+    add action=reject chain=ipv4-unwanted prefix=10.0.0.0/8 prefix-length=8-32
+    ...
+    ```
