@@ -20,7 +20,7 @@ The main branch is deployed to [routing.denog.de](https://routing.denog.de/) the
 To build the site you need `mkdocs` and the `mkdocs-material` theme installed. For Nix users there is a `shell.nix` file bundled.
 On other systems you can use pip to install the dependencies:
 ```
-pip3 install mkdocs mkdocs-material
+pip3 install mkdocs mkdocs-material mkdocs-git-revision-date-localized-plugin
 ```
 Then you can use `mkdocs serve` to start a local development server that updates the content automatically.
 

@@ -9,6 +9,7 @@ theme:
   features:
     - content.action.edit
     - content.action.view
+    - content.code.copy
   icon:
     edit: material/pencil
     view: material/eye
@@ -27,4 +28,27 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+markdown_extensions:
+  #- pymdownx.emoji
+    #emoji_index: !!python/name:material.extensions.emoji.twemoji
+        #emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - footnotes
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+plugins:
+  - git-revision-date-localized
+extra:
+  status:
+    <identifier>: <description>
 copyright: Licensed under the <a href="https://raw.githubusercontent.com/denog/routing-guide/main/LICENSE.md">Creative Commons Attribution License 4.0</a>, unless otherwise stated | <a href="https://www.denog.de/de/impressum.html">Imprint</a>
