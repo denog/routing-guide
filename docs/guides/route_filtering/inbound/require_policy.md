@@ -9,7 +9,7 @@ So imagine you enter the neigbhbors AS number and IP address and then you go for
 [RFC8212](https://www.rfc-editor.org/rfc/rfc8212.html)
 requires that you *must* configure an import and an export policy (= some filtering) on any external BGP session, otherwise the session will not be initiated or accepted.
 
-The compliance of BGP implementations of RFC8212 is tracked
+The compliance of BGP implementations to RFC8212 is tracked
 [here](https://github.com/bgp/RFC8212).
 
 Configuration examples:
