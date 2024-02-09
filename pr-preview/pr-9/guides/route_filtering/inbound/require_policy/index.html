@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../number_of_bgp_communities/">
+        <link rel="prev" href="../prefix_length/">
       
       
-        <link rel="next" href="../own_prefix/">
+        <link rel="next" href="../rpki/">
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Own bgp communities - DENOG Routing Guide</title>
+        <title>Require policy to start a BGP session - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#require-policy-to-start-a-bgp-session" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Own bgp communities
+              Require policy to start a BGP session
             
           </span>
         </div>
@@ -830,17 +835,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../own_bgp_communities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -849,7 +847,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -943,10 +940,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../require_policy/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -955,6 +961,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1299,6 +1306,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -1313,7 +1322,7 @@
                   
 
   
-    <a href="https://github.com/denog/routing-guide/edit/main/docs/guides/route_filtering/inbound/own_bgp_communities.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/denog/routing-guide/edit/main/docs/guides/route_filtering/inbound/require_policy.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
     </a>
@@ -1322,16 +1331,35 @@
     
       
     
-    <a href="https://github.com/denog/routing-guide/raw/main/docs/guides/route_filtering/inbound/own_bgp_communities.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/denog/routing-guide/raw/main/docs/guides/route_filtering/inbound/require_policy.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/></svg>
     </a>
   
 
 
-  <h1>Own bgp communities</h1>
-
-
+<h1 id="require-policy-to-start-a-bgp-session">Require policy to start a BGP session</h1>
+<p>Some routers accept configuration commands as you type them in line by line. At others you <em>commit</em> your configuration once you have completed it.</p>
+<p>Now, if you setup a BGP session to a neighbor and the router accepts it line by line, the session will be established once "enough" configuration is entered, independent if you have completed the configuration or not.</p>
+<p>So imagine you enter the neigbhbors AS number and IP address and then you go for a coffee. This might be enough to establish a session. Without any filtering, you now will receive everything from that neighbor and also announce every valid prefix in your own BGP tables. Most of the times, this is not what you want.</p>
+<p><a href="https://www.rfc-editor.org/rfc/rfc8212.html">RFC8212</a>
+requires that you <em>must</em> configure an import and an export policy (= some filtering) on any external BGP session, otherwise the session will not be initiated or accepted.</p>
+<p>The compliance of BGP implementations of RFC8212 is tracked
+<a href="https://github.com/bgp/RFC8212">here</a>.</p>
+<p>Configuration examples:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label><label for="__tabbed_1_2">FRRouting</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>No configuration necessary, RFC8212 is supported by default.</p>
+</div>
+<div class="tabbed-block">
+<p>This is enabled by default for traditional configuration.
+<div class="highlight"><pre><span></span><code>router bgp 64500
+  bgp ebgp-requires-policy
+</code></pre></div></p>
+</div>
+</div>
+</div>
 
 
 
