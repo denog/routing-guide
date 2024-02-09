@@ -29,3 +29,14 @@ Configuration examples:
         !
         neighbor 2001:db8::1 route-map upstream-in-v6 in
         !
+    ```
+
+=== "Mikrotik"
+    Mikrotik works with filter-lists, for easier readability you can use sub-filters (note this example only shows the filter lists itself):
+    ```
+    /routing filter
+    add action=jump chain=upstream-in-v4 jump-target=ipv4-size
+    ...
+    add action=reject chain=ipv4-size prefix-length=0-7
+    add action=reject chain=ipv4-size prefix-length=25-32
+    ```
