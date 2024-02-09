@@ -20,7 +20,7 @@
     
     
       
-        <title>Bogon prefixes - DENOG Routing Guide</title>
+        <title>Bogon Prefixes - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#bogon-prefixes" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Bogon prefixes
+              Bogon Prefixes
             
           </span>
         </div>
@@ -713,16 +718,75 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Bogon Prefixes
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Bogon prefixes
+    Bogon Prefixes
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ipv4" class="md-nav__link">
+    <span class="md-ellipsis">
+      IPv4
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipv6" class="md-nav__link">
+    <span class="md-ellipsis">
+      IPv6
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1299,6 +1363,43 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ipv4" class="md-nav__link">
+    <span class="md-ellipsis">
+      IPv4
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipv6" class="md-nav__link">
+    <span class="md-ellipsis">
+      IPv6
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1329,9 +1430,43 @@
   
 
 
-  <h1>Bogon prefixes</h1>
-
-
+<h1 id="bogon-prefixes">Bogon Prefixes</h1>
+<p>"Bogon" prefixes are non-routeable or reserved prefixes which should never be seen in the global routing table.</p>
+<h2 id="ipv4">IPv4</h2>
+<p>When IPv4 was created, the inventors reserved certain part of the address space for specific purposes. These were the times of class-A,B,C networks (if anybody still mentions them - the concept was abolished in 1993 in some RFCs starting with 
+<a href="https://www.rfc-editor.org/rfc/rfc1517">RFC1517</a>).</p>
+<p>The following IPv4 space is still considered to be not routable and should never be announced via BGP:</p>
+<ul>
+<li><strong>Private IPv4 space</strong> as defined in <a href="https://www.rfc-editor.org/rfc/rfc1918">RFC1918</a>. Networks <em>10.0.0.0/8</em>, <em>172.16.0.0/12</em> and <em>192.168.0.0/16</em> are reserved for private use and should never be announced.</li>
+<li><strong>IPv4 networks reserved for documentation purposes</strong> defined in <a href="https://www.rfc-editor.org/rfc/rfc5737">RFC5737</a>. These three networks are reserved and should not be routed (but you might see them in this document as example networks).</li>
+<li><strong>Reserved for multicast:</strong> The address block <em>224.0.0.0/4</em> was reserved for multicast and cannot be used for anything else. Do not accept announcements out of it via BGP.</li>
+<li><strong>So-called <em>Class-E</em>:</strong> The network block <em>240.0.0.0/4</em> was always reserved "for future use" which never came. Today this range is considered to be not usable and therefore should not be accepted via BGP.</li>
+<li><strong>More can be found</strong> at this <a href="https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry.xhtml">IANA website</a>. Everything with "Globally Reachable False" should be filtered out.</li>
+</ul>
+<h2 id="ipv6">IPv6</h2>
+<p>In IPv6, there is a <a href="http://www.iana.org/assignments/ipv6-address-space">similar list at IANA</a>. However, for IPv6 it is easier to positive-filter for <em>2000::/3</em>, as this is the only block where <strong>currently</strong> unicast address assignments were made from. Currently. You might check frequently if other blocks have been added. It is strongly recommended that you automate this task.</p>
+<h2 id="configuration-examples">Configuration Examples</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>For IPv4, you can simply add all unwanted prefixes to the list we defined in the previous section:
+<div class="highlight"><pre><span></span><code>ip prefix-list ipv4-unwanted permit 192.168.0.0/16 le 32
+ip prefix-list ipv4-unwanted permit 172.16.0.0/12 le 32
+ip prefix-list ipv4-unwanted permit 10.0.0.0/8 le 32
+...
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>You can add this to your existing filter or you can create a sub-filter for better readability:
+<div class="highlight"><pre><span></span><code>/routing filter
+add action=reject chain=ipv4-unwanted prefix=192.168.0.0/16 prefix-length=16-32
+add action=reject chain=ipv4-unwanted prefix=172.16.0.0/12 prefix-length=12-32
+add action=reject chain=ipv4-unwanted prefix=10.0.0.0/8 prefix-length=8-32
+...
+</code></pre></div></p>
+</div>
+</div>
+</div>
 
 
 
