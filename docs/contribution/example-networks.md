@@ -22,7 +22,7 @@ The following networks are so-called private networks, they cannot be routed in 
 - 172.16.0.0/12 (172.16.0.0 - 172.31.255.255)
 - 192.168.0.0/16 (192.168.0.0 - 192.168.255.255)
 
-### IPv6 Example Network
+### IPv6 Example Networks
 
 #### Sources: [RFC3849](https://www.rfc-editor.org/rfc/rfc3849) and [RFC9637](https://www.rfc-editor.org/rfc/rfc9637)
 
