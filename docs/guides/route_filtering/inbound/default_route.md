@@ -15,3 +15,17 @@ On the other hand, if you want the full routing table, you should not accept any
     ip prefix-list default-route permit 0.0.0.0/0
     ipv6 prefix-list default-route permit ::/0
     ```
+
+    Route-Map statement for allowing *only* default routes in:
+    ```
+    route-map prefixes-in permit 10
+      match ip address prefix-list default-route
+      match ipv6 address prefix-list default-route
+    ```
+
+    Route-Map statement for *not* allowing default routes in:
+    ```
+    route-map prefixes-in deny 10
+      match ip address prefix-list default-route
+      match ipv6 address prefix-list default-route
+    ````
