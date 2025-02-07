@@ -9,21 +9,25 @@
       
       
       
+        <link rel="prev" href="../">
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="next" href="../../forwarding_filter/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.3">
     
     
       
-        <title>DENOG Routing Guide</title>
+        <title>Protect your BGP session - DENOG Routing Guide</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.d7758b05.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -36,9 +40,9 @@
       
     
     
-      <link rel="stylesheet" href="/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -63,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#protect-your-bgp-session" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -75,7 +84,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/." title="DENOG Routing Guide" class="md-header__button md-logo" aria-label="DENOG Routing Guide" data-md-component="logo">
+    <a href="../../.." title="DENOG Routing Guide" class="md-header__button md-logo" aria-label="DENOG Routing Guide" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -95,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Protect your BGP session
             
           </span>
         </div>
@@ -171,7 +180,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="DENOG Routing Guide" class="md-nav__button md-logo" aria-label="DENOG Routing Guide" data-md-component="logo">
+    <a href="../../.." title="DENOG Routing Guide" class="md-nav__button md-logo" aria-label="DENOG Routing Guide" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -201,7 +210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -258,7 +267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contribution/" class="md-nav__link">
+      <a href="../../../contribution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -280,7 +289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contribution/example-networks/" class="md-nav__link">
+      <a href="../../../contribution/example-networks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -302,7 +311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contribution/formatting/" class="md-nav__link">
+      <a href="../../../contribution/formatting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -328,17 +337,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -353,7 +364,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Guides
@@ -367,7 +378,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -386,17 +397,19 @@
                 
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -411,7 +424,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             Control plane protection
@@ -425,7 +438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/control_plane_protection/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -444,10 +457,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="/guides/control_plane_protection/protect_your_bgp_session/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Protect your BGP session
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -457,6 +491,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#md5-session-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      MD5 session password
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcp-authentication-option" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCP Authentication Option
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttl-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL Security
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -513,7 +603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/forwarding_filter/" class="md-nav__link">
+      <a href="../../forwarding_filter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -615,7 +705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -637,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/as_path_length/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/as_path_length/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -659,7 +749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/blackhole/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/blackhole/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -681,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/bogon_asn/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/bogon_asn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -703,7 +793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/bogon_prefixes/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/bogon_prefixes/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -725,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/default_route/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/default_route/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -747,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/graceful_shutdown/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/graceful_shutdown/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -769,7 +859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/maintenance_switch/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/maintenance_switch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,7 +881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/max_prefix/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/max_prefix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -813,7 +903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/number_of_bgp_communities/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/number_of_bgp_communities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -835,7 +925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/own_bgp_communities/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/own_bgp_communities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -857,7 +947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/own_prefix/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/own_prefix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -879,7 +969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/peer_locking/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/peer_locking/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -901,7 +991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/peering_lan/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/peering_lan/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -923,7 +1013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/prefix_length/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/prefix_length/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -945,7 +1035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/require_policy/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/require_policy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -967,7 +1057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/rpki/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/rpki/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -989,7 +1079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/set_own_informational_bgp_communities/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/set_own_informational_bgp_communities/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1011,7 +1101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/inbound/tier1_asn/" class="md-nav__link">
+      <a href="../../route_filtering/inbound/tier1_asn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1077,7 +1167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/outbound/" class="md-nav__link">
+      <a href="../../route_filtering/outbound/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1099,7 +1189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/outbound/customer_prefix/" class="md-nav__link">
+      <a href="../../route_filtering/outbound/customer_prefix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1121,7 +1211,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/outbound/maintenance_switch/" class="md-nav__link">
+      <a href="../../route_filtering/outbound/maintenance_switch/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1143,7 +1233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/outbound/max_prefix/" class="md-nav__link">
+      <a href="../../route_filtering/outbound/max_prefix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1165,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/outbound/own_prefix/" class="md-nav__link">
+      <a href="../../route_filtering/outbound/own_prefix/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1187,7 +1277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/guides/route_filtering/outbound/well_known_communities_traffic_engineering/" class="md-nav__link">
+      <a href="../../route_filtering/outbound/well_known_communities_traffic_engineering/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1268,7 +1358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/working_group/" class="md-nav__link">
+      <a href="../../../working_group/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1307,6 +1397,52 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Motivation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#md5-session-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      MD5 session password
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcp-authentication-option" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCP Authentication Option
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ttl-security" class="md-nav__link">
+    <span class="md-ellipsis">
+      TTL Security
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1318,8 +1454,111 @@
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
-  <h1>404 - Not found</h1>
+                  
 
+
+  
+    <a href="https://github.com/denog/routing-guide/edit/main/docs/guides/control_plane_protection/protect_your_bgp_session.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://github.com/denog/routing-guide/raw/main/docs/guides/control_plane_protection/protect_your_bgp_session.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
+    </a>
+  
+
+
+<h1 id="protect-your-bgp-session">Protect your BGP session</h1>
+<h2 id="motivation">Motivation</h2>
+<p>The idea of these measures is to protect your TCP-based BGP sessions against attacks. Keep in mind, these TCP sessions are long-living (speaking of weeks and months), so an attacker can take its time to try to destroy a BGP session by sending crafted packets.</p>
+<h2 id="md5-session-password">MD5 session password</h2>
+<p>The easiest countermeasure against TCP based attacks on BGP sessions is to use  MD5 protection as described in
+<a href="https://www.rfc-editor.org/rfc/rfc2385.html">RFC2385</a>.
+When implementing this, keep in mind to also implement some key (password) handling procedures (just imagine your router has to be replaced and you have to re-create all eBGP configurations).</p>
+<p>Example for setting an MD5 password:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 password mysecretpassword
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>add name=AS64496 remote-as=64496 \
+    remote-address=198.51.100.1 tcp-md5-key=mysecretpassword
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="tcp-authentication-option">TCP Authentication Option</h2>
+<p>MD5, which is widely used, is considered to be insecure and deprecated. To replace it,
+<a href="https://www.rfc-editor.org/rfc/rfc5925.html">RFC5925</a>
+defines a mechanism called <em>TCP Authentication Option</em>, please read the RFC for details. In short, it uses stronger codes to protect your session.</p>
+<p>Unfortunately this is not widely implemented.</p>
+<h2 id="ttl-security">TTL Security</h2>
+<p>Instead of using a password, relying on the <em>TTL</em> value of incoming TCP packets is easier to handle and to implement.</p>
+<p><a href="https://www.rfc-editor.org/rfc/rfc5082">RFC5082</a> describes, how setting the TTL value of packets when sending to 255, and checking that value when receiving, makes it an impossible-to-spoof security measure.</p>
+<p>As the TTL is decreased by every hop, when you receive a packet with TTL 255, it <em>must</em> have been sent by a directly adjacent node.</p>
+<p>This feature must be set on both ends to work - if you set it on one end only, one side sends IP packets with a TTL of 1, and the other with a TTL of 255, and a session cannot be established.</p>
+<p>Configuration examples:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Cisco IOS</label><label for="__tabbed_2_2">Mikrotik</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>On Cisco IOS you configure how many hops your neighbor is away:
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 ttl-security hops 1
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>On Mikrotik, you do not configure how many maximum hops a peer can be away, but the TTL value, which is 255 for directly adjacent peers (this is also the default value):
+<div class="highlight"><pre><span></span><code>add in-filter=upstream-in name=AS64496 out-filter=upstream-out \
+    remote-address=198.51.100.1 remote-as=64496 ttl=255
+</code></pre></div></p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 7, 2025</span>
+  </span>
+
+    
+    
+    
+    
+  </aside>
+
+
+
+
+
+                
               </article>
             </div>
           
@@ -1357,10 +1596,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "/", "features": ["content.action.edit", "content.action.view", "content.code.copy"], "search": "/assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit", "content.action.view", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="/assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
       
     
   </body>
