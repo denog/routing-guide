@@ -20,7 +20,7 @@
     
     
       
-        <title>Default route - DENOG Routing Guide</title>
+        <title>Default Route - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#default-route" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Default route
+              Default Route
             
           </span>
         </div>
@@ -741,17 +746,68 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Default Route
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Default route
+    Default Route
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1325,6 +1381,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1356,9 +1440,21 @@
   
 
 
-  <h1>Default route</h1>
-
-
+<h1 id="default-route">Default Route</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Per definition a <em>default route</em> means "route all packets this way unless there is a specific route for the destination IP address". A default route is expressed in IPv4 as 0.0.0.0/0 and as ::/0 in IPv6.</p>
+<p>It is completely legitimate if a transit provider announces default routes to their customers. In case the customers router has limited memory for the routing table, it can simply <em>only</em> accept the default route, blocking all other more specific routes.</p>
+<p>On the other hand, if you want the full routing table, you should not accept any default route from your transit providers. You must never accept a default route from any non-transit-provider neighbor.</p>
+<h2 id="configuration">Configuration</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>ip prefix-list default-route permit 0.0.0.0/0
+ipv6 prefix-list default-route permit ::/0
+</code></pre></div>
+</div>
+</div>
+</div>
 
 
 
