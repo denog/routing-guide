@@ -15,4 +15,3 @@ On the other hand, if you want the full routing table, you should not accept any
     ip prefix-list default-route permit 0.0.0.0/0
     ipv6 prefix-list default-route permit ::/0
     ```
-
