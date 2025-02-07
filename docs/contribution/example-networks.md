@@ -24,11 +24,12 @@ The following networks are so-called private networks, they cannot be routed in 
 
 ### IPv6 Example Network
 
-#### Source: [RFC3849](https://www.rfc-editor.org/rfc/rfc3849)
+#### Sources: [RFC3849](https://www.rfc-editor.org/rfc/rfc3849) and [RFC9637](https://www.rfc-editor.org/rfc/rfc9637)
 
-The following network block is fully routable, but set aside for documentation purposes:
+The following network blocks are fully routable, but set aside for documentation purposes:
 
 - 2001:db8::/32
+- 3fff::/20
 
 ### Autonomous System Numbers
 
