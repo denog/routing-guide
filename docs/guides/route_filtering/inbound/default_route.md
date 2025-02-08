@@ -29,3 +29,33 @@ On the other hand, if you want the full routing table, you should not accept any
       match ip address prefix-list default-route-v4
       match ipv6 address prefix-list default-route-v6
     ````
+
+=== "Bird2"
+    ```
+    function reject_default_route()
+    {
+      if net = 0.0.0.0/0 then {
+        # optional logging:
+        # print "Reject: Defaultroute: ", net, " ", bgp_path;
+        reject;
+      }
+    }
+    function reject_default_route6()
+    {
+      if net = ::/0 then {
+        # optional logging:
+        # print "Reject: Defaultroute: ", net, " ", bgp_path;
+        reject;
+      }
+    }
+    filter import_ipv4() {
+      reject_default_route();
+      ...
+      accept;
+    }
+    filter import_ipv6() {
+      reject_default_route6();
+      ...
+      accept;
+    }
+    ```

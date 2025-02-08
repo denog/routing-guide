@@ -38,3 +38,69 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     add action=reject chain=ipv4-unwanted prefix=10.0.0.0/8 prefix-length=8-32
     ...
     ```
+
+=== "Bird2"
+    ```
+    define BOGON_PREFIXES = [
+      0.0.0.0/8+,         # RFC 1122 'this' Network
+      10.0.0.0/8+,        # RFC 1918 Private
+      100.64.0.0/10+,     # RFC 6598 Carrier grade nat space
+      127.0.0.0/8+,       # RFC 1122 Loopback
+      169.254.0.0/16+,    # RFC 3927 Link Local
+      172.16.0.0/12+,     # RFC 1918 Private
+      192.0.0.0/24+,      # RFC 6890 Protocol Assignments
+      192.0.2.0/24+,      # RFC 5737 Documentation TEST-NET-1
+      192.88.99.0/24+,    # RFC 7526 6to4 anycast relay
+      192.168.0.0/16+,    # RFC 1918 Private
+      198.18.0.0/15+,     # RFC 2544 Benchmarking
+      198.51.100.0/24+,   # RFC 5737 Documentation TEST-NET-2
+      203.0.113.0/24+,    # RFC 5737 Documentation TEST-NET-3
+      224.0.0.0/4+,       # RFC 5771 Multicast
+      240.0.0.0/4+        # RFC 1112 Reserved
+    ];
+    define BOGON_PREFIXES6 = [ ::/8+ ];
+        ::/128,          # RFC4291 Unspecified Address
+        ::1/128,         # RFC4291 Loopback Address
+        ::ffff:0:0/96+,  # RFC4291 IPv4-mapped Address
+        64:ff9b::/96+,   # RFC6052 IPv4-IPv6 Translat.
+        64:ff9b:1::/48+, # RFC8215 IPv4-IPv6 Translat.
+        100::/64+,       # RFC6666 Discard-Only Address Block
+        # 2001::/23+,      # RFC2928 IETF Protocol Assignments
+        2001::/32+,      # RFC4380,RFC8190 TEREDO
+        2001:2::/48+,    # RFC5180 Benchmarking
+        2001:db8::/32+,  # RFC7450 Documentation
+        2002::/16+,      # RFC3056 6to4
+        fc00::/7+,       # RFC4193,RFC8190 Unique-Local
+        fe80::/10+       # RFC4291 Link-Local Unicast
+    ];
+    function reject_bogon_prefixes()
+    prefix set bogon_prefixes;
+    {
+      bogon_prefixes = BOGON_PREFIXES;
+      if (net ~ bogon_prefixes) then {
+        # optional logging:
+        # print "Reject: Bogon prefix: ", net, " ", bgp_path;
+        reject;
+      }
+    }
+    function reject_bogon_prefixes6()
+    prefix set bogon_prefixes6;
+    {
+      bogon_prefixes6 = BOGON_PREFIXES6;
+      if (net ~ bogon_prefixes6) then {
+        # optional logging:
+        # print "Reject: Bogon prefix: ", net, " ", bgp_path;
+        reject;
+      }
+    }
+    filter import_ipv4() {
+      reject_bogon_prefixes();
+      ...
+      accept;
+    }
+    filter import_ipv6() {
+      reject_bogon_prefixes6();
+      ...
+      accept;
+    }
+    ```
