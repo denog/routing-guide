@@ -30,7 +30,7 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
       exit
      exit
     exit
-    ``` 
+    ```
 
 === "Juniper Junos"  
     ```
@@ -41,9 +41,9 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
         term AS-PATH-WAY-TOO-LONG {
           from {
             as-path AS-PATH-MAX-LENGTH;
+          } 
+          then reject;
         }
-    then reject;
-    }
     ```
 
 === "Bird2"  
