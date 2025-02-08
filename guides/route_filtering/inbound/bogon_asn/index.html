@@ -20,7 +20,7 @@
     
     
       
-        <title>Bogon asn - DENOG Routing Guide</title>
+        <title>Bogon AS - DENOG Routing Guide</title>
       
     
     
@@ -67,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#bogon-as" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -99,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Bogon asn
+              Bogon AS
             
           </span>
         </div>
@@ -697,17 +702,59 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Bogon AS
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Bogon asn
+    Bogon AS
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1325,6 +1372,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1356,9 +1422,40 @@
   
 
 
-  <h1>Bogon asn</h1>
-
-
+<h1 id="bogon-as">Bogon AS</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Bogon AS are autonomous systems which are used for test or demo applications. These AS may not be used on the public Internet.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>```
+as-path-set bogon-asns
+   # RFC7607
+   ios-regex '<em>0</em>',
+   # 2 to 4 byte ASN migrations
+   passes-through '23456',
+   # RFC5398
+   passes-through '[64496..64511]',
+   passes-through '[65536..65551]',
+   # RFC6996
+   passes-through '[64512..65534]',
+   passes-through '[4200000000..4294967294]',
+   # RFC7300
+   passes-through '65535',
+   passes-through '4294967295',
+   # IANA reserved
+   passes-through '[65552..131071]'
+end-set</p>
+<p>route-policy import_from_ebgp
+    if as-path in bogon-asns then
+        drop
+    else
+        pass
+    endif
+end-policy</p>
+</div>
+</div>
+</div>
 
 
 

@@ -768,7 +768,7 @@
         
   
   <span class="md-ellipsis">
-    Bogon asn
+    Bogon AS
     
   </span>
   
@@ -1496,9 +1496,9 @@ exit
     term AS-PATH-WAY-TOO-LONG {
       from {
         as-path AS-PATH-MAX-LENGTH;
+      } 
+      then reject;
     }
-then reject;
-}
 </code></pre></div>
 </div>
 <div class="tabbed-block">

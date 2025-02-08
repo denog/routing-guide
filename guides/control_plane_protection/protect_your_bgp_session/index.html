@@ -517,6 +517,16 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#md5-session-password" class="md-nav__link">
     <span class="md-ellipsis">
       MD5 session password
@@ -524,13 +534,27 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#keyring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keyring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tcp-authentication-option" class="md-nav__link">
     <span class="md-ellipsis">
       TCP Authentication Option
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -775,7 +799,7 @@
         
   
   <span class="md-ellipsis">
-    Bogon asn
+    Bogon AS
     
   </span>
   
@@ -1416,6 +1440,16 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#md5-session-password" class="md-nav__link">
     <span class="md-ellipsis">
       MD5 session password
@@ -1423,13 +1457,27 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
+  <a href="#keyring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keyring
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#tcp-authentication-option" class="md-nav__link">
     <span class="md-ellipsis">
       TCP Authentication Option
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1477,12 +1525,13 @@
 <h1 id="protect-your-bgp-session">Protect your BGP session</h1>
 <h2 id="motivation">Motivation</h2>
 <p>The idea of these measures is to protect your TCP-based BGP sessions against attacks. Keep in mind, these TCP sessions are long-living (speaking of weeks and months), so an attacker can take its time to try to destroy a BGP session by sending crafted packets.</p>
-<h2 id="md5-session-password">MD5 session password</h2>
+<h2 id="authentication">Authentication</h2>
+<h3 id="md5-session-password">MD5 session password</h3>
 <p>The easiest countermeasure against TCP based attacks on BGP sessions is to use  MD5 protection as described in
 <a href="https://www.rfc-editor.org/rfc/rfc2385.html">RFC2385</a>.
 When implementing this, keep in mind to also implement some key (password) handling procedures (just imagine your router has to be replaced and you have to re-create all eBGP configurations).</p>
 <p>Example for setting an MD5 password:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label><label for="__tabbed_1_3">Juniper</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>router bgp 64500
@@ -1495,9 +1544,29 @@ neighbor 198.51.100.1 password mysecretpassword
     remote-address=198.51.100.1 tcp-md5-key=mysecretpassword
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>set protocols bgp group &lt;GROUPNAME&gt; neighbor 198.51.100.1 authentication-key &quot;mysecretpassword&quot;
+</code></pre></div>
 </div>
 </div>
-<h2 id="tcp-authentication-option">TCP Authentication Option</h2>
+</div>
+<h3 id="keyring">Keyring</h3>
+<p>Another method is to use keyrings or key-chains. A common problem is that replacing a password in a protected session leads to a restart of the whole session.
+Using keyrings or key-chains addresses this problem in a way that a key (or password) is valid until a new password with a defined start-time is specified.
+This new key will be negiotiated upfront and becomes active at the start-time.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Juniper</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="highlight"><pre><span></span><code>set security authentication-key-chains key-chain &lt;KEY-CHAIN-NAME&gt; description &quot;key chain for BGP&quot;
+set security authentication-key-chains key-chain &lt;KEY-CHAIN-NAME&gt; key 1 secret mysecretpassword
+set security authentication-key-chains key-chain &lt;KEY-CHAIN-NAME&gt; key 1 start-time &quot;2025-01-01.09:00:00 +0200&quot;
+
+set protocols bgp group &lt;GROUPNAME&gt; authentication-algorithm hmac-sha-1-96
+set protocols bgp group &lt;GROUPNAME&gt; authentication-key-chain &lt;KEY-CHAIN-NAME&gt;
+</code></pre></div>
+<h3 id="tcp-authentication-option">TCP Authentication Option</h3>
 <p>MD5, which is widely used, is considered to be insecure and deprecated. To replace it,
 <a href="https://www.rfc-editor.org/rfc/rfc5925.html">RFC5925</a>
 defines a mechanism called <em>TCP Authentication Option</em>, please read the RFC for details. In short, it uses stronger codes to protect your session.</p>
@@ -1508,7 +1577,7 @@ defines a mechanism called <em>TCP Authentication Option</em>, please read the R
 <p>As the TTL is decreased by every hop, when you receive a packet with TTL 255, it <em>must</em> have been sent by a directly adjacent node.</p>
 <p>This feature must be set on both ends to work - if you set it on one end only, one side sends IP packets with a TTL of 1, and the other with a TTL of 255, and a session cannot be established.</p>
 <p>Configuration examples:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Cisco IOS</label><label for="__tabbed_2_2">Mikrotik</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:4"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Cisco IOS classic / IOS XE</label><label for="__tabbed_3_2">Cisco IOS XR</label><label for="__tabbed_3_3">Mikrotik</label><label for="__tabbed_3_4">Juniper</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>On Cisco IOS you configure how many hops your neighbor is away:
@@ -1518,9 +1587,24 @@ neighbor 198.51.100.1 ttl-security hops 1
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
+<p>On Cisco IOS XR you just configure ttl-security without an hop parameter:
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 ttl-security
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
 <p>On Mikrotik, you do not configure how many maximum hops a peer can be away, but the TTL value, which is 255 for directly adjacent peers (this is also the default value):
 <div class="highlight"><pre><span></span><code>add in-filter=upstream-in name=AS64496 out-filter=upstream-out \
     remote-address=198.51.100.1 remote-as=64496 ttl=255
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>On Junos you configure how many hops your neighbors in a group are away:
+<div class="highlight"><pre><span></span><code>set protocols bgp group &lt;GROUPNAME&gt; ttl 255
+</code></pre></div>
+On Junos you configure how many hops a specific neighbor in a group is away:
+<div class="highlight"><pre><span></span><code>set protocols bgp group &lt;GROUPNAME&gt; neighbor 198.51.100.1 ttl 255
 </code></pre></div></p>
 </div>
 </div>
