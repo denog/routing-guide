@@ -752,6 +752,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1390,6 +1408,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1425,7 +1461,9 @@
 <h1 id="bogon-as">Bogon AS</h1>
 <h2 id="purpose">Purpose</h2>
 <p>Bogon AS are autonomous systems which are used for test or demo applications. These AS may not be used on the public Internet.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label></div>
+<h2 id="description">Description</h2>
+<h2 id="configuration">Configuration</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label><label for="__tabbed_1_2">Bird2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>as-path-set bogon-asns
@@ -1453,6 +1491,35 @@ route-policy import_from_ebgp
         pass
     endif
 end-policy
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>define BOGON_ASNS = [
+  0,                      # RFC 7607
+  23456,                  # RFC 4893 AS_TRANS
+  64496..64511,           # RFC 5398 and documentation/example ASNs
+  64512..65534,           # RFC 6996 Private ASNs
+  65535,                  # RFC 7300 Last 16 bit ASN
+  65536..65551,           # RFC 5398 and documentation/example ASNs
+  65552..131071,          # RFC IANA reserved ASNs
+  4200000000..4294967294, # RFC 6996 Private ASNs
+  4294967295              # RFC 7300 Last 32 bit ASN
+];
+function reject_bogon_asns()
+int set bogon_asns;
+{
+  bogon_asns = BOGON_ASNS;
+  if ( bgp_path ~ bogon_asns ) then {
+    # optional logging:
+    # print &quot;Reject: bogon AS_PATH: &quot;, net, &quot; &quot;, bgp_path;
+    reject;
+  }
+}
+filter import_all() {
+  reject_bogon_asns();
+  ...
+  accept;
+}
 </code></pre></div>
 </div>
 </div>

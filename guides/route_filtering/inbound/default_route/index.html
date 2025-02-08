@@ -1446,7 +1446,7 @@
 <p>It is completely legitimate if a transit provider announces default routes to their customers. In case the customers router has limited memory for the routing table, it can simply <em>only</em> accept the default route, blocking all other more specific routes.</p>
 <p>On the other hand, if you want the full routing table, you should not accept any default route from your transit providers. You must never accept a default route from any non-transit-provider neighbor.</p>
 <h2 id="configuration">Configuration</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Bird2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>ip prefix-list default-route-v4 permit 0.0.0.0/0
@@ -1463,6 +1463,35 @@ route-map prefixes-in deny 10
   match ip address prefix-list default-route-v4
   match ipv6 address prefix-list default-route-v6
 ````</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>function reject_default_route()
+{
+  if net = 0.0.0.0/0 then {
+    # optional logging:
+    # print &quot;Reject: Defaultroute: &quot;, net, &quot; &quot;, bgp_path;
+    reject;
+  }
+}
+function reject_default_route6()
+{
+  if net = ::/0 then {
+    # optional logging:
+    # print &quot;Reject: Defaultroute: &quot;, net, &quot; &quot;, bgp_path;
+    reject;
+  }
+}
+filter import_ipv4() {
+  reject_default_route();
+  ...
+  accept;
+}
+filter import_ipv6() {
+  reject_default_route6();
+  ...
+  accept;
+}
+</code></pre></div>
 </div>
 </div>
 </div>
