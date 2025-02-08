@@ -1428,31 +1428,32 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>```
-as-path-set bogon-asns
+<div class="highlight"><pre><span></span><code>as-path-set bogon-asns
    # RFC7607
-   ios-regex '<em>0</em>',
+   ios-regex &#39;_0_&#39;,
    # 2 to 4 byte ASN migrations
-   passes-through '23456',
+   passes-through &#39;23456&#39;,
    # RFC5398
-   passes-through '[64496..64511]',
-   passes-through '[65536..65551]',
+   passes-through &#39;[64496..64511]&#39;,
+   passes-through &#39;[65536..65551]&#39;,
    # RFC6996
-   passes-through '[64512..65534]',
-   passes-through '[4200000000..4294967294]',
+   passes-through &#39;[64512..65534]&#39;,
+   passes-through &#39;[4200000000..4294967294]&#39;,
    # RFC7300
-   passes-through '65535',
-   passes-through '4294967295',
+   passes-through &#39;65535&#39;,
+   passes-through &#39;4294967295&#39;,
    # IANA reserved
-   passes-through '[65552..131071]'
-end-set</p>
-<p>route-policy import_from_ebgp
+   passes-through &#39;[65552..131071]&#39;
+end-set
+
+route-policy import_from_ebgp
     if as-path in bogon-asns then
         drop
     else
         pass
     endif
-end-policy</p>
+end-policy
+</code></pre></div>
 </div>
 </div>
 </div>
