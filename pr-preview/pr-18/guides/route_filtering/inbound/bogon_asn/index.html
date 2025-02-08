@@ -1429,17 +1429,30 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>```
-as-path-set bogon-asn
+as-path-set bogon-asns
+   # RFC7607
    ios-regex '<em>0</em>',
+   # 2 to 4 byte ASN migrations
    passes-through '23456',
+   # RFC5398
    passes-through '[64496..64511]',
    passes-through '[65536..65551]',
+   # RFC6996
    passes-through '[64512..65534]',
    passes-through '[4200000000..4294967294]',
+   # RFC7300
    passes-through '65535',
    passes-through '4294967295',
+   # IANA reserved
    passes-through '[65552..131071]'
 end-set</p>
+<p>route-policy import_from_ebgp
+    if as-path in bogon-asns then
+        drop
+    else
+        pass
+    endif
+end-policy</p>
 </div>
 </div>
 </div>
