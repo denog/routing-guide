@@ -22,7 +22,7 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
        # IANA reserved
        passes-through '[65552..131071]'
     end-set
-    
+
     route-policy import_from_ebgp
         if as-path in bogon-asns then
             drop
@@ -30,3 +30,4 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
             pass
         endif
     end-policy
+
