@@ -51,7 +51,8 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
     function reject_long_aspaths()
     {
       if ( bgp_path.len > 100 ) then {
-        print "Reject: Too long AS path: ", net, " ", bgp_path;
+        # optional logging:
+        # print "Reject: Too long AS path: ", net, " ", bgp_path;
         reject;
       }
     }
