@@ -1505,7 +1505,8 @@ exit
 <div class="highlight"><pre><span></span><code>function reject_long_aspaths()
 {
   if ( bgp_path.len &gt; 100 ) then {
-    print &quot;Reject: Too long AS path: &quot;, net, &quot; &quot;, bgp_path;
+    # optional logging:
+    # print &quot;Reject: Too long AS path: &quot;, net, &quot; &quot;, bgp_path;
     reject;
   }
 }
