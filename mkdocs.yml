@@ -48,6 +48,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
   - git-revision-date-localized
+  - tags
 extra:
   status:
     <identifier>: <description>
