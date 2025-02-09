@@ -29,6 +29,75 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     ip prefix-list ipv4-unwanted permit 10.0.0.0/8 le 32
     ...
     ```
+
+=== "Cisco IOS XR"
+    For IPv4, you can simply add all unwanted prefixes to the list:
+    ```
+    prefix-set bogon-ipv4
+      # RFC 1122 'this' Network
+      0.0.0.0/8 le 32,
+      # RFC 1918 Private
+      10.0.0.0/8 le 32,
+      # RFC 6598 Carrier grade nat space
+      100.64.0.0/10 le 32,
+      # RFC 1122 Loopback
+      127.0.0.0/8 le 32,
+      # RFC 3927 Link Local
+      169.254.0.0/16 le 32,
+      # RFC 1918 Private
+      172.16.0.0/12 le 32,
+      # RFC 6890 Protocol Assignments
+      192.0.0.0/24 le 32,
+      # RFC 5737 Documentation TEST-NET-1
+      192.0.2.0/24 le 32,
+      # RFC 7526 6to4 anycast relay
+      192.88.99.0/24 le 32,
+      # RFC 1918 Private
+      192.168.0.0/16 le 32,
+      # RFC 2544 Benchmarking
+      198.18.0.0/15 le 32,
+      # RFC 5737 Documentation TEST-NET-2
+      198.51.100.0/24 le 32,
+      # RFC 5737 Documentation TEST-NET-3
+      203.0.113.0/24 le 32,
+      # RFC 5771 Multicast
+      224.0.0.0/4 le 32,
+      # RFC 1112 Reserved
+      240.0.0.0/4 le 32
+    end-set
+    
+    prefix-set bogon-ipv6
+      #IETF reserved
+      ::/8 le 128,
+      # RFC6666 Discard-Only Address Block
+      100::/64 le 128,
+      # RFC4380,RFC8190 TEREDO
+      2001::/32 le 128,
+      # RFC5180 Benchmarking
+      2001:2::/48 le 128,
+      # RFC7450 Documentation
+      2001:db8::/32 le 128,
+      # RFC3056 6to4
+      2002::/16 le 128,
+      # RFC4193,RFC8190 Unique-Local
+      fc00::/7 le 128,
+      # RFC4291 Link-Local Unicast
+      fe80::/10 le 128
+    end-set
+
+    route-policy reject-bogons-ipv4-networks
+      if destination in bogon-ipv4 then
+        drop
+      endif
+    end-policy
+    route-policy reject-bogons-ipv6-networks
+      if destination in bogon-ipv6 then
+        drop
+      endif
+    end-policy
+    ...
+    ```
+
 === "Mikrotik"
     You can add this to your existing filter or you can create a sub-filter for better readability:
     ```
