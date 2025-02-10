@@ -1,3 +1,10 @@
+---
+tags:
+  - Arista missing
+  - Juniper missing
+---
+
+
 # Default Route
 
 ## Purpose

@@ -11,3 +11,8 @@ This guide is edited by the DENOG Routing Working Group. You don't need to be a 
 You can contribute to this routing guide on [github.com/denog/routing-guide/](https://github.com/denog/routing-guide/) using GitHubs issues or pull request features.
 We have a [Code of Conduct](https://github.com/denog/routing-guide/blob/main/CODE_OF_CONDUCT.md) as a common ground for collaboration.
 
+## Pages which need editing
+
+The following pages are missing configuration examples or text:
+
+<!-- material/tags -->
