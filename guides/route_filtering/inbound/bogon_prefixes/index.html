@@ -1513,13 +1513,82 @@
 <h2 id="ipv6">IPv6</h2>
 <p>In IPv6, there is a <a href="http://www.iana.org/assignments/ipv6-address-space">similar list at IANA</a>. However, for IPv6 it is easier to positive-filter for <em>2000::/3</em>, as this is the only block where <strong>currently</strong> unicast address assignments were made from. Currently. You might check frequently if other blocks have been added. It is strongly recommended that you automate this task.</p>
 <h2 id="configuration-examples">Configuration Examples</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Mikrotik</label><label for="__tabbed_1_3">Bird2</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Mikrotik</label><label for="__tabbed_1_4">Bird2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For IPv4, you can simply add all unwanted prefixes to the list we defined in the previous section:
 <div class="highlight"><pre><span></span><code>ip prefix-list ipv4-unwanted permit 192.168.0.0/16 le 32
 ip prefix-list ipv4-unwanted permit 172.16.0.0/12 le 32
 ip prefix-list ipv4-unwanted permit 10.0.0.0/8 le 32
+...
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>For IPv4, you can simply add all unwanted prefixes to the list:
+<div class="highlight"><pre><span></span><code>prefix-set bogon-ipv4
+  # RFC 1122 &#39;this&#39; Network
+  0.0.0.0/8 le 32,
+  # RFC 1918 Private
+  10.0.0.0/8 le 32,
+  # RFC 6598 Carrier grade nat space
+  100.64.0.0/10 le 32,
+  # RFC 1122 Loopback
+  127.0.0.0/8 le 32,
+  # RFC 3927 Link Local
+  169.254.0.0/16 le 32,
+  # RFC 1918 Private
+  172.16.0.0/12 le 32,
+  # RFC 6890 Protocol Assignments
+  192.0.0.0/24 le 32,
+  # RFC 5737 Documentation TEST-NET-1
+  192.0.2.0/24 le 32,
+  # RFC 7526 6to4 anycast relay
+  192.88.99.0/24 le 32,
+  # RFC 1918 Private
+  192.168.0.0/16 le 32,
+  # RFC 2544 Benchmarking
+  198.18.0.0/15 le 32,
+  # RFC 5737 Documentation TEST-NET-2
+  198.51.100.0/24 le 32,
+  # RFC 5737 Documentation TEST-NET-3
+  203.0.113.0/24 le 32,
+  # RFC 5771 Multicast
+  224.0.0.0/4 le 32,
+  # RFC 1112 Reserved
+  240.0.0.0/4 le 32
+end-set
+
+prefix-set bogon-ipv6
+  #IETF reserved
+  ::/8 le 128,
+  # RFC6666 Discard-Only Address Block
+  100::/64 le 128,
+  # RFC4380,RFC8190 TEREDO
+  2001::/32 le 128,
+  # RFC5180 Benchmarking
+  2001:2::/48 le 128,
+  # RFC7450 Documentation
+  2001:db8::/32 le 128,
+  # RFC3056 6to4
+  2002::/16 le 128,
+  # RFC9637 Documentation Space
+  3fff::/20 le 128,
+  # RFC4193,RFC8190 Unique-Local
+  fc00::/7 le 128,
+  # RFC4291 Link-Local Unicast
+  fe80::/10 le 128
+end-set
+
+route-policy reject-bogons-ipv4-networks
+  if destination in bogon-ipv4 then
+    drop
+  endif
+end-policy
+route-policy reject-bogons-ipv6-networks
+  if destination in bogon-ipv6 then
+    drop
+  endif
+end-policy
 ...
 </code></pre></div></p>
 </div>
