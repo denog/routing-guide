@@ -16,3 +16,9 @@ We have a [Code of Conduct](https://github.com/denog/routing-guide/blob/main/COD
 The following pages are missing configuration examples or text:
 
 <!-- material/tags -->
+
+# Disclaimer
+
+We expressly point out that the user is responsible for the configuration of his network and its components. This document is intended only as a recommendation and does not claim to be complete and correct.
+
+Wir weisen ausdrücklich darauf hin, dass der Benutzer für die Konfiguration seines Netzwerks und seiner Komponenten verantwortlich ist. Dieses Dokument ist nur als Empfehlung gedacht und erhebt keinen Anspruch auf Vollständigkeit und Richtigkeit.
