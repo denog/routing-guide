@@ -13,6 +13,13 @@ theme:
   icon:
     edit: material/pencil
     view: material/eye
+    tag:
+      Cisco: simple/cisco
+      Huawei: simple/huawei
+      Junos: simple/junipernetworks
+      Mikrotik: simple/mikrotik
+      Nokia: simple/nokia
+      default: material/router
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -52,4 +59,16 @@ plugins:
 extra:
   status:
     <identifier>: <description>
+  tags:
+    Arista missing: arista
+    BIRD missing: BIRD
+    Cisco missing: Cisco
+    Cisco IOS XR missing: Cisco
+    FRR missing: FRR
+    Huawei VRP missing: Huawei
+    Junos missing: Junos
+    Mikrotik missing: Mikrotik
+    Nokia SR OS missing: Nokia
+    OpenBGPD missing: OpenBGPD
+    VyOS missing: VyOS
 copyright: Licensed under the <a href="https://raw.githubusercontent.com/denog/routing-guide/main/LICENSE.md">Creative Commons Attribution License 4.0</a>, unless otherwise stated | <a href="https://www.denog.de/de/impressum.html">Imprint</a>

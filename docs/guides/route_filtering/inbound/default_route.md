@@ -1,7 +1,14 @@
 ---
 tags:
   - Arista missing
-  - Juniper missing
+  - Cisco IOS XR missing
+  - FRR missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
 ---
 
 
