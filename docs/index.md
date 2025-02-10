@@ -2,11 +2,11 @@
 
 This guide is intended to act as a reference for best practices in Internet backbone routing. Its goal is to make the Internet more stable, secure and sustainable by educating both new and experienced network engineers. 
 
-!!! Disclaimer
+!!! danger "Disclaimer"
 
-We expressly point out that the user is responsible for the configuration of his network and its components. This document is intended only as a recommendation and does not claim to be complete and correct.
+    We expressly point out that the user is responsible for the configuration of his network and its components. This document is intended only as a recommendation and does not claim to be complete and correct.
 
-Wir weisen ausdrücklich darauf hin, dass der Benutzer für die Konfiguration seines Netzwerks und seiner Komponenten verantwortlich ist. Dieses Dokument ist nur als Empfehlung gedacht und erhebt keinen Anspruch auf Vollständigkeit und Richtigkeit.
+    Wir weisen ausdrücklich darauf hin, dass der Benutzer für die Konfiguration seines Netzwerks und seiner Komponenten verantwortlich ist. Dieses Dokument ist nur als Empfehlung gedacht und erhebt keinen Anspruch auf Vollständigkeit und Richtigkeit.
 
 # Working Group
 
