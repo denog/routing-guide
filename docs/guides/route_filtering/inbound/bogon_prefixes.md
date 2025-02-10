@@ -79,6 +79,8 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       2001:db8::/32 le 128,
       # RFC3056 6to4
       2002::/16 le 128,
+      # RFC9637 Documentation Space
+      3fff::/20 le 128,
       # RFC4193,RFC8190 Unique-Local
       fc00::/7 le 128,
       # RFC4291 Link-Local Unicast
