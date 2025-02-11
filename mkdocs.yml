@@ -10,6 +10,7 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
+    - search.suggest
   icon:
     edit: material/pencil
     view: material/eye
@@ -56,6 +57,7 @@ markdown_extensions:
 plugins:
   - git-revision-date-localized
   - tags
+  - search
 extra:
   status:
     <identifier>: <description>
