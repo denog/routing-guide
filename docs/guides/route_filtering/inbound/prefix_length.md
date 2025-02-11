@@ -31,6 +31,45 @@ Configuration examples:
         !
     ```
 
+=== "Cisco IOS XR"
+    Use an *permitted* list and you can still customize the range. Please note that these areas are common on the public internet.
+    ```
+    # Define permitted IP prefixes
+    prefix-set permitted-prefix-length-v4
+        # Bigger than /8 or smaller than /24
+        0.0.0.0/0 ge 8 le 24
+    end-set
+    prefix-set permitted-prefix-length-v6
+        # Bigger than /16 or smaller than /48
+        ::/0 ge 16 le 48
+    end-set
+    
+    # If you want to implement it in separate filters, then like this policy:
+    route-policy filter-incorrect-prefixes-v4
+        if destionation in permitted-prefix-length-v4 then
+            pass
+        else
+            drop
+        endif
+    end-policy
+    route-policy filter-incorrect-prefixes-v6
+        if destionation in permitted-prefix-length-v6 then
+            pass
+        else
+            drop
+        endif
+    end-policy
+    
+    # If you want to implement it in one filter, then like this policy:
+    route-policy filter-incorrect-prefixes
+        if destionation in permitted-prefix-length-v4 or permitted-prefix-length-v6 then
+            pass
+        else
+            drop
+        endif
+    end-policy
+    ```
+
 === "Mikrotik"
     Mikrotik works with filter-lists, for easier readability you can use sub-filters (note this example only shows the filter lists itself):
     ```
