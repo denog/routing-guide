@@ -45,3 +45,15 @@ Configuration examples:
     add name=AS64496 remote-as=64496 \
         remote-address=198.51.100.1 max-prefix-limig=1000 max-prefix-restart-time=1h
     ```
+
+=== "Bird2"
+    ```
+    protocol bgp neighbor_name {
+      ipv4 {
+         import limit 1000 restart;
+      }
+      ipv6 {
+         import limit 500 restart;
+      }
+    }
+    ```
