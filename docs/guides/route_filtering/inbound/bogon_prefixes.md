@@ -112,7 +112,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
 
 === "Bird2"
     ```
-    define BOGON_PREFIXES = [
+    define BOGON_PREFIXES4 = [
       0.0.0.0/8+,         # RFC 1122 'this' Network
       10.0.0.0/8+,        # RFC 1918 Private
       100.64.0.0/10+,     # RFC 6598 Carrier grade nat space
@@ -144,11 +144,11 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         fc00::/7+,       # RFC4193,RFC8190 Unique-Local
         fe80::/10+       # RFC4291 Link-Local Unicast
     ];
-    function reject_bogon_prefixes()
-    prefix set bogon_prefixes;
+    function reject_bogon_prefixes4()
+    prefix set bogon_prefixes4;
     {
-      bogon_prefixes = BOGON_PREFIXES;
-      if (net ~ bogon_prefixes) then {
+      bogon_prefixes4 = BOGON_PREFIXES4;
+      if (net ~ bogon_prefixes4) then {
         # optional logging:
         # print "Reject: Bogon prefix: ", net, " ", bgp_path;
         reject;
@@ -165,7 +165,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       }
     }
     filter import_ipv4 {
-      reject_bogon_prefixes();
+      reject_bogon_prefixes4();
       ...
       accept;
     }

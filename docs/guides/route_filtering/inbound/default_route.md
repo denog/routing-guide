@@ -46,7 +46,7 @@ On the other hand, if you want the full routing table, you should not accept any
 
 === "Bird2"
     ```
-    function reject_default_route()
+    function reject_default_route4()
     {
       if net = 0.0.0.0/0 then {
         # optional logging:
@@ -63,7 +63,7 @@ On the other hand, if you want the full routing table, you should not accept any
       }
     }
     filter import_ipv4 {
-      reject_default_route();
+      reject_default_route4();
       ...
       accept;
     }
