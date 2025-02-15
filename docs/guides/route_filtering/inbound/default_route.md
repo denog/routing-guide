@@ -62,12 +62,12 @@ On the other hand, if you want the full routing table, you should not accept any
         reject;
       }
     }
-    filter import_ipv4() {
+    filter import_ipv4 {
       reject_default_route();
       ...
       accept;
     }
-    filter import_ipv6() {
+    filter import_ipv6 {
       reject_default_route6();
       ...
       accept;

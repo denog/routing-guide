@@ -164,12 +164,12 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         reject;
       }
     }
-    filter import_ipv4() {
+    filter import_ipv4 {
       reject_bogon_prefixes();
       ...
       accept;
     }
-    filter import_ipv6() {
+    filter import_ipv6 {
       reject_bogon_prefixes6();
       ...
       accept;

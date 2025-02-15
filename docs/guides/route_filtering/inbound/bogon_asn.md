@@ -59,7 +59,7 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
         reject;
       }
     }
-    filter import_all() {
+    filter import_all {
       reject_bogon_asns();
       ...
       accept;
