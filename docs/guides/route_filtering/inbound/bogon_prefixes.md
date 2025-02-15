@@ -141,7 +141,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         fec0::/10+       # RFC3879 old Site-Local Unicast
         ff00::/8+        # RFC4291 Multicast
     ];
-    function reject_bogon_prefixes()
+    function reject_bogon_prefixes4()
     prefix set bogon_prefixes;
     {
       bogon_prefixes = BOGON_PREFIXES;
@@ -162,7 +162,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       }
     }
     filter import_ipv4() {
-      reject_bogon_prefixes();
+      reject_bogon_prefixes4();
       ...
       accept;
     }
