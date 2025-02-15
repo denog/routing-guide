@@ -1641,7 +1641,7 @@ add action=reject chain=ipv4-unwanted prefix=10.0.0.0/8 prefix-length=8-32
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>define BOGON_PREFIXES = [
+<div class="highlight"><pre><span></span><code>define BOGON_PREFIXES4 = [
   0.0.0.0/8+,         # RFC 1122 &#39;this&#39; Network
   10.0.0.0/8+,        # RFC 1918 Private
   100.64.0.0/10+,     # RFC 6598 Carrier grade nat space
@@ -1673,7 +1673,7 @@ define BOGON_PREFIXES6 = [
 function reject_bogon_prefixes4()
 prefix set bogon_prefixes;
 {
-  bogon_prefixes = BOGON_PREFIXES;
+  bogon_prefixes = BOGON_PREFIXES4;
   if (net ~ bogon_prefixes) then {
     # optional logging:
     # print &quot;Reject: Bogon prefix: &quot;, net, &quot; &quot;, bgp_path;
