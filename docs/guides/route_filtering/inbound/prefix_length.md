@@ -82,7 +82,7 @@ Configuration examples:
 
 === "Bird2"
     ```
-    function reject_small_prefixes()
+    function reject_small_prefixes4()
     {
       if (net.len > 24) then {
         # allow blackhole
@@ -105,7 +105,7 @@ Configuration examples:
       }
     }
     filter import_ipv4() {
-      reject_small_prefixes();
+      reject_small_prefixes4();
       ...
       accept;
     }
