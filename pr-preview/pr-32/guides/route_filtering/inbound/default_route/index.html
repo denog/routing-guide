@@ -1646,7 +1646,7 @@ route-map prefixes-in deny 10
 ````</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code>function reject_default_route()
+<div class="highlight"><pre><span></span><code>function reject_default_route4()
 {
   if net = 0.0.0.0/0 then {
     # optional logging:
@@ -1663,7 +1663,7 @@ function reject_default_route6()
   }
 }
 filter import_ipv4() {
-  reject_default_route();
+  reject_default_route4();
   ...
   accept;
 }
