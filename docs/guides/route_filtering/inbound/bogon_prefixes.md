@@ -119,9 +119,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       127.0.0.0/8+,       # RFC 1122 Loopback
       169.254.0.0/16+,    # RFC 3927 Link Local
       172.16.0.0/12+,     # RFC 1918 Private
-      192.0.0.0/24+,      # RFC 6890 Protocol Assignments
       192.0.2.0/24+,      # RFC 5737 Documentation TEST-NET-1
-      192.88.99.0/24+,    # RFC 7526 6to4 anycast relay
       192.168.0.0/16+,    # RFC 1918 Private
       198.18.0.0/15+,     # RFC 2544 Benchmarking
       198.51.100.0/24+,   # RFC 5737 Documentation TEST-NET-2
@@ -129,20 +127,19 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       224.0.0.0/4+,       # RFC 5771 Multicast
       240.0.0.0/4+        # RFC 1112 Reserved
     ];
-    define BOGON_PREFIXES6 = [ ::/8+ ];
-        ::/128,          # RFC4291 Unspecified Address
-        ::1/128,         # RFC4291 Loopback Address
-        ::ffff:0:0/96+,  # RFC4291 IPv4-mapped Address
-        64:ff9b::/96+,   # RFC6052 IPv4-IPv6 Translat.
-        64:ff9b:1::/48+, # RFC8215 IPv4-IPv6 Translat.
-        100::/64+,       # RFC6666 Discard-Only Address Block
-        # 2001::/23+,      # RFC2928 IETF Protocol Assignments
-        2001::/32+,      # RFC4380,RFC8190 TEREDO
+    define BOGON_PREFIXES6 = [
+        ::/8+,           # RFC4291 Loopback and more
+        0100::/64+,      # RFC6666 Discard-Only Address Block
         2001:2::/48+,    # RFC5180 Benchmarking
+        2001:10::/28+    # RFC4843 ORCHID
         2001:db8::/32+,  # RFC7450 Documentation
-        2002::/16+,      # RFC3056 6to4
+        3ffe::/16+,      # RFC3701 old 6bone
+        3fff::/20+,      # RFC9637 Documentation
+        5f00::/16+,      # RFC9602 SRv6 SIDs
         fc00::/7+,       # RFC4193,RFC8190 Unique-Local
         fe80::/10+       # RFC4291 Link-Local Unicast
+        fec0::/10+       # RFC3879 old Site-Local Unicast
+        ff00::/8+        # RFC4291 Multicast
     ];
     function reject_bogon_prefixes4()
     prefix set bogon_prefixes4;

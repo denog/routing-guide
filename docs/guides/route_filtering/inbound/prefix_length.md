@@ -79,3 +79,39 @@ Configuration examples:
     add action=reject chain=ipv4-size prefix-length=0-7
     add action=reject chain=ipv4-size prefix-length=25-32
     ```
+
+=== "Bird2"
+    ```
+    function reject_small_prefixes4()
+    {
+      if (net.len > 24) then {
+        # allow blackhole
+        if (net.len != 32) then {
+          # optional logging:
+          # print "Reject: Too small prefix: ", net, " ", bgp_path;
+          reject;
+        }
+      }
+    }
+    function reject_small_prefixes6()
+    {
+      if (net.len > 64) then {
+        # allow blackhole
+        if (net.len != 128) then {
+          # optional logging:
+          # print "Reject: Too small prefix: ", net, " ", bgp_path;
+          reject;
+        }
+      }
+    }
+    filter import_ipv4() {
+      reject_small_prefixes4();
+      ...
+      accept;
+    }
+    filter import_ipv6() {
+      reject_small_prefixes6();
+      ...
+      accept;
+    }
+    ```
