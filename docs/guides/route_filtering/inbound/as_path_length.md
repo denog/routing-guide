@@ -57,7 +57,7 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
         reject;
       }
     }
-    filter import_all() {
+    filter import_all {
       reject_long_aspaths();
       ...
       accept;

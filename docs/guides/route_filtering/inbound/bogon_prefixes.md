@@ -142,10 +142,10 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         ff00::/8+        # RFC4291 Multicast
     ];
     function reject_bogon_prefixes4()
-    prefix set bogon_prefixes;
+    prefix set bogon_prefixes4;
     {
-      bogon_prefixes = BOGON_PREFIXES4;
-      if (net ~ bogon_prefixes) then {
+      bogon_prefixes4 = BOGON_PREFIXES4;
+      if (net ~ bogon_prefixes4) then {
         # optional logging:
         # print "Reject: Bogon prefix: ", net, " ", bgp_path;
         reject;
@@ -161,12 +161,12 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         reject;
       }
     }
-    filter import_ipv4() {
+    filter import_ipv4 {
       reject_bogon_prefixes4();
       ...
       accept;
     }
-    filter import_ipv6() {
+    filter import_ipv6 {
       reject_bogon_prefixes6();
       ...
       accept;
