@@ -13,11 +13,11 @@ Your own communities should be stored in lists or sets and then used in policy f
     Using an *my-own* communitys-set you can add  more communities to it that you want. Since these are your own complete communities, you can work with wildcards.
     ```
     community-set my-own-communitys
-	  <YOUR OWN AS NUMBER>:*
+      <YOUR OWN AS NUMBER>:*
     end-set
     !
     large-community-set my-own-large-communitys
-	  <YOUR OWN AS NUMBER>:*:*
+      <YOUR OWN AS NUMBER>:*:*
     end-set
     ```
     
