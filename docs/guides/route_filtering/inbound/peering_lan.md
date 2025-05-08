@@ -27,3 +27,35 @@ and convert it to your router configuration.
       match ip address prefix-list ipv4-ixplans
       match ipv6 address prefix-list ipv6-ixplans
     ```
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" policy-options
+    begin
+            prefix-list "v4-ixplans"
+                prefix 80.81.192.0/21 longer
+            exit
+            prefix-list "v6-ixplans"
+                prefix 2001:7f8::/64 longer
+            exit
+            policy-statement "inbound"
+                description "inbound peering policy"
+                [...]
+                entry 31
+                    from
+                        prefix-list "v4-ixplans"
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 41
+                    from
+                        prefix-list "v6-ixplans"
+                    exit
+                    action drop
+                    exit
+                exit
+                [...]
+            exit
+    commit
+    ```

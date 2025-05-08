@@ -23,3 +23,9 @@ Configuration examples:
     router bgp 64500
       bgp ebgp-requires-policy
     ```
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" bgp
+            ebgp-default-reject-policy import export
+    ```
