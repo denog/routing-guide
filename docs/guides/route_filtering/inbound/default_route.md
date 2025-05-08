@@ -44,6 +44,56 @@ On the other hand, if you want the full routing table, you should not accept any
       match ipv6 address prefix-list default-route-v6
     ````
 
+=== "Cisco IOS XR"
+    Build prefix lists with default route entries
+    ```
+    prefix-set default-ipv4
+      0.0.0.0/0
+    end-set
+
+    prefix-set default-ipv6
+      ::/0
+    end-set
+    ```
+
+    Build filters with the default route lists to *drop* default route
+    ```
+    route-policy reject-default-ipv4
+      if destination in default-ipv4 then
+        drop
+      else
+        pass
+      endif
+    end-policy
+
+    route-policy reject-default-ipv6
+      if destination in default-ipv6 then
+        drop
+      else
+        pass
+      endif
+    end-policy
+    ```
+
+    Build filters with the default route lists to *allow* default route
+    ```
+    route-policy accept-default-ipv4
+      if destination in default-ipv4 then
+        pass
+      else
+        drop
+      endif
+    end-policy
+
+    route-policy accept-default-ipv6
+      if destination in default-ipv6 then
+        pass
+      else
+        drop
+      endif
+    end-policy
+    ```
+    
 === "Bird2"
     ```
     function reject_default_route4()
