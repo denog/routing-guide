@@ -172,3 +172,72 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       accept;
     }
     ```
+=== "Juniper"
+    For IPv4 as an own policy:
+    ```
+    set policy-options policy-statement IPV4-BOGONS term IANA-LOCAL-IDENTIFICATION from route-filter 0.0.0.0/8 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-LOCAL-IDENTIFICATION then accept
+    set policy-options policy-statement IPV4-BOGONS term RFC1918 from route-filter 10.0.0.0/8 orlonger
+    set policy-options policy-statement IPV4-BOGONS term RFC1918 from route-filter 172.16.0.0/12 orlonger
+    set policy-options policy-statement IPV4-BOGONS term RFC1918 from route-filter 192.168.0.0/16 orlonger
+    set policy-options policy-statement IPV4-BOGONS term RFC1918 then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-SHARED-ADDRESS from route-filter 100.64.0.0/10 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-SHARED-ADDRESS then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-LOOPBACK from route-filter 127.0.0.0/8 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-LOOPBACK then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-LINK-LOCAL-ADDRESSING from route-filter 169.254.0.0/16 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-LINK-LOCAL-ADDRESSING then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-IPV4-SPECIAL-PURPOSE from route-filter 192.0.0.0/24 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-IPV4-SPECIAL-PURPOSE then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-TEST-NET-1 from route-filter 192.0.2.0/24 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-TEST-NET-1 then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-BENCHMARK-TESTING from route-filter 198.18.0.0/15 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-BENCHMARK-TESTING then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-TEST-NET-2 from route-filter 198.51.100.0/24 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-TEST-NET-2 then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-TEST-NET-3 from route-filter 203.0.113.0/24 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-TEST-NET-3 then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-MULTICAST from route-filter 224.0.0.0/4 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-MULTICAST then accept
+    set policy-options policy-statement IPV4-BOGONS term IANA-CLASS-E from route-filter 240.0.0.0/4 orlonger
+    set policy-options policy-statement IPV4-BOGONS term IANA-CLASS-E then accept
+    set policy-options policy-statement IPV4-BOGONS term REJECT then reject
+    ```
+
+    For IPv6 as an own policy:
+    ```
+    set policy-options policy-statement IPV6-BOGONS term V4MAPPED-ETC from route-filter 0000::/8 orlonger
+	set policy-options policy-statement IPV6-BOGONS term V4MAPPED-ETC then accept
+	set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter fe00::/9 orlonger
+	set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter ff00::/8 orlonger
+	set policy-options policy-statement IPV6-BOGONS term MULTICAST then accept
+	set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2002:db8::/32 orlonger
+	set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2001:db8::/32 orlonger
+	set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX then accept
+	set policy-options policy-statement IPV6-BOGONS term 6BONE from route-filter 3ffe::/16 orlonger
+	set policy-options policy-statement IPV6-BOGONS term 6BONE then accept
+	set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2002::/32 exact
+	set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2001::/32 exact
+	set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT then next policy
+	set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2002::/32 longer
+	set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2001::/32 longer
+	set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT then accept
+	set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT from route-filter 2002::/16 exact
+	set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT then next policy
+	set policy-options policy-statement IPV6-BOGONS term 6TO4-REJECT from route-filter 2002::/16 longer
+	set policy-options policy-statement IPV6-BOGONS term 6TO4-REJECT then accept
+	set policy-options policy-statement IPV6-BOGONS term REJECT from route-filter 0::/0 orlonger
+	set policy-options policy-statement IPV6-BOGONS term REJECT then reject
+    ```
+
+    Usage within another policy (nested policies):
+    ```
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 from policy IPV4-BOGONS
+	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then trace
+	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then reject
+	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 from family inet6
+	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 from policy IPV6-BOGONS
+	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 then trace
+	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 then reject
+     ```
+    
