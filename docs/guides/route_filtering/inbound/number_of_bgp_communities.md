@@ -70,3 +70,19 @@ BGP Communities can give a lot of information about a prefix, for example where 
     !
     ```
 
+=== "FRRouting"
+    In FRRouting you can match in route-maps for prefixes with "less or equal" number of communities.
+    So for filtering out prefixes with "more than" number of communities needs a route-map trick.
+    From the documentation it is unclear if this applies only to old communities or also to large or extended communities.
+    ```
+    route-map too-many-communities permit 100
+        ! true if 99 or less communities attached
+        match community-limit 99
+        on-match goto 200
+    ! communities are deleted if 100 or more
+    route-map too-many-communities permit 150
+        set community none
+    ! we continue at 200 if 99 or less communities
+    route-map too-many-communities permit 200
+    ...
+    ```
