@@ -80,3 +80,4 @@ Depends on the size of your ASN (16/32 Bit). Not very commonly used, better use 
     set policy-options community TEST members large:205806:0:100
     set policy-options community UPSTREAM members large:65534:0:200
     ```
+
