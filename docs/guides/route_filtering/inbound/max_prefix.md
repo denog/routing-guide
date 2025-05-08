@@ -61,13 +61,10 @@ Configuration examples:
 === "Nokia SR OS classic CLI"
     ```
     /configure router "Base" bgp
-    begin
-        bgp
             group "as64500"
                 [...]
                 prefix-limit ipv4 1000
                 prefix-limit ipv6 500
                 [...]
             exit
-    commit
     ```
