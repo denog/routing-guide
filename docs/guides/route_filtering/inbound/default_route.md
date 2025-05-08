@@ -85,7 +85,7 @@ On the other hand, if you want the full routing table, you should not accept any
       endif
     end-policy
 
-    route-policy reject-default-ipv6
+    route-policy accept-default-ipv6
       if destination in default-ipv6 then
         pass
       else
