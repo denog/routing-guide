@@ -1703,16 +1703,16 @@ There are different types of communities (Standard, Extended, and Large). Not ev
 <p>Depends on whether you operate a 16 oder 32-Bit ASN the format differs:</p>
 <h3 id="standard-communities">Standard Communities:</h3>
 <p>32-Bit split in two 16-Bit values. If you already operate a 32-Bit ASN you can't use these.
-   <div class="highlight"><pre><span></span><code>&lt;YOUR_ASN&gt;:[0-65535]
+<div class="highlight"><pre><span></span><code>&lt;YOUR_ASN&gt;:[0-65535]
 </code></pre></div></p>
 <h3 id="extended-communities">Extended Communities:</h3>
 <p>64-Bit split into 3 parts:
-   <div class="highlight"><pre><span></span><code>&lt;purpose/type&gt;:&lt;YOUR_ASN&gt;:&lt;value&gt;
+<div class="highlight"><pre><span></span><code>&lt;purpose/type&gt;:&lt;YOUR_ASN&gt;:&lt;value&gt;
 </code></pre></div>
 Depends on the size of your ASN (16/32 Bit). Not very commonly used, better use the large community approach.</p>
 <h3 id="large-communities">Large Communities:</h3>
 <p>96-Bit split into 3 parts:
-   <div class="highlight"><pre><span></span><code>&lt;YOUR_ASN&gt;:&lt;value1&gt;:&lt;value2&gt;
+<div class="highlight"><pre><span></span><code>&lt;YOUR_ASN&gt;:&lt;value1&gt;:&lt;value2&gt;
 </code></pre></div></p>
 <h2 id="standard-communities_1">Standard Communities</h2>
 <p>See https://routing.denog.de/guides/route_filtering/outbound/well_known_communities_traffic_engineering/</p>
@@ -1747,7 +1747,9 @@ end-policy
 end-policy
 </code></pre></div></p>
 </div>
-<div class="tabbed-block">
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>Standard community
 <div class="highlight"><pre><span></span><code>set policy-options community CUSTOMER members 65534:100
 </code></pre></div></p>
@@ -1756,9 +1758,6 @@ end-policy
 set policy-options community TEST members large:205806:0:100
 set policy-options community UPSTREAM members large:65534:0:200
 </code></pre></div></p>
-</div>
-</div>
-</div>
 
 
 
@@ -1779,7 +1778,7 @@ set policy-options community UPSTREAM members large:65534:0:200
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 13:05:27">May 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 13:07:56">May 8, 2025</span>
   </span>
 
     
