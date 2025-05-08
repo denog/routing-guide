@@ -65,3 +65,32 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
       accept;
     }
     ```
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" policy-options
+    begin
+           as-path-group "bogon-asns"
+                entry 10 expression ".* 23456 .*"
+                entry 15 expression ".* [64496-64511] .*"
+                entry 20 expression ".* [65536-65551] .*"
+                entry 25 expression ".* [64512-65534] .*"
+                entry 30 expression ".* [4200000000-4294967294] .*"
+                entry 35 expression ".* 65535 .*"
+                entry 40 expression ".* 4294967295 .*"
+                entry 45 expression ".* [65552-131071] .*"
+            exit
+            policy-statement "inbound"
+                description "inbound peering policy"
+                [...]
+                entry 10
+                    from
+                        as-path-group "bogon-asns"
+                    exit
+                    action drop
+                    exit
+                exit
+                [...]
+            exit
+    commit
+    ```
