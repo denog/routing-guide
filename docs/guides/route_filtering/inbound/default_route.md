@@ -4,7 +4,6 @@ tags:
   - Cisco IOS XR missing
   - FRR missing
   - Huawei VRP missing
-  - Junos missing
   - Mikrotik missing
   - Nokia SR OS missing
   - OpenBGPD missing
@@ -123,3 +122,16 @@ On the other hand, if you want the full routing table, you should not accept any
       accept;
     }
     ```
+
+=== "Juniper"
+     ```
+  set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE from route-filter 0.0.0.0/0 exact
+	set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE then trace
+	set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE then reject
+	
+	set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 from family inet6
+	set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 from route-filter ::/0 exact
+	set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then trace
+	set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then reject
+     ```
+ 
