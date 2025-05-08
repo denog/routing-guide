@@ -21,7 +21,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
 
 ## Configuration Examples
 
-=== "Cisco IOS"
+=== "Cisco IOS / FRRouting"
     For IPv4, you can simply add all unwanted prefixes to the list we defined in the previous section:
     ```
     ip prefix-list ipv4-unwanted permit 192.168.0.0/16 le 32

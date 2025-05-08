@@ -14,7 +14,7 @@ When implementing this, keep in mind to also implement some key (password) handl
 
 Example for setting an MD5 password:
 
-=== "Cisco IOS"
+=== "Cisco IOS / FRRouting"
     ```
     router bgp 64500
     ...
@@ -68,8 +68,8 @@ This feature must be set on both ends to work - if you set it on one end only, o
 
 Configuration examples:
 
-=== "Cisco IOS classic / IOS XE"
-    On Cisco IOS you configure how many hops your neighbor is away:
+=== "Cisco IOS classic / IOS XE / FRRouting"
+    On Cisco IOS or FRRouting you configure how many hops your neighbor is away:
     ```
     router bgp 64500
     ...

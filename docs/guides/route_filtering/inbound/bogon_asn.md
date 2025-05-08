@@ -66,6 +66,18 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     }
     ```
 
+=== "FRRouting"
+    FRRouting uses regular expressions only for AS-path access-lists. The following list was compiled using a numeric range to regex converter:
+    ```
+    bgp as-path access-list bogon-asns permit _0_
+    bgp as-path access-list bogon-asns permit _23456_
+    bgp as-path access-list bogon-asns permit _(6449[6-9]|64[5-9][0-9]{2}|6[5-9][0-9]{3})_
+    bgp as-path access-list bogon-asns permit _(7000[0-9]|700[1-9][0-9]|70[1-9][0-9]{2}|7[1-9][0-9]{3}|[89][0-9]{4}|1[0-2][0-9]{4}|130[0-9]{3}|1310[0-6][0-9]|13107[01])_
+    bgp as-path access-list bogon-asns permit _(420000000[0-9]|42000000[1-9][0-9]|4200000[1-9][0-9]{2}|420000[1-9][0-9]{3}|42000[1-9][0-9]{4}|4200[1-9][0-9]{5}|420[1-9][0-9]{6}|42[1-8][0-9]{7}|429[0-3][0-9]{6}|4294[0-8][0-9]{5}|42949[0-5][0-9]{4}|429496[0-6][0-9]{3}|4294967[01][0-9]{2}|42949672[0-8][0-9]|429496729[0-5])_
+
+    route-map import-all deny 100
+      match as-path bogon-asns
+    ```
 === "Nokia SR OS classic CLI"
     ```
     /configure router "Base" policy-options
