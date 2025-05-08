@@ -66,6 +66,26 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     }
     ```
 
+=== "Juniper"
+    ```
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path zero ".* 0 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path as_trans ".* 23456 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path examples1 ".* [64496-64511] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path examples2 ".* [65536-65551] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path reserved1 ".* [64512-65533] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path reserved2 ".* [4200000000-4294967294] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path last16 ".* 65535 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path last32 ".* 4294967295 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path iana-reserved ".* [65552-131071] .*"
+    ```
+
+    Usage example:
+    ```
+    set policy-options policy-statement my_input_policy term CYMRU-BOGON-ASN from as-path-group CYMRU-BOGON-ASN
+    set policy-options policy-statement my_input_policy term CYMRU-BOGON-ASN then trace
+    set policy-options policy-statement my_input_policy term CYMRU-BOGON-ASN then reject
+    ```
+
 === "FRRouting"
     FRRouting uses regular expressions only for AS-path access-lists. The following list was compiled using a numeric range to regex converter:
     ```
@@ -78,6 +98,7 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     route-map import-all deny 100
       match as-path bogon-asns
     ```
+    
 === "Nokia SR OS classic CLI"
     ```
     /configure router "Base" policy-options
