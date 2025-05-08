@@ -78,5 +78,12 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     set policy-options as-path-group CYMRU-BOGON-ASN as-path last32 ".* 4294967295 .*"
     set policy-options as-path-group CYMRU-BOGON-ASN as-path iana-reserved ".* [65552-131071] .*"
     ```
+
+    Usage example:
+    ```
+    set policy-options policy-statement my_input_policy term CYMRU-BOGON-ASN from as-path-group CYMRU-BOGON-ASN
+    set policy-options policy-statement my_input_policy term CYMRU-BOGON-ASN then trace
+    set policy-options policy-statement my_input_policy term CYMRU-BOGON-ASN then reject
+    ```
     
 
