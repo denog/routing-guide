@@ -77,7 +77,7 @@ On the other hand, if you want the full routing table, you should not accept any
 
     Build filters with the default route lists to *allow* default route
     ```
-    route-policy reject-default-ipv4
+    route-policy accept-default-ipv4
       if destination in default-ipv4 then
         pass
       else
