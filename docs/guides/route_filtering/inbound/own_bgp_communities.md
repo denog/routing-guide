@@ -1,4 +1,4 @@
-# Own prefix
+# Own communities
 
 ## Purpose
 A BGP community is bit of “extra information” that you can add to one of more prefixes which is advertised to BGP neighbors. This extra information can be used for things like traffic engineering or dynamic routing policies.
@@ -12,19 +12,19 @@ Your own communities should be stored in lists or sets and then used in policy f
 === "Cisco IOS XR"
     Using an *my-own* communitys-set you can add  more communities to it that you want. Since these are your own complete communities, you can work with wildcards.
     ```
-    community-set my-own-communitys
+    community-set my-own-communities
       <YOUR OWN AS NUMBER>:*
     end-set
     !
-    large-community-set my-own-large-communitys
+    large-community-set my-own-large-communities
       <YOUR OWN AS NUMBER>:*:*
     end-set
     ```
     
     If you want to drop the prefix.
     ```
-    route-policy drop-my-own-communitys
-      if community matches-any my-own-communitys or community matches-any my-own-large-communitys then
+    route-policy drop-my-own-communities
+      if community matches-any my-own-communities or community matches-any my-own-large-communities then
         drop
       else
         pass
@@ -32,12 +32,12 @@ Your own communities should be stored in lists or sets and then used in policy f
     end-policy
     ```
 
-    If you want to delete the community and accept the prefix.
+    If you want to delete the communities and accept the prefix.
     ```
-    route-policy clean-my-own-communitys
-      if community matches-any my-own-communitys or community matches-any my-own-large-communitys then
-        delete community in my-own-communitys
-        delete large-community in my-own-large-communitys
+    route-policy clean-my-own-communities
+      if community matches-any my-own-communities or community matches-any my-own-large-communities then
+        delete community in my-own-communities
+        delete large-community in my-own-large-communities
       endif
     end-policy
     ```
