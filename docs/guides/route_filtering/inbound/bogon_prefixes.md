@@ -208,37 +208,37 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     For IPv6 as an own policy:
     ```
     set policy-options policy-statement IPV6-BOGONS term V4MAPPED-ETC from route-filter 0000::/8 orlonger
-	set policy-options policy-statement IPV6-BOGONS term V4MAPPED-ETC then accept
-	set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter fe00::/9 orlonger
-	set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter ff00::/8 orlonger
-	set policy-options policy-statement IPV6-BOGONS term MULTICAST then accept
-	set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2002:db8::/32 orlonger
-	set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2001:db8::/32 orlonger
-	set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX then accept
-	set policy-options policy-statement IPV6-BOGONS term 6BONE from route-filter 3ffe::/16 orlonger
-	set policy-options policy-statement IPV6-BOGONS term 6BONE then accept
-	set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2002::/32 exact
-	set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2001::/32 exact
-	set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT then next policy
-	set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2002::/32 longer
-	set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2001::/32 longer
-	set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT then accept
-	set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT from route-filter 2002::/16 exact
-	set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT then next policy
-	set policy-options policy-statement IPV6-BOGONS term 6TO4-REJECT from route-filter 2002::/16 longer
-	set policy-options policy-statement IPV6-BOGONS term 6TO4-REJECT then accept
-	set policy-options policy-statement IPV6-BOGONS term REJECT from route-filter 0::/0 orlonger
-	set policy-options policy-statement IPV6-BOGONS term REJECT then reject
+    set policy-options policy-statement IPV6-BOGONS term V4MAPPED-ETC then accept
+    set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter fe00::/9 orlonger
+    set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter ff00::/8 orlonger
+    set policy-options policy-statement IPV6-BOGONS term MULTICAST then accept
+    set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2002:db8::/32 orlonger
+    set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2001:db8::/32 orlonger
+    set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX then accept
+    set policy-options policy-statement IPV6-BOGONS term 6BONE from route-filter 3ffe::/16 orlonger
+    set policy-options policy-statement IPV6-BOGONS term 6BONE then accept
+    set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2002::/32 exact
+    set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2001::/32 exact
+    set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT then next policy
+    set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2002::/32 longer
+    set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2001::/32 longer
+    set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT then accept
+    set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT from route-filter 2002::/16 exact
+    set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT then next policy
+    set policy-options policy-statement IPV6-BOGONS term 6TO4-REJECT from route-filter 2002::/16 longer
+    set policy-options policy-statement IPV6-BOGONS term 6TO4-REJECT then accept
+    set policy-options policy-statement IPV6-BOGONS term REJECT from route-filter 0::/0 orlonger
+    set policy-options policy-statement IPV6-BOGONS term REJECT then reject
     ```
 
     Usage within another policy (nested policies):
     ```
     set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 from policy IPV4-BOGONS
-	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then trace
-	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then reject
-	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 from family inet6
-	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 from policy IPV6-BOGONS
-	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 then trace
-	set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 then reject
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then trace
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then reject
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 from family inet6
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 from policy IPV6-BOGONS
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 then trace
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V6 then reject
      ```
     
