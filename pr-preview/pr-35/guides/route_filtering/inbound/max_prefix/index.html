@@ -1507,7 +1507,7 @@
 <p>If you want to automate this, at <a href="https://peeringdb.com">PeeringDB</a> networks can publish suggested values for maximum prefix.</p>
 <p>Also, keep in mind that maximum prefix for IPv4 and IPv6 are two different values.</p>
 <p>Configuration examples:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">FRRouting</label><label for="__tabbed_1_4">Mikrotik</label><label for="__tabbed_1_5">Bird2</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">FRRouting</label><label for="__tabbed_1_4">Mikrotik</label><label for="__tabbed_1_5">Bird2</label><label for="__tabbed_1_6">Nokia SR OS classic CLI</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
@@ -1548,6 +1548,19 @@ neighbor 198.51.100.1 maximum-prefix 1000 95
 }
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>/configure router &quot;Base&quot; bgp
+begin
+    bgp
+        group &quot;as64500&quot;
+            [...]
+            prefix-limit ipv4 1000
+            prefix-limit ipv6 500
+            [...]
+        exit
+commit
+</code></pre></div>
+</div>
 </div>
 </div>
 
@@ -1570,7 +1583,7 @@ neighbor 198.51.100.1 maximum-prefix 1000 95
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 09:42:47">May 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 10:03:06">May 8, 2025</span>
   </span>
 
     
