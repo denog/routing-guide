@@ -63,3 +63,25 @@ The AS PATH in the DFZ can become very long. At some point this can become an is
       accept;
     }
     ```
+
+=== "FRRouting"
+    FRRouting does not allow to limit the number of ASes in the path.
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" policy-options
+    begin
+            policy-statement "inbound"
+                description "inbound peering policy"
+                [...]
+                entry 25
+                    from
+                        as-path-length 100 or-higher
+                    exit
+                    action drop
+                    exit
+                exit
+                [...]
+            exit
+    commit
+    ```
