@@ -42,3 +42,25 @@ Your own networks should be stored in lists and then used in policy for external
     end-policy
     ```
     The policy should be part of a central policy for the external BGP peer.
+
+=== "Juniper"
+    Create prefix list containtaing your own prefixes:
+    ```
+    set policy-options prefix-list MY-PREFIXES-V4 <PLEASE INSERT YOUR PREFIX HERE>
+    
+    set policy-options prefix-list MY-PREFIXES-V6 <PLEASE INSERT YOUR PREFIX HERE>
+    ```
+
+    Add it to your Import Policy:
+
+    ```
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 from prefix-list-filter MY-PREFIXES-V4 orlonger
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 then trace
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 then reject
+    
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 from family inet6
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 from prefix-list-filter MY-PREFIXES-V6 orlonger
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 then trace
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 then reject
+    ```
+    

@@ -138,3 +138,15 @@ Configuration examples:
             exit
     commit
     ```
+
+=== "Juniper"
+    ```
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 from route-filter 0.0.0.0/0 prefix-length-range /25-/32
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 then trace
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 then reject
+    
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 from family inet6
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 from route-filter ::/0 prefix-length-range /49-/128
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 then trace
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 then reject
+    ```
