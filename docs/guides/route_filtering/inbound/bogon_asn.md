@@ -65,3 +65,18 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
       accept;
     }
     ```
+
+=== "Juniper"
+    ```
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path zero ".* 0 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path as_trans ".* 23456 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path examples1 ".* [64496-64511] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path examples2 ".* [65536-65551] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path reserved1 ".* [64512-65533] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path reserved2 ".* [4200000000-4294967294] .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path last16 ".* 65535 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path last32 ".* 4294967295 .*"
+    set policy-options as-path-group CYMRU-BOGON-ASN as-path iana-reserved ".* [65552-131071] .*"
+    ```
+    
+
