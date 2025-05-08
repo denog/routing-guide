@@ -20,7 +20,7 @@
     
     
       
-        <title>Peering lan - DENOG Routing Guide</title>
+        <title>Peering LANs - DENOG Routing Guide</title>
       
     
     
@@ -106,6 +106,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#peering-lans" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -138,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Peering lan
+              Peering LANs
             
           </span>
         </div>
@@ -1031,18 +1036,61 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Peering LANs
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Peering lan
+    Peering LANs
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1456,6 +1504,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Examples
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1487,9 +1554,34 @@
   
 
 
-  <h1>Peering lan</h1>
-
-
+<h1 id="peering-lans">Peering LANs</h1>
+<p>When you are connected to an Internet Exchange Point, you have an interface configured
+with an IP address and netmask of that IXP. If, now, someone else announces the same
+network (or worse: a more specific sub-network) via BGP and you accept this announcement,
+your router might prefer this announcement over the one of its own interface (especially if
+the announcement is more specific).</p>
+<p>So it is strongly recommended that you block BGP announcements of all IXP LANs you are
+connected to.</p>
+<p>If you are connected to many IXPs, you might want to automate this.
+<a href="https://peeringdb.com">PeeringDB</a> has a list of all IXP Lans, you need some software to extract this
+and convert it to your router configuration.</p>
+<h2 id="configuration-examples">Configuration Examples</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># DE-CIX Frankfurt
+ip prefix-list ipv4-ixplans permit 80.81.192.0/21 le 32
+...
+# DE-CIX Frankfurt
+ipv6 prefix-list ipv6-ixplans permit 2001:7f8::/64 le 128
+...
+route-map prefixes-in deny 10
+  match ip address prefix-list ipv4-ixplans
+  match ipv6 address prefix-list ipv6-ixplans
+</code></pre></div>
+</div>
+</div>
+</div>
 
 
 
@@ -1510,7 +1602,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 09:59:23">May 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 10:30:30">May 8, 2025</span>
   </span>
 
     

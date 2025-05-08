@@ -1095,7 +1095,7 @@
   
   
   <span class="md-ellipsis">
-    Peering lan
+    Peering LANs
     
   </span>
   
@@ -1608,17 +1608,6 @@
         
       
       
-        <a href="../../../../.#tag:junos-missing" class="md-tag md-tag-icon md-tag--Junos">Junos missing</a>
-      
-    
-      
-      
-        
-        
-          
-        
-      
-      
         <a href="../../../../.#tag:mikrotik-missing" class="md-tag md-tag-icon md-tag--Mikrotik">Mikrotik missing</a>
       
     
@@ -1681,7 +1670,7 @@
 <p>It is completely legitimate if a transit provider announces default routes to their customers. In case the customers router has limited memory for the routing table, it can simply <em>only</em> accept the default route, blocking all other more specific routes.</p>
 <p>On the other hand, if you want the full routing table, you should not accept any default route from your transit providers. You must never accept a default route from any non-transit-provider neighbor.</p>
 <h2 id="configuration">Configuration</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Bird2</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Bird2</label><label for="__tabbed_1_4">Juniper</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>ip prefix-list default-route-v4 permit 0.0.0.0/0
@@ -1773,6 +1762,17 @@ filter import_ipv6 {
 }
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE from route-filter 0.0.0.0/0 exact
+set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE then trace
+set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE then reject
+
+set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 from family inet6
+set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 from route-filter ::/0 exact
+set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then trace
+set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then reject
+</code></pre></div>
+</div>
 </div>
 </div>
 
@@ -1795,7 +1795,7 @@ filter import_ipv6 {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 09:59:23">May 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 10:30:30">May 8, 2025</span>
   </span>
 
     
