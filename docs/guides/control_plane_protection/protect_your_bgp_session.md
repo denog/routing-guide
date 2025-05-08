@@ -32,6 +32,14 @@ Example for setting an MD5 password:
     set protocols bgp group <GROUPNAME> neighbor 198.51.100.1 authentication-key "mysecretpassword"
     ```
 
+=== "RtBrick RBFS"
+    ```
+    set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> type MD5
+    set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> key1-id 1
+    set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> key1-plain-text mysecretpassword
+    set instance <INSTANCE> protocol bgp peer ipv4 <PEER> <SOURCE> authentication-id <AUTHENTICATION-ID>
+    ```
+
 ### Keyring
 
 Another method is to use keyrings or key-chains. A common problem is that replacing a password in a protected session leads to a restart of the whole session.
@@ -55,6 +63,27 @@ MD5, which is widely used, is considered to be insecure and deprecated. To repla
 defines a mechanism called *TCP Authentication Option*, please read the RFC for details. In short, it uses stronger codes to protect your session.
 
 Unfortunately this is not widely implemented.
+
+=== "Juniper"
+    ```
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> description "key chain for BGP"
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 secret mysecretpassword
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 start-time "2025-01-01.09:00:00 +0200"
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 algorithm ao
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 ao-attribute send-id 1
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 ao-attribute recv-id 1
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 ao-attribute tcp-ao-option enabled
+    set security authentication-key-chains key-chain <KEY-CHAIN-NAME> key 1 ao-attribute cryptographic-algorithm aes-128-cmac-96
+    set protocols bgp group <GROUPNAME> authentication-algorithm ao
+    set protocols bgp group <GROUPNAME> authentication-key-chain <KEY-CHAIN-NAME>
+    ```
+=== "RtBrick RBFS"
+    ```
+    set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> type AES-128-CMAC-96
+    set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> key1-id 1
+    set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> key1-plain-text mysecretpassword
+    set instance <INSTANCE> protocol bgp peer ipv4 <PEER> <SOURCE> authentication-id <AUTHENTICATION-ID>
+    ```
 
 ## TTL Security
 
@@ -96,4 +125,9 @@ Configuration examples:
     On Junos you configure how many hops a specific neighbor in a group is away:
     ```
     set protocols bgp group <GROUPNAME> neighbor 198.51.100.1 ttl 255
+    ```
+=== "RtBrick RBFS"
+    TTL security is activated with the ttl-security command on a single-hop BGP session, which sets the IPv4 TTL value in packets to 255. For multihop BGP sessions, TTL security is also enabled with ttl-security, but you must additionally configure the ttl-limit to match the expected IPv4 TTL value.
+    ```
+    set instance <INSTANCE> protocol bgp peer-group <GROUPNAME> ttl-security enable
     ```
