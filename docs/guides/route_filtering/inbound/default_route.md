@@ -24,7 +24,7 @@ On the other hand, if you want the full routing table, you should not accept any
 
 ## Configuration
 
-=== "Cisco IOS"
+=== "Cisco IOS / FRRouting"
     ```
     ip prefix-list default-route-v4 permit 0.0.0.0/0
     ipv6 prefix-list default-route-v6 permit ::/0
