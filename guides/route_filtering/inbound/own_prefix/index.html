@@ -106,6 +106,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#own-prefix" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -985,6 +990,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Own prefix
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -997,6 +1017,52 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1456,6 +1522,43 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1487,9 +1590,48 @@
   
 
 
-  <h1>Own prefix</h1>
+<h1 id="own-prefix">Own prefix</h1>
+<h2 id="purpose">Purpose</h2>
+<p>It is necessary to check incoming BGP prefixes to see if they match your own. This is because your own prefix should not come from outside.</p>
+<p>There are exceptions when an AS is split. This rarely happens, and in those cases, the prefixes can come from outside.</p>
+<h2 id="description">Description</h2>
+<p>Your own networks should be stored in lists and then used in policy for external BGP peers. </p>
+<h2 id="configuration">Configuration</h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Your own prefixes to the list:
+<div class="highlight"><pre><span></span><code>prefix-set my-own-network-ipv4
+  &lt;Please enter your own prefix with netmask here&gt; le 32,
+  &lt;Please enter your own prefix with netmask here&gt; le 32
+end-set
 
+prefix-set my-own-network-ipv6
+  &lt;Please enter your own prefix with netmask here&gt; le le 128,
+  &lt;Please enter your own prefix with netmask here&gt; le le 128
+end-set
+</code></pre></div></p>
+<p>Use the prefix-list in a policy:
+<div class="highlight"><pre><span></span><code>route-policy reject-my-own-ipv4-networks
+  if destination in my-own-network-ipv4 then
+    drop
+  else
+    pass
+  endif
+end-policy
 
+route-policy reject-my-own-ipv6-networks
+  if destination in my-own-network-ipv6 then
+    drop
+  else
+    pass
+  endif
+end-policy
+</code></pre></div>
+The policy should be part of a central policy for the external BGP peer.</p>
+</div>
+</div>
+</div>
 
 
 
@@ -1510,7 +1652,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 09:46:39">May 8, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 8, 2025 09:57:31">May 8, 2025</span>
   </span>
 
     
