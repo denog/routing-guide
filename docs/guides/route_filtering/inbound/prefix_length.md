@@ -115,3 +115,26 @@ Configuration examples:
       accept;
     }
     ```
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" policy-options
+    begin
+            prefix-list "pfx-small-prefix-length"
+                prefix 0.0.0.0/0 prefix-length-range 25-32
+                prefix ::/0 prefix-length-range 49-128
+            exit
+            policy-statement "inbound"
+                description "inbound peering policy"
+                [...]
+                entry 95
+                    from
+                        prefix-list "pfx-small-prefix-length"
+                    exit
+                    action drop
+                    exit
+                exit
+                [...]
+            exit
+    commit
+    ```

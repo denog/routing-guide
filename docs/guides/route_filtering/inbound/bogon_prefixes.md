@@ -172,3 +172,59 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       accept;
     }
     ```
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" policy-options
+    begin
+            prefix-list "v4-bogons"
+                prefix 0.0.0.0/8 longer
+                prefix 10.0.0.0/8 longer
+                prefix 100.64.0.0/10 longer
+                prefix 127.0.0.0/8 longer
+                prefix 169.254.0.0/16 longer
+                prefix 172.16.0.0/12 longer
+                prefix 192.0.0.0/24 longer
+                prefix 192.0.2.0/24 longer
+                prefix 192.168.0.0/16 longer
+                prefix 198.18.0.0/15 longer
+                prefix 198.51.100.0/24 longer
+                prefix 203.0.113.0/24 longer
+                prefix 224.0.0.0/4 longer
+                prefix 240.0.0.0/4 longer
+            exit
+            prefix-list "v6-bogons"
+                prefix ::/8 longer
+                prefix 100::/64 longer
+                prefix 2001:2::/48 longer
+                prefix 2001:10::/28 longer
+                prefix 2001:db8::/32 longer
+                prefix 3ffe::/16 longer
+                prefix 3fff::/20 longer
+                prefix 5f00::/16 longer
+                prefix fc00::/7 longer
+                prefix fe80::/10 longer
+                prefix fec0::/10 longer
+                prefix ff00::/8 longer
+            exit
+            policy-statement "inbound"
+                description "inbound peering policy"
+                [...]
+                entry 30
+                    from
+                        prefix-list "v4-bogons"
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 40
+                    from
+                        prefix-list "v6-bogons"
+                    exit
+                    action drop
+                    exit
+                exit
+                [...]
+            exit
+    commit
+    ```
