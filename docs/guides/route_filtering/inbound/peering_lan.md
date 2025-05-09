@@ -28,6 +28,41 @@ and convert it to your router configuration.
       match ipv6 address prefix-list ipv6-ixplans
     ```
 
+=== "Cisco IOS XR"
+    Define lists with peering networks:
+    ```
+    prefix-set peering-lan-ipv4-networks
+      # DE-CIX Frankfurt
+      80.81.192.0/21 le 32,
+      ...
+    end-set
+    !
+    prefix-set peering-lan-ipv6-networks
+      # DE-CIX Frankfurt
+      2001:7f8::/64 le 128,
+      ...
+    end-set
+    ```
+
+    Define policy to drop the prefix:
+    ```
+    route-policy drop-peering-lan-ipv4-networks
+      if destination in peering-lan-ipv4-networks then
+        drop
+      else
+        pass
+      endif
+    end-policy
+    !
+    route-policy drop-peering-lan-ipv6-networks
+      if destination in peering-lan-ipv6-networks then
+        drop
+      else
+        pass
+      endif
+    end-policy
+    ```
+
 === "Nokia SR OS classic CLI"
     ```
     /configure router "Base" policy-options
