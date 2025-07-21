@@ -50,10 +50,10 @@ Configuration examples:
     ```
     protocol bgp neighbor_name {
       ipv4 {
-         import limit 1000 restart;
+         import limit 1000 action restart;
       }
       ipv6 {
-         import limit 500 restart;
+         import limit 500 action restart;
       }
     }
     ```
