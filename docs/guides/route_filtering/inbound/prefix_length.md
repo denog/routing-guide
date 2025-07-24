@@ -95,7 +95,7 @@ Configuration examples:
     }
     function reject_small_prefixes6()
     {
-      if (net.len > 64) then {
+      if (net.len > 48) then {
         # allow blackhole
         if (net.len != 128) then {
           # optional logging:
