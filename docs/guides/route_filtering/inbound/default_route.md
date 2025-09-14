@@ -2,7 +2,6 @@
 tags:
   - Arista missing
   - Cisco IOS XR missing
-  - FRR missing
   - Huawei VRP missing
   - Mikrotik missing
   - Nokia SR OS missing
