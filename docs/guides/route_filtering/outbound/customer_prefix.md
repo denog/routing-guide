@@ -68,7 +68,7 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 from community CUSTOMER
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 from route-filter ::/0 prefix-length-range /12-/48
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 then accept
-    
+    ```
 
 === "Cisco IOS XR"
 
