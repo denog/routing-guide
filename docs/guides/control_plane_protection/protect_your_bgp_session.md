@@ -8,7 +8,7 @@ The idea of these measures is to protect your TCP-based BGP sessions against att
 
 ### MD5 session password
 
-The easiest countermeasure against TCP based attacks on BGP sessions is to use  MD5 protection as described in
+The easiest countermeasure against TCP based attacks on BGP sessions is to use MD5 protection as described in
 [RFC2385](https://www.rfc-editor.org/rfc/rfc2385.html).
 When implementing this, keep in mind to also implement some key (password) handling procedures (just imagine your router has to be replaced and you have to re-create all eBGP configurations).
 
@@ -118,11 +118,11 @@ Configuration examples:
         remote-address=198.51.100.1 remote-as=64496 ttl=255
     ```
 === "Juniper"
-    On Junos you configure how many hops your neighbors in a group are away:
+    On JunOS you configure how many hops your neighbors in a group are away:
     ```
     set protocols bgp group <GROUPNAME> ttl 255
     ```
-    On Junos you configure how many hops a specific neighbor in a group is away:
+    On JunOS you configure how many hops a specific neighbor in a group is away:
     ```
     set protocols bgp group <GROUPNAME> neighbor 198.51.100.1 ttl 255
     ```

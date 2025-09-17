@@ -1,6 +1,6 @@
 # Maximum Prefix (Outbound)
 
-This is a quite new feature of some BGP implementations. Here we do not protect our own network, we protect the our neighbors from us accidentally flooding too many IP prefixes towards them.
+This is a quite new feature of some BGP implementations. Here we do not protect our own network, we protect our neighbors from us accidentally flooding too many prefixes towards them.
 
 Of course this also protects our own network, because if our neighbor accepted these prefixes and would send us all the traffic for them, we would drown in packets.
 

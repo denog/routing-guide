@@ -122,8 +122,9 @@ On the other hand, if you want the full routing table, you should not accept any
     }
     ```
 
-=== "Juniper"
+=== "Juniper JunOS"
      ```
+     set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE from family inet
      set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE from route-filter 0.0.0.0/0 exact
      set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE then trace
      set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE then reject
