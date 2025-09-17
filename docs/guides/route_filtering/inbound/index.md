@@ -10,8 +10,6 @@ In general, we have three sources of information to fill your BGP table:
 - one or more *block lists* where you define what you not want from that specific peer or from all peers
 - an *allow list* or whitelist, where you define what you allow from that peer
 
+Job Snijders defined that at [RIPE77](https://ripe77.ripe.net/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf) as intersecting sets.
 
-Job Snijders defined that at
-[RIPE77](https://ripe77.ripe.net/presentations/59-RIPE77_Snijders_Routing_Policy_Architecture.pdf) as intersecting sets.
-
-![three circles](/assets/images/protect_your_bgp_session_001.png)
+![three circles](../../../assets/images/protect_your_bgp_session_001.png)
