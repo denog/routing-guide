@@ -14,6 +14,12 @@ When implementing this, keep in mind to also implement some key (password) handl
 
 Example for setting an MD5 password:
 
+=== "Arista EOS"
+    ```
+    router bgp 64500
+       neighbor 198.51.100.1 password mysecretpassword
+    ```
+
 === "Cisco IOS / FRRouting"
     ```
     router bgp 64500
@@ -44,7 +50,7 @@ Example for setting an MD5 password:
 
 Another method is to use keyrings or key-chains. A common problem is that replacing a password in a protected session leads to a restart of the whole session.
 Using keyrings or key-chains addresses this problem in a way that a key (or password) is valid until a new password with a defined start-time is specified.
-This new key will be negiotiated upfront and becomes active at the start-time.
+This new key will be negotiated upfront and becomes active at the start-time.
 
 === "Juniper"
    ```
@@ -77,6 +83,7 @@ Unfortunately this is not widely implemented.
     set protocols bgp group <GROUPNAME> authentication-algorithm ao
     set protocols bgp group <GROUPNAME> authentication-key-chain <KEY-CHAIN-NAME>
     ```
+
 === "RtBrick RBFS"
     ```
     set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> type AES-128-CMAC-96
@@ -88,7 +95,7 @@ Unfortunately this is not widely implemented.
 ## TTL Security
 
 Instead of using a password, relying on the *TTL* value of incoming TCP packets is easier to handle and to implement.
- 
+
 [RFC5082](https://www.rfc-editor.org/rfc/rfc5082) describes, how setting the TTL value of packets when sending to 255, and checking that value when receiving, makes it an impossible-to-spoof security measure.
 
 As the TTL is decreased by every hop, when you receive a packet with TTL 255, it *must* have been sent by a directly adjacent node.
@@ -97,6 +104,12 @@ This feature must be set on both ends to work - if you set it on one end only, o
 
 Configuration examples:
 
+=== "Arista EOS"
+    ```
+    router bgp 64500
+       neighbor 198.51.100.1 ttl maximum-hops 1
+    ```
+
 === "Cisco IOS classic / IOS XE / FRRouting"
     On Cisco IOS or FRRouting you configure how many hops your neighbor is away:
     ```
@@ -104,6 +117,7 @@ Configuration examples:
     ...
     neighbor 198.51.100.1 ttl-security hops 1
     ```
+
 === "Cisco IOS XR"
     On Cisco IOS XR you just configure ttl-security without an hop parameter:
     ```
@@ -111,12 +125,14 @@ Configuration examples:
     ...
     neighbor 198.51.100.1 ttl-security
     ```
+
 === "Mikrotik"
     On Mikrotik, you do not configure how many maximum hops a peer can be away, but the TTL value, which is 255 for directly adjacent peers (this is also the default value):
     ```
     add in-filter=upstream-in name=AS64496 out-filter=upstream-out \
         remote-address=198.51.100.1 remote-as=64496 ttl=255
     ```
+
 === "Juniper"
     On JunOS you configure how many hops your neighbors in a group are away:
     ```
@@ -126,6 +142,7 @@ Configuration examples:
     ```
     set protocols bgp group <GROUPNAME> neighbor 198.51.100.1 ttl 255
     ```
+
 === "RtBrick RBFS"
     TTL security is activated with the ttl-security command on a single-hop BGP session, which sets the IPv4 TTL value in packets to 255. For multihop BGP sessions, TTL security is also enabled with ttl-security, but you must additionally configure the ttl-limit to match the expected IPv4 TTL value.
     ```
