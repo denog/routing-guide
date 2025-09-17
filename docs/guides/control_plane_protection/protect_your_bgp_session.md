@@ -139,7 +139,7 @@ Configuration examples:
     ```
 === "Nokia SR OS classic CLI"
     ```
-/configure router "Base" bgp
+    /configure router "Base" bgp
         group "as64500"
             [...]
             authentication-key "mysecretpassword"
