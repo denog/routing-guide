@@ -1,5 +1,12 @@
 name: Deploy PR previews
 
+permissions:
+  contents: read
+  pull-requests: write
+  deployments: write
+  pages: write
+  id-token: write
+
 on:
   pull_request:
     types:
@@ -14,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x

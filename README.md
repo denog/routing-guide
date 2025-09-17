@@ -26,4 +26,4 @@ Then you can use `mkdocs serve` to start a local development server that updates
 
 # License
 
-Content is available under the [Creative Commons Attribution License 4.0](https://raw.githubusercontent.com/denog/routing-guide/main/LICENSE.md), unless otherwise stated
+Content is available under the [Creative Commons Attribution License 4.0](https://raw.githubusercontent.com/denog/routing-guide/main/LICENSE.md), unless otherwise stated.

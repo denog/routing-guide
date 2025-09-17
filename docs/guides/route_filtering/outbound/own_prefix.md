@@ -35,5 +35,37 @@ As a network participating in the global Internet you want to tell other network
     ```
     ```
 
+=== "FRRouting"
+
+    Config snippet for FRRouting
+    ```
+    ip prefix-list outgoing seq 10 permit 192.0.2.0/24
+    ip prefix-list outgoing seq 100 deny 0.0.0.0/0 le 32
+
+    ipv6 prefix-list outgoing-6 seq 10 permit 2001:db8::/32
+    ipv6 prefix-list outgoing-6 seq 100 deny ::/0 le 128
+
+    router bgp 64496
+      no bgp default ipv4-unicast
+      bgp log-neighbor-changes
+      bgp router-id 192.0.2.10
+
+      neighbor 198.51.100.1 remote-as 65550
+      neighbor 3fff::1582 remote-as 65550
+
+      address-family ipv4 unicast
+        network 192.0.2.0/24
+        neighbor 198.51.100.1 activate
+        neighbor 198.51.100.1 prefix-list outgoing out
+      exit-address-family
+
+      address-family ipv6 unicast
+        network 2001:db8::/32
+        neighbor 3fff::1582 activate
+        neighbor 3fff::1582 prefix-list outgoing-6 out
+      exit-address-family
+    exit
+    ```
+
 ---
 
