@@ -8,7 +8,7 @@ With RPKI it is possible to validate the origin AS of a BGP announcement. This i
     ```bird
     roa4 table rpki4;
     roa6 table rpki6;
-    
+
     protocol rpki routinator1 {
         roa4 { table rpki4; };
         roa6 { table rpki6; };
