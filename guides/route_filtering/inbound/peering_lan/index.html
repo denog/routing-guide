@@ -1578,7 +1578,7 @@ connected to.</p>
 <a href="https://peeringdb.com">PeeringDB</a> has a list of all IXP Lans, you need some software to extract this
 and convert it to your router configuration.</p>
 <h2 id="configuration-examples">Configuration Examples</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Nokia SR OS classic CLI</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Bird2</label><label for="__tabbed_1_4">Nokia SR OS classic CLI</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code># DE-CIX Frankfurt
@@ -1623,6 +1623,51 @@ route-policy drop-peering-lan-ipv6-networks
   endif
 end-policy
 </code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>define IXP_PREFIXES4 = [
+  185.1.155.0/24 # LocIX DUS
+];
+define IXP_PREFIXES6 = [
+  2a0c:b641:701::/64 # LocIX DUS
+];
+function reject_ixp_prefixes4()
+prefix set ixp_prefixes4;
+{
+  ixp_prefixes4 = IXP_PREFIXES4;
+  if (net ~ ixp_prefixes4) then {
+    # optional logging
+    # print &quot;Reject: IXP Prefix detected: &quot;, net, &quot; &quot;, bgp_path;
+    reject;
+  }
+}
+function reject_ixp_prefixes6()
+prefix set ixp_prefixes6;
+{
+  ixp_prefixes6 = IXP_PREFIXES6;
+  if (net ~ ixp_prefixes6) then {
+    # optional logging
+    # print &quot;Reject: IXP Prefix detected: &quot;, net, &quot; &quot;, bgp_path;
+    reject;
+  }
+}
+protocol bgp neighbor_name {
+  ipv4 {
+    import filter {
+      reject_ixp_prefixes4();
+      # other filters
+      accept;
+    };
+  }
+  ipv6 {
+    import filter {
+      reject_ixp_prefixes6();
+      # other filters
+      accept;
+    };
+  }
+}
+</code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>/configure router &quot;Base&quot; policy-options
@@ -1677,7 +1722,7 @@ commit
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 17, 2025 08:25:55 UTC">September 17, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 17, 2025 09:13:02 UTC">September 17, 2025</span>
   </span>
 
     
