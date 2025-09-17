@@ -37,7 +37,7 @@ See https://routing.denog.de/guides/route_filtering/outbound/well_known_communit
 ## Configuration Examples
 
 === "Cisco IOS XR"
-    Using an *my-own* communitys-set you can add  more communities to it that you want. Since these are your own complete communities, you can work with wildcards.
+    Using an *my-own* communitys-set you can add more communities to it that you want. Since these are your own complete communities, you can work with wildcards.
     ```
     community-set my-own-communities
       <YOUR OWN AS NUMBER>:*
@@ -68,7 +68,7 @@ See https://routing.denog.de/guides/route_filtering/outbound/well_known_communit
       endif
     end-policy
     ```
-=== "Juniper"
+=== "Juniper JunOS"
 Standard community
     ```
     set policy-options community CUSTOMER members 65534:100
@@ -77,6 +77,6 @@ Standard community
 Large community
     ```
     set policy-options community CUSTOMER members large:4200000001:0:1002
-    set policy-options community TEST members large:205806:0:100
+    set policy-options community TEST members large:64500:0:100
     set policy-options community UPSTREAM members large:65534:0:200
     ```

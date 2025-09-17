@@ -10,7 +10,7 @@ Your own networks should be stored in lists and then used in policy for external
 
 ## Configuration
 === "Cisco IOS XR"
-    Your own prefixes to the list:
+    Add your own prefixes to the list:
     ```
     prefix-set my-own-network-ipv4
       <Please enter your own prefix with netmask here> le 32,
@@ -18,8 +18,8 @@ Your own networks should be stored in lists and then used in policy for external
     end-set
     
     prefix-set my-own-network-ipv6
-      <Please enter your own prefix with netmask here> le le 128,
-      <Please enter your own prefix with netmask here> le le 128
+      <Please enter your own prefix with netmask here> le 128,
+      <Please enter your own prefix with netmask here> le 128
     end-set
     ```
 
@@ -43,7 +43,7 @@ Your own networks should be stored in lists and then used in policy for external
     ```
     The policy should be part of a central policy for the external BGP peer.
 
-=== "Juniper"
+=== "Juniper JunOS"
     Create prefix list containtaing your own prefixes:
     ```
     set policy-options prefix-list MY-PREFIXES-V4 <PLEASE INSERT YOUR PREFIX HERE>
@@ -54,6 +54,7 @@ Your own networks should be stored in lists and then used in policy for external
     Add it to your Import Policy:
 
     ```
+    set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 from family inet
     set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 from prefix-list-filter MY-PREFIXES-V4 orlonger
     set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 then trace
     set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V4 then reject

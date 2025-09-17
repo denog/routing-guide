@@ -10,7 +10,7 @@ Normally (there are exceptions), prefixes are announced in certain minimum and m
 Configuration examples:
 
 === "Cisco IOS"
-    Using an *unwanted* prefix-list you can add  more prefixes to it that you not want. This shortens your configuration but might also decrease readability.
+    Using an *unwanted* prefix-list you can add more prefixes to it that you not want. This shortens your configuration but might also decrease readability.
     ```
     ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 25 le 32
     ip prefix-list ipv4-unwanted permit 0.0.0.0/0 ge 1 le 7
@@ -32,7 +32,7 @@ Configuration examples:
     ```
 
 === "Cisco IOS XR"
-    Use an *permitted* list and you can still customize the range. Please note that these areas are common on the public internet.
+    Use an *permitted* list and you can still customize the range. Please note that these areas are common on the public Internet.
     ```
     # Define permitted IP prefixes
     prefix-set permitted-prefix-length-v4
@@ -139,8 +139,9 @@ Configuration examples:
     commit
     ```
 
-=== "Juniper"
+=== "Juniper JunOS"
     ```
+    set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 from family inet
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 from route-filter 0.0.0.0/0 prefix-length-range /25-/32
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 then trace
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 then reject

@@ -13,7 +13,7 @@ We have a [Code of Conduct](https://github.com/denog/routing-guide/blob/main/COD
 
 ## Deployment
 
-The main branch is deployed to [routing.denog.de](https://routing.denog.de/) the automtically.
+The main branch is deployed to [routing.denog.de](https://routing.denog.de/) the automatically.
 
 ## Development
 
