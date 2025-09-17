@@ -21,17 +21,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: SetupPython
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-
-      - name: Install Requirements
-        run: pip install -r requirements.txt
-        run: mkdocs build
+      - run: pip install -r requirements.txt
+      - run: mkdocs build
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1.6.2
