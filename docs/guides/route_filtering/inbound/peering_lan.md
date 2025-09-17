@@ -62,6 +62,51 @@ and convert it to your router configuration.
       endif
     end-policy
     ```
+=== "Bird2"
+    ```
+    define IXP_PREFIXES4 = [
+      185.1.155.0/24 # LocIX DUS
+    ];
+    define IXP_PREFIXES6 = [
+      2a0c:b641:701::/64 # LocIX DUS
+    ];
+    function reject_ixp_prefixes4()
+    prefix set ixp_prefixes4;
+    {
+      ixp_prefixes4 = IXP_PREFIXES4;
+      if (net ~ ixp_prefixes4) then {
+        # optional logging
+        # print "Reject: IXP Prefix detected: ", net, " ", bgp_path;
+        reject;
+      }
+    }
+    function reject_ixp_prefixes6()
+    prefix set ixp_prefixes6;
+    {
+      ixp_prefixes6 = IXP_PREFIXES6;
+      if (net ~ ixp_prefixes6) then {
+        # optional logging
+        # print "Reject: IXP Prefix detected: ", net, " ", bgp_path;
+        reject;
+      }
+    }
+    protocol bgp neighbor_name {
+      ipv4 {
+        import filter {
+          reject_ixp_prefixes4();
+          # other filters
+          accept;
+        };
+      }
+      ipv6 {
+        import filter {
+          reject_ixp_prefixes6();
+          # other filters
+          accept;
+        };
+      }
+    }
+    ```
 
 === "Nokia SR OS classic CLI"
     ```
