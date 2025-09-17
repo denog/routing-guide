@@ -2,7 +2,6 @@
 tags:
   - Arista missing
   - Cisco IOS XR missing
-  - FRR missing
   - Huawei VRP missing
   - Mikrotik missing
   - Nokia SR OS missing
@@ -41,7 +40,7 @@ On the other hand, if you want the full routing table, you should not accept any
     route-map prefixes-in deny 10
       match ip address prefix-list default-route-v4
       match ipv6 address prefix-list default-route-v6
-    ````
+    ```
 
 === "Cisco IOS XR"
     Build prefix lists with default route entries
