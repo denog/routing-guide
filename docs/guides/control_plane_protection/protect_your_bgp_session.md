@@ -131,3 +131,20 @@ Configuration examples:
     ```
     set instance <INSTANCE> protocol bgp peer-group <GROUPNAME> ttl-security enable
     ```
+=== "Bird2"
+    ```
+    protocol bgp name4 {
+      # if you use /etc/ipsec.conf for the keys, please uncomment the next line
+      # setkey no;
+      password "mysecretpassword";
+    }
+    ```
+=== "Nokia SR OS classic CLI"
+    ```
+/configure router "Base" bgp
+        group "as64500"
+            [...]
+            authentication-key "mysecretpassword"
+            [...]
+        exit
+    ```
