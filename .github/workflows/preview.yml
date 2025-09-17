@@ -27,7 +27,7 @@ jobs:
           python-version: 3.x
       - run: pip install -r requirements.txt
       - run: mkdocs build
-      - name: Deploy preview
-        uses: rossjrw/pr-preview-action@v1
+      - name: Deploy PR Preview
+        uses: rossjrw/pr-preview-action@v1.6.2
         with:
           source-dir: ./site/
