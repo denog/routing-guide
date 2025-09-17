@@ -134,8 +134,6 @@ Configuration examples:
 === "Bird2"
     ```
     protocol bgp name4 {
-      # if you use /etc/ipsec.conf for the keys, please uncomment the next line
-      # setkey no;
       password "mysecretpassword";
     }
     ```
