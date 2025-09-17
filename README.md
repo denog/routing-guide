@@ -1,6 +1,6 @@
 # DENOG Routing Guide
 
-This guide is intended to act as a reference for best practices in Internet backbone routing. Its goal is to make the Internet more stable, secure and sustainable by educating both new and experienced network engineers. 
+This guide is intended to act as a reference for best practices in Internet backbone routing. Its goal is to make the Internet more stable, secure and sustainable by educating both new and experienced network engineers.
 
 # Working Group
 
@@ -19,9 +19,11 @@ The main branch is deployed to [routing.denog.de](https://routing.denog.de/) the
 
 To build the site you need `mkdocs` and the `mkdocs-material` theme installed. For Nix users there is a `shell.nix` file bundled.
 On other systems you can use pip to install the dependencies:
+
+```shell
+pip3 install -r requirements.txt
 ```
-pip3 install mkdocs mkdocs-material mkdocs-git-revision-date-localized-plugin
-```
+
 Then you can use `mkdocs serve` to start a local development server that updates the content automatically.
 
 # License
