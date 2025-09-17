@@ -1,5 +1,9 @@
 name: Deploy PR previews
 
+permissions:
+  contents: read
+  pages: write
+
 on:
   pull_request:
     types:
