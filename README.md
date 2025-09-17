@@ -22,7 +22,7 @@ On other systems you can use pip to install the dependencies:
 ```
 pip3 install mkdocs mkdocs-material mkdocs-git-revision-date-localized-plugin
 ```
-Then you can use `mkdocs serve` to start a local development server that updates the content automatically.
+Then you can use `mkdocs serve` to start a local development server that updates the content automatically
 
 # License
 
