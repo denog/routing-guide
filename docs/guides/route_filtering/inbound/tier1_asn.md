@@ -40,12 +40,18 @@ Be aware that you need to manually check the prefix list as you could peer with 
 
     protocol bgp example_ix_rs {
       ipv4 {
-         reject_transit_paths();
-         ...
+        import filter {
+          reject_transit_paths();
+          # other filters
+          accept;
+        };
       }
       ipv6 {
-         reject_transit_paths();
-         ...
+        import filter {
+          reject_transit_paths();
+          # other filters
+          accept;
+        };
       }
     }
     ```
