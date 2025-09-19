@@ -37,9 +37,11 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 markdown_extensions:
-  #- pymdownx.emoji
-    #emoji_index: !!python/name:material.extensions.emoji.twemoji
-        #emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  # Emojis disabled because certain strings which contain a colon character
+  # (i.e., IPv6 addresses, BGP communities) are interpreted as emojis
+  # - pymdownx.emoji:
+  #     emoji_index: !!python/name:material.extensions.emoji.twemoji
+  #     emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
