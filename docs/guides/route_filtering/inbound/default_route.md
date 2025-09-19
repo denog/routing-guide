@@ -35,11 +35,12 @@ On the other hand, if you want the full routing table, you should not accept any
       match ipv6 address prefix-list default-route-v6
     ```
 
-    Route-Map statement for *not* allowing default routes in:
+    Route-Map statement for *not* allowing default routes in, but allowing all other prefixes:
     ```
     route-map prefixes-in deny 10
       match ip address prefix-list default-route-v4
       match ipv6 address prefix-list default-route-v6
+    route-map prefixes-in allow 20
     ```
 
 === "Cisco IOS XR"
@@ -134,4 +135,3 @@ On the other hand, if you want the full routing table, you should not accept any
      set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then trace
      set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then reject
      ```
- 
