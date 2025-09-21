@@ -16,5 +16,3 @@ pkgs.stdenv.mkDerivation {
     mkdocs build -d $out
   '';
 }
-
-
