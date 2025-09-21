@@ -92,6 +92,35 @@ Unfortunately this is not widely implemented.
     set instance <INSTANCE> protocol bgp peer ipv4 <PEER> <SOURCE> authentication-id <AUTHENTICATION-ID>
     ```
 
+=== "Bird 2 / 3"
+    Supported since Bird 2.17 and 3.1.0 on Linux. On BSD TCP-AO is currently not supported.
+
+    See original post in [mailing list](https://bird.network.cz/pipermail/bird-users/2025-April/018156.html) for more details.
+
+    <!-- no rendered documentation yet
+         search for "TCP-AO" in https://gitlab.nic.cz/labs/bird/-/blob/master/doc/bird.sgml
+    -->
+    ```
+    protocol bgp {
+        authentication ao;
+        keys {
+            key {
+                id 0;
+                secret "hello321";
+                algorithm hmac sha256;
+                preferred;
+            };
+            key {
+                send id 2;
+                recv id 1;
+                secret "bye123";
+                algorithm cmac aes128;
+            };
+        };
+    }
+    ```
+    Note that TCP-AO authentication is not supported on dynamic BGP sessions.
+
 ## TTL Security
 
 Instead of using a password, relying on the *TTL* value of incoming TCP packets is easier to handle and to implement.
