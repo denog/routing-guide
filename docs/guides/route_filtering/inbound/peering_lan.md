@@ -1,7 +1,7 @@
 # Peering LANs
 
 When you are connected to an Internet Exchange Point, you have an interface configured
-with an IP address and netmask of that IXP. If, now, someone else announces the same
+with an IP address and netmask of that IXP[^1]. If, now, someone else announces the same
 network (or worse: a more specific sub-network) via BGP and you accept this announcement,
 your router might prefer this announcement over the one of its own interface (especially if
 the announcement is more specific).
@@ -139,3 +139,5 @@ and convert it to your router configuration.
             exit
     commit
     ```
+
+[^1]: Internet eXchange Point
