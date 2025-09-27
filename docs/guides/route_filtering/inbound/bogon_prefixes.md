@@ -297,3 +297,108 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
             exit
     commit
     ```
+
+=== "Arista EOS legacy"
+    ```
+    ip prefix-list BOGONS_v4
+       seq 1 permit 0.0.0.0/8 le 32
+       seq 2 permit 10.0.0.0/8 le 32
+       seq 3 permit 100.64.0.0/10 le 32
+       seq 4 permit 127.0.0.0/8 le 32
+       seq 5 permit 169.254.0.0/16 le 32
+       seq 6 permit 172.16.0.0/12 le 32
+       seq 7 permit 192.0.2.0/24 le 32
+       seq 8 permit 192.88.99.0/24 le 32
+       seq 9 permit 192.168.0.0/16 le 32
+       seq 10 permit 198.18.0.0/15 le 32
+       seq 11 permit 198.51.100.0/24 le 32
+       seq 12 permit 203.0.113.0/24 le 32
+       seq 13 permit 224.0.0.0/4 le 32
+       seq 14 permit 240.0.0.0/4 le 32
+    !
+    ipv6 prefix-list BOGONS_v6
+       seq 1 permit 100::/64
+       seq 2 permit 2001:2::/48
+       seq 3 permit 2001:10::/28
+       seq 4 permit 2001:db8::/32
+       seq 5 permit 2002::/16
+       seq 6 permit 3ffe::/16
+       seq 7 permit fc00::/7
+       seq 8 permit fe80::/10
+       seq 9 permit fec0::/10
+       seq 10 permit ff00::/8
+       set 11 permit 3fff::/20
+       set 12 permit 5f00::/16
+    !
+    route-map example-in deny 14
+       match ip address prefix-list BOGONS_v4
+    route-map example-in deny 16
+       match ipv6 address prefix-list BOGONS_v6
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 route-map example-in in
+       address-family ipv4
+          neighbor 198.51.100.1 route-map example-in in
+    ```
+
+=== "Arista EOS RCF"
+    ```
+    ip prefix-list BOGONS_v4
+       seq 1 permit 0.0.0.0/8 le 32
+       seq 2 permit 10.0.0.0/8 le 32
+       seq 3 permit 100.64.0.0/10 le 32
+       seq 4 permit 127.0.0.0/8 le 32
+       seq 5 permit 169.254.0.0/16 le 32
+       seq 6 permit 172.16.0.0/12 le 32
+       seq 7 permit 192.0.2.0/24 le 32
+       seq 8 permit 192.88.99.0/24 le 32
+       seq 9 permit 192.168.0.0/16 le 32
+       seq 10 permit 198.18.0.0/15 le 32
+       seq 11 permit 198.51.100.0/24 le 32
+       seq 12 permit 203.0.113.0/24 le 32
+       seq 13 permit 224.0.0.0/4 le 32
+       seq 14 permit 240.0.0.0/4 le 32
+    !
+    ipv6 prefix-list BOGONS_v6
+       seq 1 permit 100::/64
+       seq 2 permit 2001:2::/48
+       seq 3 permit 2001:10::/28
+       seq 4 permit 2001:db8::/32
+       seq 5 permit 2002::/16
+       seq 6 permit 3ffe::/16
+       seq 7 permit fc00::/7
+       seq 8 permit fe80::/10
+       seq 9 permit fec0::/10
+       seq 10 permit ff00::/8
+       set 11 permit 3fff::/20
+       set 12 permit 5f00::/16
+    !
+    router general
+    control-functions
+       code unit example
+    function bogon_v4() {
+        return prefix match prefix_list_v4 BOGONS_v4;
+    }
+    function bogon_v6() {
+        return prefix match prefix_list_v4 BOGONS_v4;
+    }
+    function example_in() {
+        if bogon_v4() {
+            exit false;
+        } else if bogon_v6() {
+            exit false;
+        }
+    }
+    EOF
+          compile
+          commit
+          exit
+       exit
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 rcf in example_in()
+       address-family ipv4
+          neighbor 198.51.100.1 rcf in example_in()
+    ```

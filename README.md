@@ -26,6 +26,16 @@ pip3 install -r requirements.txt
 
 Then you can use `mkdocs serve` to start a local development server that updates the content automatically.
 
+## Testing
+
+This repo uses [editorconfig-checker](https://github.com/editorconfig-checker/editorconfig-checker) to check for formatting issues when PRs are opened. Use the following commands to install and run editorconfig-checker locally to check for issues before opening a PR:
+
+```shell
+pip3 install editorconfig-checker
+
+ec
+```
+
 # License
 
 Content is available under the [Creative Commons Attribution License 4.0](https://raw.githubusercontent.com/denog/routing-guide/main/LICENSE.md), unless otherwise stated.

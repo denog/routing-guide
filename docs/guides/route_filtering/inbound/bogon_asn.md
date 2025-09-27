@@ -127,3 +127,77 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
             exit
     commit
     ```
+
+=== "Arista EOS legacy"
+    ```
+    ip as-path regex-mode asn
+    !
+    ! RFC7607
+    ip as-path access-list bogon-asns permit _0_ any
+    ! 2 to 4 byte ASN migrations
+    ip as-path access-list bogon-asns permit _23456_ any
+    ! RFC5398
+    ip as-path access-list bogon-asns permit _[64496-64511]_ any
+    ip as-path access-list bogon-asns permit _[65536-65551]_ any
+    ! RFC6996
+    ip as-path access-list bogon-asns permit _[64512-65534]_ any
+    ip as-path access-list bogon-asns permit _[4200000000-4294967294]_ any
+    ! RFC7300
+    ip as-path access-list bogon-asns permit _65535_ any
+    ip as-path access-list bogon-asns permit _4294967295_ any
+    ! IANA reserved
+    ip as-path access-list bogon-asns permit _[65552-131071]_ any
+    !
+    route-map example-in deny 10
+       match as-path bogon-asns
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 route-map example-in in
+       address-family ipv4
+          neighbor 198.51.100.1 route-map example-in in
+    ```
+
+=== "Arista EOS RCF"
+    ```
+    ip as-path regex-mode asn
+    !
+    ! RFC7607
+    ip as-path access-list bogon-asns deny _0_ any
+    ! 2 to 4 byte ASN migrations
+    ip as-path access-list bogon-asns deny _23456_ any
+    ! RFC5398
+    ip as-path access-list bogon-asns deny _[64496-64511]_ any
+    ip as-path access-list bogon-asns deny _[65536-65551]_ any
+    ! RFC6996
+    ip as-path access-list bogon-asns deny _[64512-65534]_ any
+    ip as-path access-list bogon-asns deny _[4200000000-4294967294]_ any
+    ! RFC7300
+    ip as-path access-list bogon-asns deny _65535_ any
+    ip as-path access-list bogon-asns deny _4294967295_ any
+    ! IANA reserved
+    ip as-path access-list bogon-asns deny _[65552-131071]_ any
+    !
+    router general
+    control-functions
+       code unit example
+    function bogon_asn() {
+      return as_path match as_path_list bogon-asns;
+    }
+    function example_in() {
+        if bogon-asn() {
+            exit false;
+        }
+    }
+    EOF
+          compile
+          commit
+          exit
+       exit
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 rcf in example_in()
+       address-family ipv4
+          neighbor 198.51.100.1 rcf in example_in()
+    ```
