@@ -20,7 +20,7 @@
     
     
       
-        <title>Blackhole - DENOG Routing Guide</title>
+        <title>Blackhole Routing - DENOG Routing Guide</title>
       
     
     
@@ -118,6 +118,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#blackhole-routing" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -150,7 +155,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Blackhole
+              Blackhole Routing
             
           </span>
         </div>
@@ -790,18 +795,61 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Blackhole Routing
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Blackhole
+    Blackhole Routing
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1468,6 +1516,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1499,9 +1566,14 @@
   
 
 
-  <h1>Blackhole</h1>
-
-
+<h1 id="blackhole-routing">Blackhole Routing</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Destination based Remotely Triggered Blackhole Routing is standardised in <a href="https://www.rfc-editor.org/rfc/rfc3882.html">RFC3882</a>. It is a technique which allows a BGP community to be attached to a prefix, and then all traffic to that destination prefix will be dropped.</p>
+<p>One use case for RTBH is that a destination prefix is under attack (usually a DDoS attack) and an RTBH route is created to mitigate the attack.</p>
+<p>For example, the traffic load towards the destination prefix is causing network connectivity problems for other users on the network, not just the prefix under attack. This can happen when a large amount of traffic is sent to a prefix, and the traffic is coming from many different sources, and entering the network at multiple different points. At each point where traffic enters the network, the increased traffic volume from the attack is not exceptionally high. However, at the point in the network where the customer is connected, all this excess traffic is aggregated in one place, to forward on to the customer. The router where the customer (victim) is connected might be receiving so much traffic for that customer, it's links become congested, which affects all other customers connected to that same router.</p>
+<p>If the customer (victim) is receiving more traffic than they can handle, creating an RTBH route to drop all traffic towards that customer has no additional impact on the customer, they are effectively already offline. However, the RTBH route can prevent other customers or services from being caught in the "blast radius" of the attack directed at the customer. That is can also cause the attack to end earlier. When attackers flood a target with traffic in order to overwhelm the target, some small amount of return traffic from the victim may be received by the attacker. This lets the attack know that the victim is "still alive", and so the attack continues. With an RTBH route in place, the destination prefix is completely unreachable, and thus the attack has been "successful" (in that the target is now unreachable), and the attackers stop their attack.</p>
+<p>Another use case for RTBH is for protecting prefixes which should be present in the routing table (i.e., in order to prevent another network from announcing those prefixes and hijacking traffic towards them), but should not be reachable (e.g., internal infrastructure prefixes).</p>
+<p>RTBH routes are implemented by originating a route into BGP (a route received from another i/e-BGP peer, redistributing a static route, etc.) and adding a community to that route as it is advertised to BGP peers. Receiving BGP peers match on the community and force the next-hop of the received prefix to be a special IP address that is "null routed" (meaning, an IP address which points to a special interface, which drops all packets sent to that interface).</p>
 
 
 
@@ -1522,7 +1594,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 12:01:09 UTC">September 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="September 30, 2025 12:10:09 UTC">September 30, 2025</span>
   </span>
 
     
