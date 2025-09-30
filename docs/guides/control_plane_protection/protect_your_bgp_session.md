@@ -148,3 +148,18 @@ Configuration examples:
     ```
     set instance <INSTANCE> protocol bgp peer-group <GROUPNAME> ttl-security enable
     ```
+=== "Bird2"
+    ```
+    protocol bgp name4 {
+      password "mysecretpassword";
+    }
+    ```
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" bgp
+        group "as64500"
+            [...]
+            authentication-key "mysecretpassword"
+            [...]
+        exit
+    ```
