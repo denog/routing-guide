@@ -24,9 +24,9 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
 === "Cisco IOS / FRRouting"
     For IPv4, you can simply add all unwanted prefixes to the list we defined in the previous section:
     ```
-    ip prefix-list ipv4-unwanted permit 192.168.0.0/16 le 32
-    ip prefix-list ipv4-unwanted permit 172.16.0.0/12 le 32
     ip prefix-list ipv4-unwanted permit 10.0.0.0/8 le 32
+    ip prefix-list ipv4-unwanted permit 172.16.0.0/12 le 32
+    ip prefix-list ipv4-unwanted permit 192.168.0.0/16 le 32
     ...
     ```
 
@@ -34,40 +34,40 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     For IPv4, you can simply add all unwanted prefixes to the list:
     ```
     prefix-set bogon-ipv4
-      # RFC 1122 'this' Network
+      # RFC1122 'this' Network
       0.0.0.0/8 le 32,
-      # RFC 1918 Private
+      # RFC1918 Private
       10.0.0.0/8 le 32,
-      # RFC 6598 Carrier grade nat space
+      # RFC6598 Carrier grade nat space
       100.64.0.0/10 le 32,
-      # RFC 1122 Loopback
+      # RFC1122 Loopback
       127.0.0.0/8 le 32,
-      # RFC 3927 Link Local
+      # RFC3927 Link Local
       169.254.0.0/16 le 32,
-      # RFC 1918 Private
+      # RFC1918 Private
       172.16.0.0/12 le 32,
-      # RFC 6890 Protocol Assignments
+      # RFC6890 Protocol Assignments
       192.0.0.0/24 le 32,
-      # RFC 5737 Documentation TEST-NET-1
+      # RFC5737 Documentation TEST-NET-1
       192.0.2.0/24 le 32,
-      # RFC 7526 6to4 anycast relay
+      # RFC7526 6to4 anycast relay
       192.88.99.0/24 le 32,
-      # RFC 1918 Private
+      # RFC1918 Private
       192.168.0.0/16 le 32,
-      # RFC 2544 Benchmarking
+      # RFC2544 Benchmarking
       198.18.0.0/15 le 32,
-      # RFC 5737 Documentation TEST-NET-2
+      # RFC5737 Documentation TEST-NET-2
       198.51.100.0/24 le 32,
-      # RFC 5737 Documentation TEST-NET-3
+      # RFC5737 Documentation TEST-NET-3
       203.0.113.0/24 le 32,
-      # RFC 5771 Multicast
+      # RFC5771 Multicast
       224.0.0.0/4 le 32,
-      # RFC 1112 Reserved
+      # RFC1112 Reserved
       240.0.0.0/4 le 32
     end-set
     
     prefix-set bogon-ipv6
-      #IETF reserved
+      # IETF reserved
       ::/8 le 128,
       # RFC6666 Discard-Only Address Block
       100::/64 le 128,
@@ -104,42 +104,42 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     You can add this to your existing filter or you can create a sub-filter for better readability:
     ```
     /routing filter
-    add action=reject chain=ipv4-unwanted prefix=192.168.0.0/16 prefix-length=16-32
-    add action=reject chain=ipv4-unwanted prefix=172.16.0.0/12 prefix-length=12-32
     add action=reject chain=ipv4-unwanted prefix=10.0.0.0/8 prefix-length=8-32
+    add action=reject chain=ipv4-unwanted prefix=172.16.0.0/12 prefix-length=12-32
+    add action=reject chain=ipv4-unwanted prefix=192.168.0.0/16 prefix-length=16-32
     ...
     ```
 
 === "Bird2"
     ```
     define BOGON_PREFIXES4 = [
-      0.0.0.0/8+,         # RFC 1122 'this' Network
-      10.0.0.0/8+,        # RFC 1918 Private
-      100.64.0.0/10+,     # RFC 6598 Carrier grade nat space
-      127.0.0.0/8+,       # RFC 1122 Loopback
-      169.254.0.0/16+,    # RFC 3927 Link Local
-      172.16.0.0/12+,     # RFC 1918 Private
-      192.0.2.0/24+,      # RFC 5737 Documentation TEST-NET-1
-      192.168.0.0/16+,    # RFC 1918 Private
-      198.18.0.0/15+,     # RFC 2544 Benchmarking
-      198.51.100.0/24+,   # RFC 5737 Documentation TEST-NET-2
-      203.0.113.0/24+,    # RFC 5737 Documentation TEST-NET-3
-      224.0.0.0/4+,       # RFC 5771 Multicast
-      240.0.0.0/4+        # RFC 1112 Reserved
+      0.0.0.0/8+,         # RFC1122 'this' Network
+      10.0.0.0/8+,        # RFC1918 Private
+      100.64.0.0/10+,     # RFC6598 Carrier grade nat space
+      127.0.0.0/8+,       # RFC1122 Loopback
+      169.254.0.0/16+,    # RFC3927 Link Local
+      172.16.0.0/12+,     # RFC1918 Private
+      192.0.2.0/24+,      # RFC5737 Documentation TEST-NET-1
+      192.168.0.0/16+,    # RFC1918 Private
+      198.18.0.0/15+,     # RFC2544 Benchmarking
+      198.51.100.0/24+,   # RFC5737 Documentation TEST-NET-2
+      203.0.113.0/24+,    # RFC5737 Documentation TEST-NET-3
+      224.0.0.0/4+,       # RFC5771 Multicast
+      240.0.0.0/4+        # RFC1112 Reserved
     ];
     define BOGON_PREFIXES6 = [
-        ::/8+,           # RFC4291 Loopback and more
-        0100::/64+,      # RFC6666 Discard-Only Address Block
-        2001:2::/48+,    # RFC5180 Benchmarking
-        2001:10::/28+    # RFC4843 ORCHID
-        2001:db8::/32+,  # RFC7450 Documentation
-        3ffe::/16+,      # RFC3701 old 6bone
-        3fff::/20+,      # RFC9637 Documentation
-        5f00::/16+,      # RFC9602 SRv6 SIDs
-        fc00::/7+,       # RFC4193,RFC8190 Unique-Local
-        fe80::/10+       # RFC4291 Link-Local Unicast
-        fec0::/10+       # RFC3879 old Site-Local Unicast
-        ff00::/8+        # RFC4291 Multicast
+        ::/8+,            # RFC4291 Loopback and more
+        0100::/64+,       # RFC6666 Discard-Only Address Block
+        2001:2::/48+,     # RFC5180 Benchmarking
+        2001:10::/28+     # RFC4843 ORCHID
+        2001:db8::/32+,   # RFC7450 Documentation
+        3ffe::/16+,       # RFC3701 old 6bone
+        3fff::/20+,       # RFC9637 Documentation
+        5f00::/16+,       # RFC9602 SRv6 SIDs
+        fc00::/7+,        # RFC4193,RFC8190 Unique-Local
+        fe80::/10+        # RFC4291 Link-Local Unicast
+        fec0::/10+        # RFC3879 old Site-Local Unicast
+        ff00::/8+         # RFC4291 Multicast
     ];
     function reject_bogon_prefixes4()
     prefix set bogon_prefixes4;
@@ -173,7 +173,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     }
     ```
     
-=== "Juniper"
+=== "Juniper JunOS"
     For IPv4 as an own policy:
     ```
     set policy-options policy-statement IPV4-BOGONS term IANA-LOCAL-IDENTIFICATION from route-filter 0.0.0.0/8 orlonger
@@ -202,6 +202,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     set policy-options policy-statement IPV4-BOGONS term IANA-MULTICAST then accept
     set policy-options policy-statement IPV4-BOGONS term IANA-CLASS-E from route-filter 240.0.0.0/4 orlonger
     set policy-options policy-statement IPV4-BOGONS term IANA-CLASS-E then accept
+    set policy-options policy-statement IPV4-BOGONS term REJECT from route-filter 0.0.0.0/0 orlonger
     set policy-options policy-statement IPV4-BOGONS term REJECT then reject
     ```
 
@@ -212,15 +213,13 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter fe00::/9 orlonger
     set policy-options policy-statement IPV6-BOGONS term MULTICAST from route-filter ff00::/8 orlonger
     set policy-options policy-statement IPV6-BOGONS term MULTICAST then accept
-    set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2002:db8::/32 orlonger
     set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 2001:db8::/32 orlonger
+    set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX from route-filter 3fff::/20 orlonger
     set policy-options policy-statement IPV6-BOGONS term DOCUMENTATION-PREFIX then accept
     set policy-options policy-statement IPV6-BOGONS term 6BONE from route-filter 3ffe::/16 orlonger
     set policy-options policy-statement IPV6-BOGONS term 6BONE then accept
-    set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2002::/32 exact
     set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT from route-filter 2001::/32 exact
     set policy-options policy-statement IPV6-BOGONS term TEREDO-ACCEPT then next policy
-    set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2002::/32 longer
     set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT from route-filter 2001::/32 longer
     set policy-options policy-statement IPV6-BOGONS term TEREDO-REJECT then accept
     set policy-options policy-statement IPV6-BOGONS term 6TO4-ACCEPT from route-filter 2002::/16 exact
@@ -233,6 +232,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
 
     Usage within another policy (nested policies):
     ```
+    set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 from family inet
     set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 from policy IPV4-BOGONS
     set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then trace
     set policy-options policy-statement MY_INPUT_POLICY term BOGONS-V4 then reject
@@ -296,4 +296,109 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
                 [...]
             exit
     commit
+    ```
+
+=== "Arista EOS legacy"
+    ```
+    ip prefix-list BOGONS_v4
+       seq 1 permit 0.0.0.0/8 le 32
+       seq 2 permit 10.0.0.0/8 le 32
+       seq 3 permit 100.64.0.0/10 le 32
+       seq 4 permit 127.0.0.0/8 le 32
+       seq 5 permit 169.254.0.0/16 le 32
+       seq 6 permit 172.16.0.0/12 le 32
+       seq 7 permit 192.0.2.0/24 le 32
+       seq 8 permit 192.88.99.0/24 le 32
+       seq 9 permit 192.168.0.0/16 le 32
+       seq 10 permit 198.18.0.0/15 le 32
+       seq 11 permit 198.51.100.0/24 le 32
+       seq 12 permit 203.0.113.0/24 le 32
+       seq 13 permit 224.0.0.0/4 le 32
+       seq 14 permit 240.0.0.0/4 le 32
+    !
+    ipv6 prefix-list BOGONS_v6
+       seq 1 permit 100::/64
+       seq 2 permit 2001:2::/48
+       seq 3 permit 2001:10::/28
+       seq 4 permit 2001:db8::/32
+       seq 5 permit 2002::/16
+       seq 6 permit 3ffe::/16
+       seq 7 permit fc00::/7
+       seq 8 permit fe80::/10
+       seq 9 permit fec0::/10
+       seq 10 permit ff00::/8
+       set 11 permit 3fff::/20
+       set 12 permit 5f00::/16
+    !
+    route-map example-in deny 14
+       match ip address prefix-list BOGONS_v4
+    route-map example-in deny 16
+       match ipv6 address prefix-list BOGONS_v6
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 route-map example-in in
+       address-family ipv4
+          neighbor 198.51.100.1 route-map example-in in
+    ```
+
+=== "Arista EOS RCF"
+    ```
+    ip prefix-list BOGONS_v4
+       seq 1 permit 0.0.0.0/8 le 32
+       seq 2 permit 10.0.0.0/8 le 32
+       seq 3 permit 100.64.0.0/10 le 32
+       seq 4 permit 127.0.0.0/8 le 32
+       seq 5 permit 169.254.0.0/16 le 32
+       seq 6 permit 172.16.0.0/12 le 32
+       seq 7 permit 192.0.2.0/24 le 32
+       seq 8 permit 192.88.99.0/24 le 32
+       seq 9 permit 192.168.0.0/16 le 32
+       seq 10 permit 198.18.0.0/15 le 32
+       seq 11 permit 198.51.100.0/24 le 32
+       seq 12 permit 203.0.113.0/24 le 32
+       seq 13 permit 224.0.0.0/4 le 32
+       seq 14 permit 240.0.0.0/4 le 32
+    !
+    ipv6 prefix-list BOGONS_v6
+       seq 1 permit 100::/64
+       seq 2 permit 2001:2::/48
+       seq 3 permit 2001:10::/28
+       seq 4 permit 2001:db8::/32
+       seq 5 permit 2002::/16
+       seq 6 permit 3ffe::/16
+       seq 7 permit fc00::/7
+       seq 8 permit fe80::/10
+       seq 9 permit fec0::/10
+       seq 10 permit ff00::/8
+       set 11 permit 3fff::/20
+       set 12 permit 5f00::/16
+    !
+    router general
+    control-functions
+       code unit example
+    function bogon_v4() {
+        return prefix match prefix_list_v4 BOGONS_v4;
+    }
+    function bogon_v6() {
+        return prefix match prefix_list_v4 BOGONS_v4;
+    }
+    function example_in() {
+        if bogon_v4() {
+            exit false;
+        } else if bogon_v6() {
+            exit false;
+        }
+    }
+    EOF
+          compile
+          commit
+          exit
+       exit
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 rcf in example_in()
+       address-family ipv4
+          neighbor 198.51.100.1 rcf in example_in()
     ```

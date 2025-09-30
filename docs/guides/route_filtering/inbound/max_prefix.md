@@ -69,7 +69,7 @@ Configuration examples:
             exit
     ```
 
-=== "Juniper"
+=== "Juniper JunOS"
     ```
     set protocols bgp group MY_NEIGHBOR_GROUP 198.51.100.1 family inet unicast accepted-prefix-limit maximum 10 drop-excess
     set protocols bgp group MY_NEIGHBOR_GROUP 2001:db8::1 family inet6 unicast accepted-prefix-limit maximum 5 drop-excess

@@ -4,7 +4,7 @@ Some routers accept configuration commands as you type them in line by line. At 
 
 Now, if you setup a BGP session to a neighbor and the router accepts it line by line, the session will be established once "enough" configuration is entered, independent if you have completed the configuration or not.
 
-So imagine you enter the neigbhbors AS number and IP address and then you go for a coffee. This might be enough to establish a session. Without any filtering, you now will receive everything from that neighbor and also announce every valid prefix in your own BGP tables. Most of the times, this is not what you want.
+So imagine you enter the neighbors AS number and IP address and then you go for a coffee. This might be enough to establish a session. Without any filtering, you now will receive everything from that neighbor and also announce every valid prefix in your own BGP tables. Most of the times, this is not what you want.
 
 [RFC8212](https://www.rfc-editor.org/rfc/rfc8212.html)
 requires that you *must* configure an import and an export policy (= some filtering) on any external BGP session, otherwise the session will not be initiated or accepted.

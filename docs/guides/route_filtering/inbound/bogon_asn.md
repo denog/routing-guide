@@ -12,18 +12,18 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     as-path-set bogon-asns
        # RFC7607
        ios-regex '_0_',
-       # 2 to 4 byte ASN migrations
+       # RFC4893: AS_TRANS, 2 to 4 byte ASN migrations
        passes-through '23456',
-       # RFC5398
+       # RFC5398: documentation/example ASNs
        passes-through '[64496..64511]',
        passes-through '[65536..65551]',
-       # RFC6996
+       # RFC6996: private ASNs
        passes-through '[64512..65534]',
        passes-through '[4200000000..4294967294]',
-       # RFC7300
+       # RFC7300: last 16/32 bit ASN
        passes-through '65535',
        passes-through '4294967295',
-       # IANA reserved
+       # IANA reserved ASNs
        passes-through '[65552..131071]'
     end-set
 
@@ -39,15 +39,15 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
 === "Bird2"
     ```
     define BOGON_ASNS = [
-      0,                      # RFC 7607
-      23456,                  # RFC 4893 AS_TRANS
-      64496..64511,           # RFC 5398 and documentation/example ASNs
-      64512..65534,           # RFC 6996 Private ASNs
-      65535,                  # RFC 7300 Last 16 bit ASN
-      65536..65551,           # RFC 5398 and documentation/example ASNs
-      65552..131071,          # RFC IANA reserved ASNs
-      4200000000..4294967294, # RFC 6996 Private ASNs
-      4294967295              # RFC 7300 Last 32 bit ASN
+      0,                      # RFC7607
+      23456,                  # RFC4893 AS_TRANS, 2 to 4 byte ASN migrations
+      64496..64511,           # RFC5398 documentation/example ASNs
+      64512..65534,           # RFC6996 private ASNs
+      65535,                  # RFC7300 last 16 bit ASN
+      65536..65551,           # RFC5398 documentation/example ASNs
+      65552..131071,          # IANA reserved ASNs
+      4200000000..4294967294, # RFC6996 private ASNs
+      4294967295              # RFC7300 last 32 bit ASN
     ];
     function reject_bogon_asns()
     int set bogon_asns;
@@ -66,7 +66,7 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     }
     ```
 
-=== "Juniper"
+=== "Juniper JunOS"
     ```
     set policy-options as-path-group CYMRU-BOGON-ASN as-path zero ".* 0 .*"
     set policy-options as-path-group CYMRU-BOGON-ASN as-path as_trans ".* 23456 .*"
@@ -126,4 +126,78 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
                 [...]
             exit
     commit
+    ```
+
+=== "Arista EOS legacy"
+    ```
+    ip as-path regex-mode asn
+    !
+    ! RFC7607
+    ip as-path access-list bogon-asns permit _0_ any
+    ! 2 to 4 byte ASN migrations
+    ip as-path access-list bogon-asns permit _23456_ any
+    ! RFC5398
+    ip as-path access-list bogon-asns permit _[64496-64511]_ any
+    ip as-path access-list bogon-asns permit _[65536-65551]_ any
+    ! RFC6996
+    ip as-path access-list bogon-asns permit _[64512-65534]_ any
+    ip as-path access-list bogon-asns permit _[4200000000-4294967294]_ any
+    ! RFC7300
+    ip as-path access-list bogon-asns permit _65535_ any
+    ip as-path access-list bogon-asns permit _4294967295_ any
+    ! IANA reserved
+    ip as-path access-list bogon-asns permit _[65552-131071]_ any
+    !
+    route-map example-in deny 10
+       match as-path bogon-asns
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 route-map example-in in
+       address-family ipv4
+          neighbor 198.51.100.1 route-map example-in in
+    ```
+
+=== "Arista EOS RCF"
+    ```
+    ip as-path regex-mode asn
+    !
+    ! RFC7607
+    ip as-path access-list bogon-asns deny _0_ any
+    ! 2 to 4 byte ASN migrations
+    ip as-path access-list bogon-asns deny _23456_ any
+    ! RFC5398
+    ip as-path access-list bogon-asns deny _[64496-64511]_ any
+    ip as-path access-list bogon-asns deny _[65536-65551]_ any
+    ! RFC6996
+    ip as-path access-list bogon-asns deny _[64512-65534]_ any
+    ip as-path access-list bogon-asns deny _[4200000000-4294967294]_ any
+    ! RFC7300
+    ip as-path access-list bogon-asns deny _65535_ any
+    ip as-path access-list bogon-asns deny _4294967295_ any
+    ! IANA reserved
+    ip as-path access-list bogon-asns deny _[65552-131071]_ any
+    !
+    router general
+    control-functions
+       code unit example
+    function bogon_asn() {
+      return as_path match as_path_list bogon-asns;
+    }
+    function example_in() {
+        if bogon-asn() {
+            exit false;
+        }
+    }
+    EOF
+          compile
+          commit
+          exit
+       exit
+    !
+    router bgp 64500
+       address-family ipv6
+          neighbor 2001:db8::1 rcf in example_in()
+       address-family ipv4
+          neighbor 198.51.100.1 rcf in example_in()
     ```

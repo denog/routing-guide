@@ -34,7 +34,6 @@ We use some [markdown extensions](https://squidfunk.github.io/mkdocs-material/re
 !!! note
     This is a note
 
-
 ```md
 !!! note
     This is a note
@@ -45,7 +44,6 @@ We use some [markdown extensions](https://squidfunk.github.io/mkdocs-material/re
 !!! warning
     This is a warning
 
-
 ```md
 !!! warning
     This is a warning
@@ -53,21 +51,11 @@ We use some [markdown extensions](https://squidfunk.github.io/mkdocs-material/re
 
 ---
 
-### Feature Matrix
-
-|              | RPKI             |
-| ------------ | ---------------- |
-| JunOS        | :material-check: |
-| Cisco IOS-XR | :material-check: |
-| Arista EOS   | :material-close: |
-
----
-
 ### Diagrams
 
 Diagrams use [Mermaid](https://mermaid.js.org/intro/) syntax
 
-``` mermaid
+```mermaid
 graph LR
   OpenConfirm --> OpenConfirm;
   OpenConfirm --> Established;
@@ -86,8 +74,8 @@ graph LR
   Idle --> Idle;
 ```
 
-```
- ``` mermaid
+```md
+ ```mermaid
  graph LR
    A[Start] --> B{Error?};
    B -->|Yes| C[Hmm...];
@@ -95,6 +83,7 @@ graph LR
    D --> B;
    B ---->|No| E[Yay!];
  ```
+
 ```
 
 ---

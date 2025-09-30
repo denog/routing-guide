@@ -18,6 +18,7 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     set policy-options prefix-list CUSTOMER-PREFIXES-V4 <PLEASE INSERT CUSTOMER PREFIX HERE>
     set policy-options prefix-list CUSTOMER-PREFIXES-V6 <PLEASE INSERT CUSTOMER PREFIX HERE>
     
+    set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from family inet
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from prefix-list CUSTOMER-PREFIXES-V4
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 then accept
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 from family inet6
@@ -37,6 +38,7 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     
     set policy-options policy-statement CUSTOMER-BLAH-IN term TAG-PREFIXES then community add CUSTOMER
     set policy-options policy-statement CUSTOMER-BLAH-IN term TAG-PREFIXES then next term
+    set policy-options policy-statement CUSTOMER-BLAH-IN term CUSTOMER-ROUTES-V4 from family inet
     set policy-options policy-statement CUSTOMER-BLAH-IN term CUSTOMER-ROUTES-V4 from prefix-list CUSTOMER-BLAH-V4
     set policy-options policy-statement CUSTOMER-BLAH-IN term CUSTOMER-ROUTES-V4 then accept
     set policy-options policy-statement CUSTOMER-BLAH-IN term CUSTOMER-ROUTES-V6 from family inet6
@@ -61,6 +63,7 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     And then applied to the upstream BGP session:
 
     ```
+    set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from family inet
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from community CUSTOMER
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from route-filter 0.0.0.0/0 prefix-length-range /8-/24
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 then accept

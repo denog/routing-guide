@@ -10,7 +10,7 @@ So it is strongly recommended that you block BGP announcements of all IXP LANs y
 connected to.
 
 If you are connected to many IXPs, you might want to automate this.
-[PeeringDB](https://peeringdb.com) has a list of all IXP Lans, you need some software to extract this
+[PeeringDB](https://peeringdb.com) has a list of all IXP Lans. You need some software to extract this
 and convert it to your router configuration.
 
 ## Configuration Examples
