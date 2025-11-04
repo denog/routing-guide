@@ -42,12 +42,12 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
       0,                      # RFC7607
       23456,                  # RFC4893 AS_TRANS, 2 to 4 byte ASN migrations
       64496..64511,           # RFC5398 documentation/example ASNs
-      64512..65534,           # RFC6996 private ASNs
-      65535,                  # RFC7300 last 16 bit ASN
       65536..65551,           # RFC5398 documentation/example ASNs
-      65552..131071,          # IANA reserved ASNs
+      64512..65534,           # RFC6996 private ASNs
       4200000000..4294967294, # RFC6996 private ASNs
-      4294967295              # RFC7300 last 32 bit ASN
+      65535,                  # RFC7300 last 16 bit ASN
+      4294967295,             # RFC7300 last 32 bit ASN
+      65552..131071           # IANA reserved ASNs
     ];
     function reject_bogon_asns()
     int set bogon_asns;
