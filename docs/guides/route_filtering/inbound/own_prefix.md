@@ -64,4 +64,16 @@ Your own networks should be stored in lists and then used in policy for external
     set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 then trace
     set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 then reject
     ```
-    
+
+=== "FRRouting"
+    ```
+    ip prefix-list own seq 10 permit <PLEASE INSERT YOUR PREFIX HERE> le 24
+    ip prefix-list own seq 100 deny 0.0.0.0/0 le 32
+
+    ipv6 prefix-list own-6 seq 10 permit <PLEASE INSERT YOUR PREFIX HERE> le 48
+    ipv6 prefix-list own-6 seq 100 deny ::/0 le 128
+
+    route-map import deny 10
+      match ip address prefix-list own
+      match ipv6 address prefix-list own-6
+    exit
