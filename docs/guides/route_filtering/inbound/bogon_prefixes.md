@@ -402,3 +402,84 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
        address-family ipv4
           neighbor 198.51.100.1 rcf in example_in()
     ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set policy prefix-list special-purpose rule 10 action permit
+    set policy prefix-list special-purpose rule 10 prefix 0.0.0.0/8
+    set policy prefix-list special-purpose rule 10 le 32
+    set policy prefix-list special-purpose rule 11 action permit
+    set policy prefix-list special-purpose rule 11 prefix 10.0.0.0/8
+    set policy prefix-list special-purpose rule 11 le 32
+    set policy prefix-list special-purpose rule 12 action permit
+    set policy prefix-list special-purpose rule 12 prefix 100.64.0.0/10
+    set policy prefix-list special-purpose rule 12 le 32
+    set policy prefix-list special-purpose rule 13 action permit
+    set policy prefix-list special-purpose rule 13 prefix 127.0.0.0/8
+    set policy prefix-list special-purpose rule 13 le 32
+    set policy prefix-list special-purpose rule 14 action permit
+    set policy prefix-list special-purpose rule 14 prefix 169.254.0.0/16
+    set policy prefix-list special-purpose rule 14 le 32
+    set policy prefix-list special-purpose rule 15 action permit
+    set policy prefix-list special-purpose rule 15 prefix 172.16.0.0/12
+    set policy prefix-list special-purpose rule 15 le 32
+    set policy prefix-list special-purpose rule 16 action permit
+    set policy prefix-list special-purpose rule 16 prefix 192.0.0.0/24
+    set policy prefix-list special-purpose rule 16 le 32
+    set policy prefix-list special-purpose rule 17 action permit
+    set policy prefix-list special-purpose rule 17 prefix 192.0.2.0/24
+    set policy prefix-list special-purpose rule 17 le 32
+    set policy prefix-list special-purpose rule 18 action permit
+    set policy prefix-list special-purpose rule 18 prefix 192.88.99.2/32
+    set policy prefix-list special-purpose rule 19 action permit
+    set policy prefix-list special-purpose rule 19 prefix 192.168.0.0/16
+    set policy prefix-list special-purpose rule 19 le 32
+    set policy prefix-list special-purpose rule 20 action permit
+    set policy prefix-list special-purpose rule 20 prefix 198.18.0.0/15
+    set policy prefix-list special-purpose rule 20 le 32
+    set policy prefix-list special-purpose rule 21 action permit
+    set policy prefix-list special-purpose rule 21 prefix 198.51.100.0/24
+    set policy prefix-list special-purpose rule 21 le 32
+    set policy prefix-list special-purpose rule 22 action permit
+    set policy prefix-list special-purpose rule 22 prefix 203.0.113.0/24
+    set policy prefix-list special-purpose rule 22 le 32
+
+    set policy prefix-list6 special-purpose-6 rule 10 action permit
+    set policy prefix-list6 special-purpose-6 rule 10 prefix ::/64
+    set policy prefix-list6 special-purpose-6 rule 10 le 128
+    set policy prefix-list6 special-purpose-6 rule 11 action permit
+    set policy prefix-list6 special-purpose-6 rule 11 prefix 64:ff9b:1::/48
+    set policy prefix-list6 special-purpose-6 rule 11 le 128
+    set policy prefix-list6 special-purpose-6 rule 12 action permit
+    set policy prefix-list6 special-purpose-6 rule 12 prefix 100:0:0:1::/64
+    set policy prefix-list6 special-purpose-6 rule 12 le 128
+    set policy prefix-list6 special-purpose-6 rule 13 action permit
+    set policy prefix-list6 special-purpose-6 rule 13 prefix 100::/64
+    set policy prefix-list6 special-purpose-6 rule 13 le 128
+    set policy prefix-list6 special-purpose-6 rule 14 action permit
+    set policy prefix-list6 special-purpose-6 rule 14 prefix 2001::/23
+    set policy prefix-list6 special-purpose-6 rule 14 le 128
+    set policy prefix-list6 special-purpose-6 rule 15 action permit
+    set policy prefix-list6 special-purpose-6 rule 15 prefix 2001:2::/48
+    set policy prefix-list6 special-purpose-6 rule 15 le 128
+    set policy prefix-list6 special-purpose-6 rule 16 action permit
+    set policy prefix-list6 special-purpose-6 rule 16 prefix 2001:db8::/32
+    set policy prefix-list6 special-purpose-6 rule 16 le 128
+    set policy prefix-list6 special-purpose-6 rule 17 action permit
+    set policy prefix-list6 special-purpose-6 rule 17 prefix 2002::/16
+    set policy prefix-list6 special-purpose-6 rule 17 le 128
+    set policy prefix-list6 special-purpose-6 rule 18 action permit
+    set policy prefix-list6 special-purpose-6 rule 18 prefix 3fff::/20
+    set policy prefix-list6 special-purpose-6 rule 18 le 128
+    set policy prefix-list6 special-purpose-6 rule 19 action permit
+    set policy prefix-list6 special-purpose-6 rule 19 prefix 5f00::/16
+    set policy prefix-list6 special-purpose-6 rule 19 le 128
+    set policy prefix-list6 special-purpose-6 rule 20 action permit
+    set policy prefix-list6 special-purpose-6 rule 20 prefix fc00::/7
+    set policy prefix-list6 special-purpose-6 rule 20 le 128
+    set policy prefix-list6 special-purpose-6 rule 21 action permit
+    set policy prefix-list6 special-purpose-6 rule 21 prefix fe80::/10
+    set policy prefix-list6 special-purpose-6 rule 21 le 128
+    ```
