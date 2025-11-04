@@ -29,3 +29,12 @@ Configuration examples:
     /configure router "Base" bgp
             ebgp-default-reject-policy import export
     ```
+
+=== "VyOS (>= 1.4)"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+
+    ```
+    set protocols bgp parameters ebgp-requires-policy
+    ```
+
