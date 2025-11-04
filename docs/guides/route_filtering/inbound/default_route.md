@@ -6,7 +6,6 @@ tags:
   - Mikrotik missing
   - Nokia SR OS missing
   - OpenBGPD missing
-  - VyOS missing
 ---
 
 
@@ -135,3 +134,27 @@ On the other hand, if you want the full routing table, you should not accept any
      set policy-options policy-statement MY_INPUT_FILTER term DEFAULT-ROUTE-V6 then reject
      ```
  
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set policy prefix-list default-route-v4 rule 5 action permit
+    set policy prefix-list default-route-v4 rule 5 prefix 0.0.0.0/0
+
+    set policy prefix-list6 default-route-v6 rule 5 action permit
+    set policy prefix-list6 default-route-v6 rule 5 prefix ::/0
+    ```
+
+    Route-Map statement for allowing *only* default routes in:
+    ```
+    set policy route-map prefixes-in rule 10 action permit
+    set policy route-map prefixes-in rule 10 match ip address prefix-list default-route-v4
+    set policy route-map prefixes-in rule 10 match ipv6 address prefix-list default-route-v6
+    ```
+
+    Route-Map statement for *not* allowing default routes in:
+    ```
+    set policy route-map prefixes-in rule 10 action deny
+    set policy route-map prefixes-in rule 10 match ip address prefix-list default-route-v4
+    set policy route-map prefixes-in rule 10 match ipv6 address prefix-list default-route-v6
+    ```
