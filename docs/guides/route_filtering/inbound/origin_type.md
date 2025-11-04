@@ -1,6 +1,7 @@
 ---
 tags:
   - Arista missing
+  - Bird missing
   - Huawei VRP missing
   - Nokia SR OS missing
   - OpenBGPD missing
