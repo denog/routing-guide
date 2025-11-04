@@ -118,3 +118,22 @@ As a network participating in the global Internet you want to tell other network
         vtysh -c 'show running-config'
         ```
         This should match the configuration in the FRR tab on this website.
+
+=== "VyOS 1.5"
+    Please refer to the VyOS 1.4 configuration guide first.
+
+    VyOS 1.5 introduces another potentially problematic default.
+
+    Starting with version 1.5, FRR is configured not to enforce the remote AS
+    as the first AS in the AS_PATH. This setting is typically only necessary when
+    connected to an IXP RS[^1].
+
+    To resolve this, you need to enable enforce-first-as for every neighbor.
+
+    For the configuration shown in the VyOS 1.4 tab, apply the following commands:
+    ```
+    set protocols bgp neighbor 198.51.100.1 enforce-first-as
+    set protocols bgp neighbor 3fff::1582 enforce-first-as
+    ```
+
+[^1]: Internet eXchange Points Route Servers
