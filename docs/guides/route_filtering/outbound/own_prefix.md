@@ -67,5 +67,73 @@ As a network participating in the global Internet you want to tell other network
     exit
     ```
 
----
+=== "VyOS 1.4"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
 
+    ```
+    set policy prefix-list outgoing rule 10 action permit
+    set policy prefix-list outgoing rule 10 prefix 192.0.2.0/24
+    set policy prefix-list outgoing rule 100 action deny
+    set policy prefix-list outgoing rule 100 le 32
+    set policy prefix-list outgoing rule 100 prefix 0.0.0.0/0
+
+    set policy prefix-list6 outgoing-6 rule 10 action permit
+    set policy prefix-list6 outgoing-6 rule 10 prefix 2001:db8::/32
+    set policy prefix-list6 outgoing-6 rule 100 action deny
+    set policy prefix-list6 outgoing-6 rule 100 le 128
+    set policy prefix-list6 outgoing-6 rule 100 prefix ::/0
+
+    set protocols bgp system-as 64496
+
+    set protocols bgp parameters router-id 192.0.2.10
+
+    set protocols bgp parameters log-neighbor-changes
+    set protocols bgp parameters ebgp-requires-policy
+    set protocols bgp parameters network-import-check
+
+    set protocols bgp address-family ipv4-unicast network 192.0.2.0/24
+    set protocols bgp address-family ipv6-unicast network 2001:db8::/32
+
+    edit protocols bgp neighbor 198.51.100.1
+    set remote-as 65550
+    set address-family ipv4-unicast prefix-list export outgoing
+    exit
+
+    edit protocols bgp neighbor 3fff::1582
+    set remote-as 65550
+    set address-family ipv6-unicast prefix-list export outgoing-6
+    exit
+    ```
+
+    !!! note
+        For dynamic routing, VyOS uses FRR. However, VyOS applies some potentially
+        problematic defaults, such as:
+
+        - `no bgp ebgp-requires-policy`, see [Require policy to start a BGP session](../../inbound/require_policy/) for details.
+        - `no bgp network import-check`
+
+        To view the final FRR configuration, run:
+        ```sh
+        vtysh -c 'show running-config'
+        ```
+        This should match the configuration in the FRR tab on this website.
+
+=== "VyOS 1.5"
+    Please refer to the VyOS 1.4 configuration guide first.
+
+    VyOS 1.5 introduces another potentially problematic default.
+
+    Starting with version 1.5, FRR is configured not to enforce the remote AS
+    as the first AS in the AS_PATH. This setting is typically only necessary when
+    connected to an IXP RS[^1].
+
+    To resolve this, you need to enable enforce-first-as for every neighbor.
+
+    For the configuration shown in the VyOS 1.4 tab, apply the following commands:
+    ```
+    set protocols bgp neighbor 198.51.100.1 enforce-first-as
+    set protocols bgp neighbor 3fff::1582 enforce-first-as
+    ```
+
+[^1]: Internet eXchange Points Route Servers

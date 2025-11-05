@@ -27,3 +27,16 @@ BGP-Graceful-Shutdown is a mechanism defined in [RFC6198](https://www.rfc-editor
         }
     }
     ```
+
+=== "FRR"
+    ```
+    router bgp 64500
+      bgp graceful-shutdown
+    ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set protocols bgp parameters graceful-shutdown
+    ```

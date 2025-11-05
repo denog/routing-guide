@@ -201,3 +201,22 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
        address-family ipv4
           neighbor 198.51.100.1 rcf in example_in()
     ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set policy as-path-list bogon-asns rule 10 action permit
+    set policy as-path-list bogon-asns rule 10 regex _0_
+    set policy as-path-list bogon-asns rule 20 action permit
+    set policy as-path-list bogon-asns rule 20 regex _23456_
+    set policy as-path-list bogon-asns rule 30 action permit
+    set policy as-path-list bogon-asns rule 30 regex _(6449[6-9]|64[5-9][0-9]{2}|6[5-9][0-9]{3})_
+    set policy as-path-list bogon-asns rule 40 action permit
+    set policy as-path-list bogon-asns rule 40 regex _(7000[0-9]|700[1-9][0-9]|70[1-9][0-9]{2}|7[1-9][0-9]{3}|[89][0-9]{4}|1[0-2][0-9]{4}|130[0-9]{3}|1310[0-6][0-9]|13107[01])_
+    set policy as-path-list bogon-asns rule 50 action permit
+    set policy as-path-list bogon-asns rule 50 regex _(420000000[0-9]|42000000[1-9][0-9]|4200000[1-9][0-9]{2}|420000[1-9][0-9]{3}|42000[1-9][0-9]{4}|4200[1-9][0-9]{5}|420[1-9][0-9]{6}|42[1-8][0-9]{7}|429[0-3][0-9]{6}|4294[0-8][0-9]{5}|42949[0-5][0-9]{4}|429496[0-6][0-9]{3}|4294967[01][0-9]{2}|42949672[0-8][0-9]|429496729[0-5])_
+
+    set policy route-map import-all rule 100 action deny
+    set policy route-map import-all rule 100 match as-path bogon-asns
+    ```

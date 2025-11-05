@@ -64,7 +64,7 @@ The AS PATH in the DFZ[^1] can become very long. At some point this can become a
     }
     ```
 
-=== "FRRouting"
+=== "FRRouting / VyOS"
     FRRouting does not allow to limit the number of ASes in the path.
 
 === "Nokia SR OS classic CLI"

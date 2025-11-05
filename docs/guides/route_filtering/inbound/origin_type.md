@@ -5,7 +5,6 @@ tags:
   - Huawei VRP missing
   - Nokia SR OS missing
   - OpenBGPD missing
-  - VyOS missing
 ---
 
 
@@ -45,4 +44,12 @@ It is currently not possible to skip the evaluation of *Origin Type* in best pat
     ```
     /routing filter rule
     add chain=import-all rule="set bgp-origin igp"
+    ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set policy route-map import-all rule 100 action permit
+    set policy route-map import-all rule 100 set origin igp
     ```
