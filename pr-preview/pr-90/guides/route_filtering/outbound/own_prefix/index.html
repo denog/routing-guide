@@ -1615,7 +1615,7 @@
 <p>Your peers and upstreams might also apply incoming BGP filters to your BGP sessions and filter your prefixes. Please make sure to create appropriate <a href="https://www.ripe.net/manage-ips-and-asns/resource-management/rpki/">RPKI objects</a>, route/route6 objects and AS sets, for example in the RIPE datebase. It is best practice to also create an AS set although you currently only have one ASN, because if your BGP peers build filters based on your AS set you don't need to inform them if you ever announce prefixes with an additional origin ASN.</p>
 </div>
 <h2 id="configuration">Configuration</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Juniper JunOS</label><label for="__tabbed_1_2">Cisco IOS</label><label for="__tabbed_1_3">Cisco IOS XR</label><label for="__tabbed_1_4">Arista EOS</label><label for="__tabbed_1_5">FRRouting</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Juniper JunOS</label><label for="__tabbed_1_2">Cisco IOS</label><label for="__tabbed_1_3">Cisco IOS XR</label><label for="__tabbed_1_4">Arista EOS</label><label for="__tabbed_1_5">FRRouting</label><label for="__tabbed_1_6">VyOS 1.4</label><label for="__tabbed_1_7">VyOS 1.5</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Config snippet for JunOS
@@ -1668,9 +1668,78 @@ router bgp 64496
 exit
 </code></pre></div></p>
 </div>
+<div class="tabbed-block">
+<p>VyOS has two modes (operational and configuration mode). Enter configuration mode with
+<code>configure</code> to make changes. Use <code>commit</code> to apply them and <code>save</code> to keep them after reboot.</p>
+<div class="highlight"><pre><span></span><code>set policy prefix-list outgoing rule 10 action permit
+set policy prefix-list outgoing rule 10 prefix 192.0.2.0/24
+set policy prefix-list outgoing rule 100 action deny
+set policy prefix-list outgoing rule 100 le 32
+set policy prefix-list outgoing rule 100 prefix 0.0.0.0/0
+
+set policy prefix-list6 outgoing-6 rule 10 action permit
+set policy prefix-list6 outgoing-6 rule 10 prefix 2001:db8::/32
+set policy prefix-list6 outgoing-6 rule 100 action deny
+set policy prefix-list6 outgoing-6 rule 100 le 128
+set policy prefix-list6 outgoing-6 rule 100 prefix ::/0
+
+set protocols bgp system-as 64496
+
+set protocols bgp parameters router-id 192.0.2.10
+
+set protocols bgp parameters log-neighbor-changes
+set protocols bgp parameters ebgp-requires-policy
+set protocols bgp parameters network-import-check
+
+set protocols bgp address-family ipv4-unicast network 192.0.2.0/24
+set protocols bgp address-family ipv6-unicast network 2001:db8::/32
+
+edit protocols bgp neighbor 198.51.100.1
+set remote-as 65550
+set address-family ipv4-unicast prefix-list export outgoing
+exit
+
+edit protocols bgp neighbor 3fff::1582
+set remote-as 65550
+set address-family ipv6-unicast prefix-list export outgoing-6
+exit
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For dynamic routing, VyOS uses FRR. However, VyOS applies some potentially
+problematic defaults, such as:</p>
+<ul>
+<li><code>no bgp ebgp-requires-policy</code>, see <a href="../../inbound/require_policy/">Require policy to start a BGP session</a> for details.</li>
+<li><code>no bgp network import-check</code></li>
+</ul>
+<p>To view the final FRR configuration, run:
+<div class="highlight"><pre><span></span><code>vtysh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;show running-config&#39;</span>
+</code></pre></div>
+This should match the configuration in the FRR tab on this website.</p>
 </div>
 </div>
+<div class="tabbed-block">
+<p>Please refer to the VyOS 1.4 configuration guide first.</p>
+<p>VyOS 1.5 introduces another potentially problematic default.</p>
+<p>Starting with version 1.5, FRR is configured not to enforce the remote AS
+as the first AS in the AS_PATH. This setting is typically only necessary when
+connected to an IXP RS<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>To resolve this, you need to enable enforce-first-as for every neighbor.</p>
+<p>For the configuration shown in the VyOS 1.4 tab, apply the following commands:
+<div class="highlight"><pre><span></span><code>set protocols bgp neighbor 198.51.100.1 enforce-first-as
+set protocols bgp neighbor 3fff::1582 enforce-first-as
+</code></pre></div></p>
+</div>
+</div>
+</div>
+<div class="footnote">
 <hr />
+<ol>
+<li id="fn:1">
+<p>Internet eXchange Points Route Servers&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
@@ -1691,7 +1760,7 @@ exit
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 4, 2025 20:49:23 UTC">November 4, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 5, 2025 16:25:18 UTC">November 5, 2025</span>
   </span>
 
     
