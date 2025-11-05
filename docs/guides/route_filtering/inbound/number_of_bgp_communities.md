@@ -1,3 +1,13 @@
+---
+tags:
+  - BIRD missing
+  - Huawei VRP missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Number of BGP communities
 
 ## Purpose

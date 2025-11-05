@@ -1,3 +1,9 @@
+---
+tags:
+  - Huawei VRP missing
+  - OpenBGPD missing
+---
+
 # Bogon Prefixes
 
 "Bogon" prefixes are non-routeable or reserved prefixes which should never be seen in the global routing table.

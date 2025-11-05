@@ -1,3 +1,13 @@
+---
+tags:
+  - Arista missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Peering LANs
 
 When you are connected to an Internet Exchange Point, you have an interface configured

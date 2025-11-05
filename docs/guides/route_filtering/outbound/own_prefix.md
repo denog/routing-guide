@@ -1,3 +1,12 @@
+---
+tags:
+  - BIRD missing
+  - Huawei VRP missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+---
+
 # Announce your own prefixes
 
 ## Purpose

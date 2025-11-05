@@ -1,3 +1,16 @@
+---
+tags:
+  - Arista missing
+  - BIRD missing
+  - Cisco missing
+  - FRR missing
+  - Huawei VRP missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Own communities
 
 ## Purpose

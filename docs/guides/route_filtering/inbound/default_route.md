@@ -1,13 +1,11 @@
 ---
 tags:
   - Arista missing
-  - Cisco IOS XR missing
   - Huawei VRP missing
   - Mikrotik missing
   - Nokia SR OS missing
   - OpenBGPD missing
 ---
-
 
 # Default Route
 

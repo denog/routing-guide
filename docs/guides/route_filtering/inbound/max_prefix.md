@@ -1,3 +1,11 @@
+---
+tags:
+  - Arista missing
+  - Huawei VRP missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Maximum Prefix
 
 This parameter is configured for each eBGP session and is the simplest and easiest security measure you can use. Unfortunately, many stop here. Please do not.

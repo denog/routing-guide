@@ -1,3 +1,17 @@
+---
+tags:
+  - Arista missing
+  - Cisco missing
+  - Cisco IOS XR missing
+  - FRR missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Tier 1 ASNs
 
 As a Tier 2/3 Network, you may want to filter out routes that have traversed Tier 1 ASNs at IXPs or from customers, as you probably don't want to provide transit for Tier 1 Networks or accept transit for Tier 1 Networks from your customers.
