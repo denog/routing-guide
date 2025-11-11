@@ -26,14 +26,16 @@ With RPKI it is possible to validate the origin AS of a BGP announcement. This i
 
     function reject_rpki_invalid4() {
         if roa_check(rpki4, net, bgp_path.last_nonaggregated) = ROA_INVALID then {
-            print "Reject: RPKI invalid: ", net, " ", bgp_path;
+            # optional logging
+            # print "Reject: RPKI invalid: ", net, " ", bgp_path;
             reject;
         }
     }
     
     function reject_rpki_invalid6() {
         if roa_check(rpki6, net, bgp_path.last_nonaggregated) = ROA_INVALID then {
-            print "Reject: RPKI invalid: ", net, " ", bgp_path;
+            # optional logging
+            # print "Reject: RPKI invalid: ", net, " ", bgp_path;
             reject;
         }
     }

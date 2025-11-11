@@ -33,7 +33,8 @@ Be aware that you need to manually check the prefix list as you could peer with 
     {
       transit_asns = TRANSIT_ASNS;
       if (bgp_path ~ transit_asns) then {
-        print "Reject: Transit ASNs found on IXP Peering: ", net, " ", bgp_path;
+        # optional logging
+        # print "Reject: Transit ASNs found on IXP Peering: ", net, " ", bgp_path;
         reject;
       }
     }
