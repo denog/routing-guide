@@ -70,6 +70,35 @@ BGP Communities can give a lot of information about a prefix, for example where 
     !
     ```
 
+=== "Bird2"
+    ```
+    function strip_too_many_communities() {
+        if ( ( bgp_community.len + bgp_ext_community.len + bgp_large_community.len ) >= 100 ) then {
+            # optional logging
+            # print "Error: too many communities: ", bgp_community.len, " ", bgp_ext_community.len, " ",bgp_large_community.len;
+            bgp_community.empty;
+            bgp_ext_community.empty;
+            bgp_large_community.empty;
+        }
+    }
+    protocol bgp neighbor_name {
+        ipv4 {
+            import filter {
+                strip_too_many_communities();
+                # other filters
+                accept;
+            };
+        }
+        ipv6 {
+            import filter {
+                strip_too_many_communities();
+                # other filters
+                accept;
+            };
+        }
+    }
+    ```
+
 === "FRRouting"
     In FRRouting you can match in route-maps for prefixes with "less or equal" number of communities.
     So for filtering out prefixes with "more than" number of communities needs a route-map trick.
