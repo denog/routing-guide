@@ -4,7 +4,6 @@ tags:
   - Mikrotik missing
   - Nokia SR OS missing
   - OpenBGPD missing
-  - VyOS missing
 ---
 
 # Number of BGP communities
@@ -124,3 +123,6 @@ BGP Communities can give a lot of information about a prefix, for example where 
     route-map too-many-communities permit 200
     ...
     ```
+
+=== "VyOS"
+    The current VyOS configuration schema does not allow to limit the number of communities.
