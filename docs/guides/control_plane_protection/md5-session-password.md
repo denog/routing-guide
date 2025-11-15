@@ -46,9 +46,10 @@ Example for setting an MD5 password:
     set instance <INSTANCE> protocol bgp peer ipv4 <PEER> <SOURCE> authentication-id <AUTHENTICATION-ID>
     ```
 
-=== "Bird2"
+=== "Bird"
     ```
     protocol bgp name4 {
+      authentication md5;
       password "mysecretpassword";
     }
 
