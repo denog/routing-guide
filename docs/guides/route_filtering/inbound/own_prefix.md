@@ -1,3 +1,15 @@
+---
+tags:
+  - Arista missing
+  - BIRD missing
+  - Cisco missing
+  - Huawei VRP missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Own prefix
 
 ## Purpose

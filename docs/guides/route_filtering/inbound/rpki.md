@@ -1,3 +1,17 @@
+---
+tags:
+  - Arista missing
+  - Cisco missing
+  - Cisco IOS XR missing
+  - FRR missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # RPKI
 
 With RPKI it is possible to validate the origin AS of a BGP announcement. This is done by checking the announcement against ROAs (Route Origin Authorizations) published in the RPKI system. It is a best practice to filter out invalid routes.

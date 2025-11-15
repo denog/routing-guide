@@ -1,3 +1,12 @@
+---
+tags:
+  - Arista missing
+  - FRR missing
+  - Huawei VRP missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Prefix length filtering
 
 Normally (there are exceptions), prefixes are announced in certain minimum and maximum lengths in the global Internet routing table. Currently, they are:

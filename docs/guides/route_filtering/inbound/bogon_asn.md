@@ -1,3 +1,11 @@
+---
+tags:
+  - Cisco missing
+  - Huawei VRP missing
+  - Mikrotik missing
+  - OpenBGPD missing
+---
+
 # Bogon AS
 
 ## Purpose

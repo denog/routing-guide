@@ -1,3 +1,17 @@
+---
+tags:
+  - Arista missing
+  - BIRD missing
+  - Cisco missing
+  - Cisco IOS XR missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+  - VyOS missing
+---
+
 # Maximum Prefix (Outbound)
 
 This is a quite new feature of some BGP implementations. Here we do not protect our own network, we protect our neighbors from us accidentally flooding too many prefixes towards them.

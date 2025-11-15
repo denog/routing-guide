@@ -1,3 +1,14 @@
+---
+tags:
+  - Arista missing
+  - BIRD missing
+  - Cisco missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - OpenBGPD missing
+---
+
 # Require policy to start a BGP session
 
 Some routers accept configuration commands as you type them in line by line. At others you *commit* your configuration once you have completed it.

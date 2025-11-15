@@ -1,3 +1,10 @@
+---
+tags:
+  - Huawei VRP missing
+  - Mikrotik missing
+  - OpenBGPD missing
+---
+
 # AS PATH Length
 
 ## Purpose

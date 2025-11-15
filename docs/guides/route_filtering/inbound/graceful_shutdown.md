@@ -1,3 +1,15 @@
+---
+tags:
+  - Arista missing
+  - Cisco missing
+  - Cisco IOS XR missing
+  - Huawei VRP missing
+  - Junos missing
+  - Mikrotik missing
+  - Nokia SR OS missing
+  - OpenBGPD missing
+---
+
 # Graceful Shutdown
 BGP-Graceful-Shutdown is a mechanism defined in [RFC6198](https://www.rfc-editor.org/rfc/rfc6198) to inform your BGP neighbor that you want to close the session. The peer will then stop sending you new routes and you can safely close the session. The purpose of this community is to reduce the amount of traffic lost when BGP peering sessions are about to be shut down deliberately, e.g. for planned maintenance.
 
