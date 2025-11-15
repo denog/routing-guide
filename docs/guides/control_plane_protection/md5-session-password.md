@@ -2,7 +2,6 @@
 tags:
   - Cisco missing
   - Huawei VRP missing
-  - Nokia SR OS missing
   - OpenBGPD missing
   - VyOS missing
 ---
@@ -52,4 +51,13 @@ Example for setting an MD5 password:
     protocol bgp name4 {
       password "mysecretpassword";
     }
+
+=== "Nokia SR OS classic CLI"
+    ```
+    /configure router "Base" bgp
+        group "as64500"
+            [...]
+            authentication-key "mysecretpassword"
+            [...]
+        exit
     ```

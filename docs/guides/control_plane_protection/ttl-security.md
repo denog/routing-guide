@@ -3,6 +3,7 @@ tags:
   - Huawei VRP missing
   - OpenBGPD missing
   - VyOS missing
+  - Nokia SR OS missing
 ---
 
 # TTL Security
@@ -66,13 +67,4 @@ Configuration examples:
     protocol bgp name4 {
       ttl security 1;
     }
-    ```
-=== "Nokia SR OS classic CLI"
-    ```
-    /configure router "Base" bgp
-        group "as64500"
-            [...]
-            authentication-key "mysecretpassword"
-            [...]
-        exit
     ```
