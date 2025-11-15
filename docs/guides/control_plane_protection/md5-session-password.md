@@ -1,6 +1,5 @@
 ---
 tags:
-  - BIRD missing
   - Cisco missing
   - Huawei VRP missing
   - Nokia SR OS missing
@@ -46,4 +45,11 @@ Example for setting an MD5 password:
     set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> key1-id 1
     set instance <INSTANCE> tcp authentication <AUTHENTICATION-ID> key1-plain-text mysecretpassword
     set instance <INSTANCE> protocol bgp peer ipv4 <PEER> <SOURCE> authentication-id <AUTHENTICATION-ID>
+    ```
+
+=== "Bird2"
+    ```
+    protocol bgp name4 {
+      password "mysecretpassword";
+    }
     ```

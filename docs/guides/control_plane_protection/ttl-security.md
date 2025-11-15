@@ -64,7 +64,7 @@ Configuration examples:
 === "Bird2"
     ```
     protocol bgp name4 {
-      password "mysecretpassword";
+      ttl security 1;
     }
     ```
 === "Nokia SR OS classic CLI"
