@@ -1958,7 +1958,7 @@
 <h2 id="purpose">Purpose</h2>
 <p>BGP Communities can give a lot of information about a prefix, for example where your BGP peer learned the prefix. As BGP Communities also consume router memory it is suggested to delete the BGP communities if too many of them are attached to a prefix.</p>
 <h2 id="configuration">Configuration</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Juniper JunOS</label><label for="__tabbed_1_4">Arista EOS</label><label for="__tabbed_1_5">FRRouting</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Juniper JunOS</label><label for="__tabbed_1_4">Arista EOS</label><label for="__tabbed_1_5">Bird2</label><label for="__tabbed_1_6">FRRouting</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In Cisco IOS it is not possible to only delete BGP Communities from a prefix when there are more than a specific number attached. You can filter prefixes with eg. &gt;=100 BGP Communities, but then your router won't have a route to the filtered prefix if you do not have a default route.
@@ -2017,6 +2017,34 @@ router bgp 64500
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>function strip_too_many_communities() {
+    if ( ( bgp_community.len + bgp_ext_community.len + bgp_large_community.len ) &gt;= 100 ) then {
+        # optional logging
+        # print &quot;Error: too many communities: &quot;, bgp_community.len, &quot; &quot;, bgp_ext_community.len, &quot; &quot;,bgp_large_community.len;
+        bgp_community.empty;
+        bgp_ext_community.empty;
+        bgp_large_community.empty;
+    }
+}
+protocol bgp neighbor_name {
+    ipv4 {
+        import filter {
+            strip_too_many_communities();
+            # other filters
+            accept;
+        };
+    }
+    ipv6 {
+        import filter {
+            strip_too_many_communities();
+            # other filters
+            accept;
+        };
+    }
+}
+</code></pre></div>
+</div>
+<div class="tabbed-block">
 <p>In FRRouting you can match in route-maps for prefixes with "less or equal" number of communities.
 So for filtering out prefixes with "more than" number of communities needs a route-map trick.
 From the documentation it is unclear if this applies only to old communities or also to large or extended communities.
@@ -2054,7 +2082,7 @@ route-map too-many-communities permit 200
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 11, 2025 15:08:14 UTC">November 11, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 15, 2025 11:31:02 UTC">November 15, 2025</span>
   </span>
 
     
