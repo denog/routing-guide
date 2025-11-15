@@ -1,6 +1,5 @@
 ---
 tags:
-  - BIRD missing
   - Huawei VRP missing
   - Mikrotik missing
   - Nokia SR OS missing
