@@ -80,16 +80,17 @@ BGP Communities can give a lot of information about a prefix, for example where 
     !
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
-    function strip_too_many_communities() {
-        if ( ( bgp_community.len + bgp_ext_community.len + bgp_large_community.len ) >= 100 ) then {
-            # optional logging
-            # print "Error: too many communities: ", bgp_community.len, " ", bgp_ext_community.len, " ",bgp_large_community.len;
-            bgp_community.empty;
-            bgp_ext_community.empty;
-            bgp_large_community.empty;
-        }
+    function strip_too_many_communities()
+    {
+      if ( ( bgp_community.len + bgp_ext_community.len + bgp_large_community.len ) >= 100 ) then {
+        # optional logging
+        # print "Error: too many communities: ", bgp_community.len, " ", bgp_ext_community.len, " ",bgp_large_community.len;
+        bgp_community.empty;
+        bgp_ext_community.empty;
+        bgp_large_community.empty;
+      }
     }
     protocol bgp neighbor_name {
         ipv4 {

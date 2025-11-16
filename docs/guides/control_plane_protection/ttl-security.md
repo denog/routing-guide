@@ -63,7 +63,7 @@ Configuration examples:
     set instance <INSTANCE> protocol bgp peer-group <GROUPNAME> ttl-security enable
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     protocol bgp name4 {
       ttl security 1;

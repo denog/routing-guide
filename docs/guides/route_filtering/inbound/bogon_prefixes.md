@@ -10,7 +10,7 @@ tags:
 
 ## IPv4
 
-When IPv4 was created, the inventors reserved certain part of the address space for specific purposes. These were the times of class-A,B,C networks (if anybody still mentions them - the concept was abolished in 1993 in some RFCs starting with 
+When IPv4 was created, the inventors reserved certain part of the address space for specific purposes. These were the times of class-A,B,C networks (if anybody still mentions them - the concept was abolished in 1993 in some RFCs starting with
 [RFC1517](https://www.rfc-editor.org/rfc/rfc1517)).
 
 The following IPv4 space is still considered to be not routable and should never be announced via BGP:
@@ -71,7 +71,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       # RFC1112 Reserved
       240.0.0.0/4 le 32
     end-set
-    
+
     prefix-set bogon-ipv6
       # IETF reserved
       ::/8 le 128,
@@ -116,7 +116,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
     ...
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     define BOGON_PREFIXES4 = [
       0.0.0.0/8+,         # RFC1122 'this' Network
@@ -134,18 +134,18 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       240.0.0.0/4+        # RFC1112 Reserved
     ];
     define BOGON_PREFIXES6 = [
-        ::/8+,            # RFC4291 Loopback and more
-        0100::/64+,       # RFC6666 Discard-Only Address Block
-        2001:2::/48+,     # RFC5180 Benchmarking
-        2001:10::/28+     # RFC4843 ORCHID
-        2001:db8::/32+,   # RFC7450 Documentation
-        3ffe::/16+,       # RFC3701 old 6bone
-        3fff::/20+,       # RFC9637 Documentation
-        5f00::/16+,       # RFC9602 SRv6 SIDs
-        fc00::/7+,        # RFC4193,RFC8190 Unique-Local
-        fe80::/10+        # RFC4291 Link-Local Unicast
-        fec0::/10+        # RFC3879 old Site-Local Unicast
-        ff00::/8+         # RFC4291 Multicast
+      ::/8+,            # RFC4291 Loopback and more
+      0100::/64+,       # RFC6666 Discard-Only Address Block
+      2001:2::/48+,     # RFC5180 Benchmarking
+      2001:10::/28+     # RFC4843 ORCHID
+      2001:db8::/32+,   # RFC7450 Documentation
+      3ffe::/16+,       # RFC3701 old 6bone
+      3fff::/20+,       # RFC9637 Documentation
+      5f00::/16+,       # RFC9602 SRv6 SIDs
+      fc00::/7+,        # RFC4193,RFC8190 Unique-Local
+      fe80::/10+        # RFC4291 Link-Local Unicast
+      fec0::/10+        # RFC3879 old Site-Local Unicast
+      ff00::/8+         # RFC4291 Multicast
     ];
     function reject_bogon_prefixes4()
     prefix set bogon_prefixes4;
@@ -178,7 +178,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       accept;
     }
     ```
-    
+
 === "Juniper JunOS"
     For IPv4 as an own policy:
     ```

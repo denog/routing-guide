@@ -44,7 +44,7 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     end-policy
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     define BOGON_ASNS = [
       0,                      # RFC7607
@@ -106,7 +106,7 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
     route-map import-all deny 100
       match as-path bogon-asns
     ```
-    
+
 === "Nokia SR OS classic CLI"
     ```
     /configure router "Base" policy-options
