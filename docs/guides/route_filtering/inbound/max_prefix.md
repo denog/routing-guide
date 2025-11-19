@@ -54,14 +54,14 @@ Configuration examples:
         remote-address=198.51.100.1 max-prefix-limig=1000 max-prefix-restart-time=1h
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     protocol bgp neighbor_name {
       ipv4 {
-         import limit 1000 action restart;
+        import limit 1000 action restart;
       }
       ipv6 {
-         import limit 500 action restart;
+        import limit 500 action restart;
       }
     }
     ```
@@ -82,4 +82,3 @@ Configuration examples:
     set protocols bgp group MY_NEIGHBOR_GROUP 198.51.100.1 family inet unicast accepted-prefix-limit maximum 10 drop-excess
     set protocols bgp group MY_NEIGHBOR_GROUP 2001:db8::1 family inet6 unicast accepted-prefix-limit maximum 5 drop-excess
     ```
-    

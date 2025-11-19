@@ -48,4 +48,3 @@ Configuration examples:
     ```
     set protocols bgp parameters ebgp-requires-policy
     ```
-

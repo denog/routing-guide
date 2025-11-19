@@ -60,7 +60,7 @@ See https://routing.denog.de/guides/route_filtering/outbound/well_known_communit
       <YOUR OWN AS NUMBER>:*:*
     end-set
     ```
-    
+
     If you want to drop the prefix.
     ```
     route-policy drop-my-own-communities

@@ -52,7 +52,7 @@ Configuration examples:
         # Bigger than /16 or smaller than /48
         ::/0 ge 16 le 48
     end-set
-    
+
     # If you want to implement it in separate filters, then like this policy:
     route-policy filter-incorrect-prefixes-v4
         if destionation in permitted-prefix-length-v4 then
@@ -68,7 +68,7 @@ Configuration examples:
             drop
         endif
     end-policy
-    
+
     # If you want to implement it in one filter, then like this policy:
     route-policy filter-incorrect-prefixes
         if destionation in permitted-prefix-length-v4 or permitted-prefix-length-v6 then
@@ -89,7 +89,7 @@ Configuration examples:
     add action=reject chain=ipv4-size prefix-length=25-32
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     function reject_small_prefixes4()
     {
@@ -154,7 +154,7 @@ Configuration examples:
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 from route-filter 0.0.0.0/0 prefix-length-range /25-/32
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 then trace
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V4 then reject
-    
+
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 from family inet6
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 from route-filter ::/0 prefix-length-range /49-/128
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 then trace

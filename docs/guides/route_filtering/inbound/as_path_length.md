@@ -54,7 +54,7 @@ The AS PATH in the DFZ[^1] can become very long. At some point this can become a
         }
     ```
 
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     function reject_long_aspaths()
     {

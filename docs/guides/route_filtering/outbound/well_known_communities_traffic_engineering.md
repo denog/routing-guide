@@ -13,7 +13,7 @@ The following well-known communities are quite useful.
 ## NO-EXPORT
 
 BGP prefixes tagged with NO-EXPORT must not be advertised via eBGP to other Autonomous
-Systems. Defined in [RFC1997](https://www.rfc-editor.org/rfc/rfc1997.html), 
+Systems. Defined in [RFC1997](https://www.rfc-editor.org/rfc/rfc1997.html),
 this well-known community is useful for:
 
 - Announcing more specific prefixes to your eBGP neighbors and making sure they are

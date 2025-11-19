@@ -72,7 +72,7 @@ and convert it to your router configuration.
       endif
     end-policy
     ```
-=== "Bird2"
+=== "BIRD 2/3"
     ```
     define IXP_PREFIXES4 = [
       185.1.155.0/24 # LocIX DUS

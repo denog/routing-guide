@@ -31,7 +31,7 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     ```
     set policy-options prefix-list CUSTOMER-PREFIXES-V4 <PLEASE INSERT CUSTOMER PREFIX HERE>
     set policy-options prefix-list CUSTOMER-PREFIXES-V6 <PLEASE INSERT CUSTOMER PREFIX HERE>
-    
+
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from family inet
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 from prefix-list CUSTOMER-PREFIXES-V4
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V4 then accept
@@ -47,9 +47,9 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     ```
     set policy-options prefix-list CUSTOMER-BLAH-V4 <PLEASE INSERT CUSTOMER PREFIX HERE>
     set policy-options prefix-list CUSTOMER-BLAH-V6 <PLEASE INSERT CUSTOMER PREFIX HERE>
-    
+
     set policy-options community CUSTOMER members 65534:100
-    
+
     set policy-options policy-statement CUSTOMER-BLAH-IN term TAG-PREFIXES then community add CUSTOMER
     set policy-options policy-statement CUSTOMER-BLAH-IN term TAG-PREFIXES then next term
     set policy-options policy-statement CUSTOMER-BLAH-IN term CUSTOMER-ROUTES-V4 from family inet
@@ -70,7 +70,7 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     ```
     set groups TAG-CUSTOMER-ROUTES routing-options rib inet6.0 static route <*> community 65534:100
     set groups TAG-CUSTOMER-ROUTES routing-options static route <*> community 65534:100
-    
+
     set routing-options aggregate route 203.0.113.0/24 apply-groups TAG-CUSTOMER-ROUTES
     ```
 
