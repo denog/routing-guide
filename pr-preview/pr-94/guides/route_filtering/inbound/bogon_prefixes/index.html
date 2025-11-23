@@ -2007,7 +2007,7 @@
 <h1 id="bogon-prefixes">Bogon Prefixes</h1>
 <p>"Bogon" prefixes are non-routeable or reserved prefixes which should never be seen in the global routing table.</p>
 <h2 id="ipv4">IPv4</h2>
-<p>When IPv4 was created, the inventors reserved certain part of the address space for specific purposes. These were the times of class-A,B,C networks (if anybody still mentions them - the concept was abolished in 1993 in some RFCs starting with 
+<p>When IPv4 was created, the inventors reserved certain part of the address space for specific purposes. These were the times of class-A,B,C networks (if anybody still mentions them - the concept was abolished in 1993 in some RFCs starting with
 <a href="https://www.rfc-editor.org/rfc/rfc1517">RFC1517</a>).</p>
 <p>The following IPv4 space is still considered to be not routable and should never be announced via BGP:</p>
 <ul>
@@ -2020,7 +2020,7 @@
 <h2 id="ipv6">IPv6</h2>
 <p>In IPv6, there is a <a href="http://www.iana.org/assignments/ipv6-address-space">similar list at IANA</a>. However, for IPv6 it is easier to positive-filter for <em>2000::/3</em>, as this is the only block where <strong>currently</strong> unicast address assignments were made from. Currently. You might check frequently if other blocks have been added. It is strongly recommended that you automate this task.</p>
 <h2 id="configuration-examples">Configuration Examples</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:9"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Mikrotik</label><label for="__tabbed_1_4">Bird2</label><label for="__tabbed_1_5">Juniper JunOS</label><label for="__tabbed_1_6">Nokia SR OS classic CLI</label><label for="__tabbed_1_7">Arista EOS legacy</label><label for="__tabbed_1_8">Arista EOS RCF</label><label for="__tabbed_1_9">VyOS</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:9"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS / FRRouting</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">Mikrotik</label><label for="__tabbed_1_4">BIRD 2/3</label><label for="__tabbed_1_5">Juniper JunOS</label><label for="__tabbed_1_6">Nokia SR OS classic CLI</label><label for="__tabbed_1_7">Arista EOS legacy</label><label for="__tabbed_1_8">Arista EOS RCF</label><label for="__tabbed_1_9">VyOS</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>For IPv4, you can simply add all unwanted prefixes to the list we defined in the previous section:
@@ -2125,18 +2125,18 @@ add action=reject chain=ipv4-unwanted prefix=192.168.0.0/16 prefix-length=16-32
   240.0.0.0/4+        # RFC1112 Reserved
 ];
 define BOGON_PREFIXES6 = [
-    ::/8+,            # RFC4291 Loopback and more
-    0100::/64+,       # RFC6666 Discard-Only Address Block
-    2001:2::/48+,     # RFC5180 Benchmarking
-    2001:10::/28+     # RFC4843 ORCHID
-    2001:db8::/32+,   # RFC7450 Documentation
-    3ffe::/16+,       # RFC3701 old 6bone
-    3fff::/20+,       # RFC9637 Documentation
-    5f00::/16+,       # RFC9602 SRv6 SIDs
-    fc00::/7+,        # RFC4193,RFC8190 Unique-Local
-    fe80::/10+        # RFC4291 Link-Local Unicast
-    fec0::/10+        # RFC3879 old Site-Local Unicast
-    ff00::/8+         # RFC4291 Multicast
+  ::/8+,            # RFC4291 Loopback and more
+  0100::/64+,       # RFC6666 Discard-Only Address Block
+  2001:2::/48+,     # RFC5180 Benchmarking
+  2001:10::/28+     # RFC4843 ORCHID
+  2001:db8::/32+,   # RFC7450 Documentation
+  3ffe::/16+,       # RFC3701 old 6bone
+  3fff::/20+,       # RFC9637 Documentation
+  5f00::/16+,       # RFC9602 SRv6 SIDs
+  fc00::/7+,        # RFC4193,RFC8190 Unique-Local
+  fe80::/10+        # RFC4291 Link-Local Unicast
+  fec0::/10+        # RFC3879 old Site-Local Unicast
+  ff00::/8+         # RFC4291 Multicast
 ];
 function reject_bogon_prefixes4()
 prefix set bogon_prefixes4;
@@ -2494,7 +2494,7 @@ set policy prefix-list6 special-purpose-6 rule 21 le 128
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 15, 2025 12:04:04 UTC">November 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 23, 2025 12:55:55 UTC">November 23, 2025</span>
   </span>
 
     

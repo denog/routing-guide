@@ -1980,7 +1980,7 @@
 <a href="https://www.rfc-editor.org/rfc/rfc5925.html">RFC5925</a>
 defines a mechanism called <em>TCP Authentication Option</em>, please read the RFC for details. In short, it uses stronger codes to protect your session.</p>
 <p>Unfortunately this is not widely implemented.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Juniper</label><label for="__tabbed_1_2">RtBrick RBFS</label><label for="__tabbed_1_3">Bird 2 / 3</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Juniper</label><label for="__tabbed_1_2">RtBrick RBFS</label><label for="__tabbed_1_3">BIRD 2/3</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>set security authentication-key-chains key-chain &lt;KEY-CHAIN-NAME&gt; description &quot;key chain for BGP&quot;
@@ -2007,21 +2007,21 @@ set instance &lt;INSTANCE&gt; protocol bgp peer ipv4 &lt;PEER&gt; &lt;SOURCE&gt;
 <p>See original post in <a href="https://bird.network.cz/pipermail/bird-users/2025-April/018156.html">mailing list</a>
 or the <a href="https://bird.nic.cz/doc/bird-3.1.4.html">documentation</a> for more details.</p>
 <p><div class="highlight"><pre><span></span><code>protocol bgp {
-    authentication ao;
-    keys {
-        key {
-            id 0;
-            secret &quot;hello321&quot;;
-            algorithm hmac sha256;
-            preferred;
-        };
-        key {
-            send id 2;
-            recv id 1;
-            secret &quot;bye123&quot;;
-            algorithm cmac aes128;
-        };
+  authentication ao;
+  keys {
+    key {
+      id 0;
+      secret &quot;hello321&quot;;
+      algorithm hmac sha256;
+      preferred;
     };
+    key {
+      send id 2;
+      recv id 1;
+      secret &quot;bye123&quot;;
+      algorithm cmac aes128;
+    };
+  };
 }
 </code></pre></div>
 Note that TCP-AO authentication is not supported on dynamic BGP sessions.</p>
@@ -2048,7 +2048,7 @@ Note that TCP-AO authentication is not supported on dynamic BGP sessions.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 15, 2025 12:04:04 UTC">November 15, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 23, 2025 12:55:55 UTC">November 23, 2025</span>
   </span>
 
     
