@@ -52,6 +52,7 @@ Example for setting an MD5 password:
       authentication md5;
       password "mysecretpassword";
     }
+    ```
 
 === "Nokia SR OS classic CLI"
     ```
