@@ -2081,7 +2081,7 @@
 <p>It is necessary to check incoming BGP prefixes to see if they match your own. This is because your own prefix should not come from outside.</p>
 <p>There are exceptions when an AS is split. This rarely happens, and in those cases, the prefixes can come from outside.</p>
 <h2 id="description">Description</h2>
-<p>Your own networks should be stored in lists and then used in policy for external BGP peers. </p>
+<p>Your own networks should be stored in lists and then used in policy for external BGP peers.</p>
 <h2 id="configuration">Configuration</h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label><label for="__tabbed_1_2">Juniper JunOS</label><label for="__tabbed_1_3">FRRouting</label></div>
 <div class="tabbed-content">
@@ -2135,15 +2135,17 @@ set policy-options policy-statement MY_INPUT_FILTER term FILTER-OWN-PREFIXES-V6 
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>```
-ip prefix-list own seq 10 permit <PLEASE INSERT YOUR PREFIX HERE> le 24
-ip prefix-list own seq 100 deny 0.0.0.0/0 le 32</p>
-<p>ipv6 prefix-list own-6 seq 10 permit <PLEASE INSERT YOUR PREFIX HERE> le 48
-ipv6 prefix-list own-6 seq 100 deny ::/0 le 128</p>
-<p>route-map import deny 10
+<div class="highlight"><pre><span></span><code>ip prefix-list own seq 10 permit &lt;PLEASE INSERT YOUR PREFIX HERE&gt; le 24
+ip prefix-list own seq 100 deny 0.0.0.0/0 le 32
+
+ipv6 prefix-list own-6 seq 10 permit &lt;PLEASE INSERT YOUR PREFIX HERE&gt; le 48
+ipv6 prefix-list own-6 seq 100 deny ::/0 le 128
+
+route-map import deny 10
   match ip address prefix-list own
   match ipv6 address prefix-list own-6
-exit</p>
+exit
+</code></pre></div>
 </div>
 </div>
 </div>
@@ -2167,7 +2169,7 @@ exit</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 16, 2025 18:42:48 UTC">November 16, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="December 2, 2025 20:39:29 UTC">December 2, 2025</span>
   </span>
 
     
