@@ -57,7 +57,8 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
-  - git-revision-date-localized
+  - git-revision-date-localized:
+      enable_parallel_processing: false
   - tags
   - search
 extra:
