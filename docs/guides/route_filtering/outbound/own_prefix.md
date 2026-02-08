@@ -120,7 +120,7 @@ As a network participating in the global Internet you want to tell other network
         For dynamic routing, VyOS uses FRR. However, VyOS applies some potentially
         problematic defaults, such as:
 
-        - `no bgp ebgp-requires-policy`, see [Require policy to start a BGP session](../../inbound/require_policy/) for details.
+        - `no bgp ebgp-requires-policy`, see [Require policy to start a BGP session](../inbound/require_policy.md) for details.
         - `no bgp network import-check`
 
         To view the final FRR configuration, run:
