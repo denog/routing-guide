@@ -2,7 +2,6 @@
 tags:
   - Huawei VRP missing
   - OpenBGPD missing
-  - VyOS missing
   - Nokia SR OS missing
 ---
 
@@ -68,4 +67,12 @@ Configuration examples:
     protocol bgp name4 {
       ttl security 1;
     }
+    ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set protocols bgp neighbor 198.51.100.1 ttl-security hops 1
+    set protocols bgp neighbor 3fff::1582 ttl-security hops 1
     ```

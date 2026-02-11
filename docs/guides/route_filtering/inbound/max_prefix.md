@@ -3,7 +3,6 @@ tags:
   - Arista missing
   - Huawei VRP missing
   - OpenBGPD missing
-  - VyOS missing
   - RtBrick RBFS missing
 ---
 
@@ -83,3 +82,14 @@ Configuration examples:
     set protocols bgp group MY_NEIGHBOR_GROUP 198.51.100.1 family inet unicast accepted-prefix-limit maximum 10 drop-excess
     set protocols bgp group MY_NEIGHBOR_GROUP 2001:db8::1 family inet6 unicast accepted-prefix-limit maximum 5 drop-excess
     ```
+
+=== "VyOS (>= 1.4)"
+
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+
+    ```
+    set protocols bgp neighbor 198.51.100.1 address-family ipv4-unicast maximum-prefix 1000
+    ```
+
+    It's not possible to configure a threshold value or adjust the action after limit is exceeded.

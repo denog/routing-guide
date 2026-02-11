@@ -5,7 +5,6 @@ tags:
   - Junos missing
   - Mikrotik missing
   - OpenBGPD missing
-  - VyOS missing
   - RtBrick RBFS missing
 ---
 
@@ -149,6 +148,24 @@ and convert it to your router configuration.
                 [...]
             exit
     commit
+    ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+
+    ```
+    set policy prefix-list ipv4-ixplans rule 5 action permit
+    set policy prefix-list ipv4-ixplans rule 5 prefix 80.81.192.0/21
+    set policy prefix-list ipv4-ixplans rule 5 le 32
+
+    set policy prefix-list6 ipv6-ixplans rule 5 action permit
+    set policy prefix-list6 ipv6-ixplans rule 5 prefix 2001:7f8::/64
+    set policy prefix-list6 ipv6-ixplans rule 5 le 128
+
+    set policy route-map prefixes-in rule 10 action deny
+    set policy route-map prefixes-in rule 10 match ip address prefix-list ipv4-ixplans
+    set policy route-map prefixes-in rule 10 match ipv6 address prefix-list ipv6-ixplans
     ```
 
 [^1]: Internet eXchange Point

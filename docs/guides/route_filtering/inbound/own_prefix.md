@@ -7,7 +7,6 @@ tags:
   - Mikrotik missing
   - Nokia SR OS missing
   - OpenBGPD missing
-  - VyOS missing
   - RtBrick RBFS missing
 ---
 
@@ -90,4 +89,22 @@ Your own networks should be stored in lists and then used in policy for external
       match ip address prefix-list own
       match ipv6 address prefix-list own-6
     exit
+    ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+
+    ```
+    set policy prefix-list own rule 5 action permit
+    set policy prefix-list own rule 5 prefix <PLEASE INSERT YOUR PREFIX HERE>
+    set policy prefix-list own rule 5 le 24
+
+    set policy prefix-list6 own-6 rule 5 action permit
+    set policy prefix-list6 own-6 rule 5 prefix <PLEASE INSERT YOUR PREFIX HERE>
+    set policy prefix-list6 own-6 rule 5 le 48
+
+    set policy route-map import rule 10 action deny
+    set policy route-map import rule 10 match ip address prefix-list own
+    set policy route-map import rule 10 match ipv6 address prefix-list own-6
     ```
