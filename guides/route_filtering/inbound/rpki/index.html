@@ -1988,18 +1988,6 @@
         
       
       
-        <a href="../../../../.#tag:frr-missing" class="md-tag md-tag-icon md-tag--FRR">FRR missing</a>
-      
-    
-      
-      
-      
-        
-        
-          
-        
-      
-      
         <a href="../../../../.#tag:huawei-vrp-missing" class="md-tag md-tag-icon md-tag--Huawei">Huawei VRP missing</a>
       
     
@@ -2095,8 +2083,20 @@
 
 <h1 id="rpki">RPKI</h1>
 <p>With RPKI it is possible to validate the origin AS of a BGP announcement. This is done by checking the announcement against ROAs (Route Origin Authorizations) published in the RPKI system. It is a best practice to filter out invalid routes.</p>
+<!-- https://ripe79.ripe.net/presentations/40-RIPE79-Cloudflares-RPKI-validator.pdf (slide 34) -->
+<div class="admonition note">
+<p class="admonition-title">Public RPKI RTR cache servers</p>
+<p>Public RPKI RTR cache servers can be useful as a temporary solution
+until you host your own.</p>
+<ul>
+<li>SSH: <code>rtr.rpki.cloudflare.com:8283</code> (user: <code>rpki</code> / pass: <code>rpki</code>)</li>
+<li>Plaintext: <code>rtr.rpki.cloudflare.com:8282</code></li>
+</ul>
+<p>More information can be found here:
+<a href="https://blog.cloudflare.com/rpki-and-the-rtr-protocol/">https://blog.cloudflare.com/rpki-and-the-rtr-protocol/</a></p>
+</div>
 <h2 id="configuration-examples">Configuration Examples</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">BIRD 2/3</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">BIRD 2/3</label><label for="__tabbed_1_2">FRRouting</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>roa4 table rpki4;
@@ -2153,6 +2153,41 @@ protocol bgp neighbor_name {
 }
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<p>bpgd must be started with <code>-M rpki</code>, otherwise you get "Unknown command: rpki" errors. See
+<a href="https://docs.frrouting.org/en/latest/bgp.html#enabling-rpki">docs.frrouting.org/en/latest/bgp.html#enabling-rpki</a>
+for more details.</p>
+<div class="highlight"><pre><span></span><code>rpki
+  rpki cache ssh rtr.rpki.example.com source 198.51.100.223 8283 rpki ./.ssh/id_rsa preference 1
+  rpki cache tcp rtr.rpki.example.com 8282 preference 2
+exit
+
+router bgp 64496
+  ! wait for RPKI cache server availablity to establish peering (requires frr &gt;= 10.5)
+  !neighbor 198.51.100.1 rpki strict
+
+  address-family ipv4
+    neighbor 198.51.100.1 route-map rpki in
+  exit-address-family
+
+  address-family ipv6
+    neighbor 198.51.100.1 route-map rpki in
+  exit-address-family
+exit
+
+! drop invalid prefixes
+route-map rpki deny 10
+  match rpki invalid
+
+route-map rpki permit 20
+  match rpki notfound
+  set local-preference 100
+
+route-map rpki permit 30
+  match rpki valid
+  set local-preference 200
+</code></pre></div>
+</div>
 </div>
 </div>
 
@@ -2175,7 +2210,7 @@ protocol bgp neighbor_name {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 11, 2026 08:54:48 UTC">February 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 11, 2026 08:56:02 UTC">February 11, 2026</span>
   </span>
 
     
