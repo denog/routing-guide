@@ -3,7 +3,6 @@ tags:
   - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
-  - FRR missing
   - Huawei VRP missing
   - Junos missing
   - Mikrotik missing
@@ -16,6 +15,17 @@ tags:
 # RPKI
 
 With RPKI it is possible to validate the origin AS of a BGP announcement. This is done by checking the announcement against ROAs (Route Origin Authorizations) published in the RPKI system. It is a best practice to filter out invalid routes.
+
+<!-- https://ripe79.ripe.net/presentations/40-RIPE79-Cloudflares-RPKI-validator.pdf (slide 34) -->
+!!! note "Public RPKI RTR cache servers"
+    Public RPKI RTR cache servers can be useful as a temporary solution
+    until you host your own.
+
+    - SSH: `rtr.rpki.cloudflare.com:8283` (user: `rpki` / pass: `rpki`)
+    - Plaintext: `rtr.rpki.cloudflare.com:8282`
+
+    More information can be found here:
+    <https://blog.cloudflare.com/rpki-and-the-rtr-protocol/>
 
 ## Configuration Examples
 
@@ -73,4 +83,41 @@ With RPKI it is possible to validate the origin AS of a BGP announcement. This i
         };
       };
     }
+    ```
+
+=== "FRRouting"
+    bpgd must be started with `-M rpki`, otherwise you get "Unknown command: rpki" errors. See
+    [docs.frrouting.org/en/latest/bgp.html#enabling-rpki](https://docs.frrouting.org/en/latest/bgp.html#enabling-rpki)
+    for more details.
+
+    ```
+    rpki
+      rpki cache ssh rtr.rpki.example.com source 198.51.100.223 8283 rpki ./.ssh/id_rsa preference 1
+      rpki cache tcp rtr.rpki.example.com 8282 preference 2
+    exit
+
+    router bgp 64496
+      ! wait for RPKI cache server availablity to establish peering (requires frr >= 10.5)
+      !neighbor 198.51.100.1 rpki strict
+
+      address-family ipv4
+        neighbor 198.51.100.1 route-map rpki in
+      exit-address-family
+
+      address-family ipv6
+        neighbor 198.51.100.1 route-map rpki in
+      exit-address-family
+    exit
+    
+    ! drop invalid prefixes
+    route-map rpki deny 10
+      match rpki invalid
+
+    route-map rpki permit 20
+      match rpki notfound
+      set local-preference 100
+
+    route-map rpki permit 30
+      match rpki valid
+      set local-preference 200
     ```
