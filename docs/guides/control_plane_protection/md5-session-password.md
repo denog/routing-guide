@@ -3,7 +3,6 @@ tags:
   - Cisco missing
   - Huawei VRP missing
   - OpenBGPD missing
-  - VyOS missing
 ---
 
 # MD5 session password
@@ -62,4 +61,12 @@ Example for setting an MD5 password:
             authentication-key "mysecretpassword"
             [...]
         exit
+    ```
+
+=== "VyOS"
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+    ```
+    set protocols bgp neighbor 198.51.100.1 password mysecretpassword
+    set protocols bgp neighbor 3fff::1582 password mysecretpassword
     ```

@@ -25,22 +25,26 @@ Here we document various things
 
     Working locally allows you to test your changes before submitting them.
 
-    <!-- TODO think about using spoiler -->
-    !!! info "Alternative: github.dev web-based editor"
-        You can also use the [github.dev web-based editor](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor)
-        directly in your browser.
+    <details>
+    <summary>Alternative: github.dev web-based editor</summary>
 
-        This is convenient for small edits or typo fixes:
-        Simply press the . (dot) key on the repository page or navigate to
-        `https://github.dev/<your-username>/routing-guide` to open it.
+    You can also use the [github.dev web-based editor](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor)
+    directly in your browser.
 
-        However, please note that you cannot fully test your changes in this environment
-        (e. g. `mkdocs serve` and `.editorconfig` validation are not available).
+    This is convenient for small edits or typo fixes:
+    Simply press the . (dot) key on the repository page or navigate to
+    `https://github.dev/<your-username>/routing-guide` to open it.
 
-        You can still preview your changes in the GitHub interface after creating a pull
-        request, but for anything beyond minor edits, we strongly recommend using local tools.
+    However, please note that you cannot fully test your changes in this environment
+    (e. g. `mkdocs serve` and `.editorconfig` validation are not available).
 
-        ![Preview of github.dev](./media/github.dev.png)
+    You can still preview your changes in the GitHub interface after creating a pull
+    request, but for anything beyond minor edits, we strongly recommend using local tools.
+
+    ![Preview of github.dev](./media/github.dev.png)
+    </details>
+
+    <!-- on windows something like gitbash might be required, maybe we should describe this or link another guide -->
 
     === "Command Line"
         ```
@@ -76,9 +80,7 @@ Here we document various things
 
 5. **Test changes**
 
-    <!-- TODO python installation ? out of scope of this guide? -->
-
-    If this is your first contribution, you’ll need to install a few tools to
+    If this is your first contribution, you’ll need to install a few python tools to
     build and validate the documentation locally.
 
     Install the required dependencies:
@@ -134,12 +136,17 @@ Here we document various things
     ![git push shows a link to create the pull request](./media/git-push-pr-link.png)
 
     Alternativly you can navigate to your fork on GitHub and click on compare & pull request.
-    <!-- TODO add image -->
+    ![](./media/compare-and-pr.png)
 
+    Provide a meaningful title and short description of what you changed and why.
+
+    ![](./media/create-pr.png)
+    ![](./media/create-pr-done.png)
     <!-- TODO create pr template, so this information is included in the pr itself -->
 
-    Provide a short description of what you changed and why.
+    Maintainers will review your pull request, provide feedback if needed, and merge it once it meets the project's standards.
 
-    Maintainers will review your PR, suggest changes if necessary, and merge it once approved.
+    If other changes are merged before yours, your branch or PR may become outdated.
+    To keep it up to date and mergeable, regularly (or at least if asked to do so) update your branch and resolve any merge conflicts that arise.
 
-<!-- TODO update pr by rebase to keep it in mergeable state -> how to resolve merge conflicts -->
+    Merge conflicts happen when Git can’t automatically combine changes from different branches because both have modified the same part of a file in incompatible ways. When this occurs, Git will mark the conflicting sections in the affected files and pause the merge. You will need to manually review these conflicts, decide which changes to keep, fix the code accordingly, and then continue the merge process.

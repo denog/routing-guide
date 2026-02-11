@@ -9,7 +9,6 @@ tags:
   - Mikrotik missing
   - Nokia SR OS missing
   - OpenBGPD missing
-  - VyOS missing
   - RtBrick RBFS missing
 ---
 
@@ -27,4 +26,13 @@ Configuration examples:
     router bgp 64500
         address-family ipv4 unicast
             neighbor 198.51.100.1 maximum-prefix-out 1000
+    ```
+
+=== "VyOS (>= 1.4)"
+
+    VyOS has two modes (operational and configuration mode). Enter configuration mode with
+    `configure` to make changes. Use `commit` to apply them and `save` to keep them after reboot.
+
+    ```
+    set protocols bgp neighbor 198.51.100.1 address-family ipv4-unicast maximum-prefix-out 1000
     ```
