@@ -1,0 +1,46 @@
+name: Request Review
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const mapping = {
+              "felbinger": ["FRR", "VyOS", "BIRD", "Mikrotik"],
+              // "peterablehmann": ["FRR", "VyOS", "BIRD", "JunOS"], // not a collaborator yet
+              "Vincentz-VP": ["Arista"],
+              "GIC-de": ["RtBrick RBFS", "JunOS"],
+              "dinoex": ["BIRD", "Nokia SR OS"],
+            };
+
+            // transform mapping matrix, to platform to member mapping
+            const mappingT = Object.entries(mapping).reduce((acc, [name, platforms]) => {
+                platforms.forEach(platform => (acc[platform] = [...(acc[platform] || []), name]));
+                return acc;
+            }, {});
+
+            // get all labels from pull request
+            const labels = context.payload.pull_request.labels.map(l => l.name.replace(/0\.platform:/, ""));
+
+            for (const label of labels) {
+                // skip labels not defined in the mapping
+                if (!mappingT[label]) continue;
+
+                // Review cannot be requested from pull request author
+                reviewers = mappingT[label].filter(item => item !== context.payload.pull_request.user.login);
+
+                console.log(`PR contains ${label}, reviewers: ${reviewers}`)
+
+                // see https://docs.github.com/en/rest/pulls/review-requests?apiVersion=2022-11-28#request-reviewers-for-a-pull-request
+                await github.rest.pulls.requestReviewers({
+                  owner: context.payload.organization.login,
+                  repo: context.payload.repository.name,
+                  pull_number: context.payload.pull_request.number,
+                  reviewers: reviewers
+                });
+            }
