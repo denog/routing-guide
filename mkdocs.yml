@@ -3,6 +3,7 @@ repo_url: https://github.com/denog/routing-guide
 edit_uri: edit/main/docs/
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/pdf.css
 theme:
   name: material
   font: false
@@ -61,6 +62,19 @@ plugins:
       enable_parallel_processing: false
   - tags
   - search
+  - with-pdf:
+      author: DENOG e. V.
+      cover: true
+      cover_title: Routing Guide
+      cover_subtitle: Guide for routing/bgp best practices
+      toc_level: 4
+      output_path: guide.pdf
+      copyright: Creative Commons Attribution License 4.0
+      exclude_pages:
+        - index.md
+        - contribution/
+        - working_group/
+        - guides/route_filtering/inbound/as_path_length   # build error
 extra:
   status:
     <identifier>: <description>
