@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1957,18 +1957,6 @@
         
       
       
-        <a href="../../../../.#tag:mikrotik-missing" class="md-tag md-tag-icon md-tag--Mikrotik">Mikrotik missing</a>
-      
-    
-      
-      
-      
-        
-        
-          
-        
-      
-      
         <a href="../../../../.#tag:nokia-sr-os-missing" class="md-tag md-tag-icon md-tag--Nokia">Nokia SR OS missing</a>
       
     
@@ -2033,7 +2021,7 @@
 <p>You should only apply this filter on your customers and IXP peers, not on your upstream transit providers.</p>
 </div>
 <p>Be aware that you need to manually check the prefix list as you could peer with for instance Microsoft of other parties on the list. So you need to do a quick sanity check on the AS numbers to fit your need.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">BIRD 2/3</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">BIRD 2/3</label><label for="__tabbed_1_2">MikroTik</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>define TRANSIT_ASNS = [
@@ -2083,6 +2071,32 @@ protocol bgp example_ix_rs {
 }
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<p>Source: <a href="https://bgpfilterguide.nlnog.net/guides/no_transit_leaks/#routeros-v7">NLNOG</a>
+<div class="highlight"><pre><span></span><code>/routing/filter/num-list
+add list=TRANSIT_ASNS range=174 comment=&quot;Cogent&quot; 
+add list=TRANSIT_ASNS range=701 comment=&quot;UUNET&quot; 
+add list=TRANSIT_ASNS range=1299 comment=&quot;Telia&quot; 
+add list=TRANSIT_ASNS range=2914 comment=&quot;NTT Ltd.&quot; 
+add list=TRANSIT_ASNS range=3257 comment=&quot;GTT Backbone&quot; 
+add list=TRANSIT_ASNS range=3320 comment=&quot;Deutsche Telekom AG (DTAG)&quot; 
+add list=TRANSIT_ASNS range=3356 comment=&quot;Level3&quot; 
+add list=TRANSIT_ASNS range=3491 comment=&quot;PCCW&quot; 
+add list=TRANSIT_ASNS range=4134 comment=&quot;Chinanet&quot; 
+add list=TRANSIT_ASNS range=5511 comment=&quot;Orange opentransit&quot; 
+add list=TRANSIT_ASNS range=6453 comment=&quot;Tata Communications&quot; 
+add list=TRANSIT_ASNS range=6461 comment=&quot;Zayo Bandwidth&quot; 
+add list=TRANSIT_ASNS range=6762 comment=&quot;Seabone / Telecom Italia&quot; 
+add list=TRANSIT_ASNS range=6830 comment=&quot;Liberty Global&quot;
+add list=TRANSIT_ASNS range=7018 comment=&quot;AT&amp;T&quot;  
+
+/routing/filter/rule
+add chain=reject_transit rule=&quot;if (bgp-as-path [[:TRANSIT_ASNS:]]){ reject }&quot;
+
+add chain=CUSTOMER-IN rule=&quot;jump reject_transit&quot;
+add chain=PEERING-OUT rule=&quot;jump reject_transit&quot;
+</code></pre></div></p>
+</div>
 </div>
 </div>
 
@@ -2105,7 +2119,7 @@ protocol bgp example_ix_rs {
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 15, 2026 11:18:55 UTC">February 15, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 20, 2026 13:45:14 UTC">March 20, 2026</span>
   </span>
 
     

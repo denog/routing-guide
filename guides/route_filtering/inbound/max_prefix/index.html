@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1978,10 +1978,23 @@ neighbor 198.51.100.1 maximum-prefix 1000 95
 </code></pre></div></p>
 </div>
 <div class="tabbed-block">
-<p>This shuts down your session when 1000 prefixes are received and restarts it after one hour:
+<p>For RouterOS v6 this shuts down your session when 1000 prefixes are received and restarts it after one hour:
 <div class="highlight"><pre><span></span><code>add name=AS64496 remote-as=64496 \
-    remote-address=198.51.100.1 max-prefix-limig=1000 max-prefix-restart-time=1h
+    remote-address=198.51.100.1 max-prefix-limit=1000 max-prefix-restart-time=1h
 </code></pre></div></p>
+<p>On RouterOS v7 something like this should do:
+<div class="highlight"><pre><span></span><code>/routing/bgp/connection
+add instance=bgp-instance-1 name=HE local.role=ebgp \
+    afi=ip input.limit-process-routes-ipv4=1000 remote.address=185.1.167.69 .as=6939
+add instance=bgp-instance-1 name=HE local.role=ebgp \
+    afi=ipv6 input.limit-process-routes-ipv6=1000 remote.address=2001:7f8:f2:e1::6939:1 .as=6939
+</code></pre></div>
+The documentation however is a bit vague:</p>
+<blockquote>
+<p>Try to limit the amount of received IPv4 routes to the specified number.
+This number does not represent the exact number of routes going to be installed in the routing table by the peer.
+BGP session "clear" command must be used to reset the flag if the limit is reached.</p>
+</blockquote>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>protocol bgp neighbor_name {
@@ -2038,7 +2051,7 @@ set protocols bgp group MY_NEIGHBOR_GROUP 2001:db8::1 family inet6 unicast accep
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="February 15, 2026 11:18:55 UTC">February 15, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 20, 2026 13:45:14 UTC">March 20, 2026</span>
   </span>
 
     
