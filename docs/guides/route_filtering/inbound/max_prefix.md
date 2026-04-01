@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Huawei VRP missing
   - OpenBGPD missing
   - RtBrick RBFS missing
@@ -10,16 +9,16 @@ tags:
 
 This parameter is configured for each eBGP session and is the simplest and easiest security measure you can use. Unfortunately, many stop here. Please do not.
 
-Maximum prefix defines a limit for the number of prefixes you accept from an eBGP peer. If the peer sends more, the eBGP session is shut down. Usually, routers keep the session down for some time, then it is automatically re-enabled. If the peer still sends more prefixes than allowed, it is shut down again.
+Maximum prefixes defines a limit for the number of prefixes you accept from an eBGP peer. If the peer sends more, the eBGP session can be shut down or it can remain active but stop accepting new prefixes beyond the configured limit. Usually, routers keep the session down for some time and then it can be automatically re-enabled (in the case the peer has reduced the number of prefix they're advertising). If the peer still sends more prefixes than allowed, the session is automatically shut down again. If the timer to reactivate the BGP session is too low, the session continuously flaps, which is not good for network stability. Therefore some networks prefer to configure their devices not to automatically re-enable the session, but to require manual intervention.
 
 For selecting this limit, the following rules of thumb can be used:
 
-- For sessions to *peers*, the limit should be less than the total number of prefixes in the Internet. Set it at least to ten times the normal number of prefixes your peer announces. This protects you against your peer announcing the full routing table to you, but still allows normal growth. Check and adjust from time to time (or even better: Automate this).
-- For sessions to your *upstream* provider, you must, of course, set the limit higher than the total number of prefixes in the Internet. It must be high enough to accommodate normal growth, so either set it *very* high or check and adjust it regularly. Otherwise, there can be surprising session shutdowns. This protects you against gross misconfigurations at your upstream provider (like sending you a lot of de-aggregated prefixes).
+- For sessions to *peers*, the limit should be less than the total number of prefixes in the Internet. This protects you against your peer announcing the full routing table to you. The recommended values to uses are the peer's prefix limits published in their PeeringDB page. You may want to add a buffer to the published limits to allow for future growth from your peer, or check and adjust from time to time (or even better: Automate this).
+- For sessions to your *upstream* providers, you must of course set the limit higher than the total number of prefixes in the Internet. It must be high enough to accommodate normal growth, so either set it *very* high or check and adjust it regularly. Otherwise, there can be surprising session shutdowns. This protects you against gross misconfigurations at your upstream provider (like sending you a lot of de-aggregated prefixes).
 
-If you want to automate this, at [PeeringDB](https://peeringdb.com) networks can publish suggested values for maximum prefix.
+If you want to automate this, at [PeeringDB](https://peeringdb.com) networks can publish suggested values for maximum prefix limits.
 
-Also, keep in mind that maximum prefix for IPv4 and IPv6 are two different values.
+Also, keep in mind that maximum prefix limits for IPv4 and IPv6 are two different values.
 
 Configuration examples:
 
@@ -107,3 +106,33 @@ Configuration examples:
     ```
 
     It's not possible to configure a threshold value or adjust the action after limit is exceeded.
+
+=== "Arista EOS legacy"
+    This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
+    ```
+    router bgp 64500
+    ...
+    neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent
+    ```
+
+    This does not shut down the session but stops accepting new prefixes beyond 1000 and issues a warning at 95% (950 prefixes):
+    ```
+    router bgp 64500
+    ...
+    neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent warning-only
+    ```
+
+=== "Arista EOS RCF"
+    This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
+    ```
+    router bgp 64500
+    ...
+    neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent
+    ```
+
+    This does not shut down the session but stops accepting new prefixes beyond 1000 and issues a warning at 95% (950 prefixes):
+    ```
+    router bgp 64500
+    ...
+    neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent warning-only
+    ```
