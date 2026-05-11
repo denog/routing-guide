@@ -1885,18 +1885,6 @@
         
       
       
-        <a href="../../../../.#tag:arista-missing" class="md-tag md-tag-icon md-tag--arista">Arista missing</a>
-      
-    
-      
-      
-      
-        
-        
-          
-        
-      
-      
         <a href="../../../../.#tag:huawei-vrp-missing" class="md-tag md-tag-icon md-tag--Huawei">Huawei VRP missing</a>
       
     
@@ -1943,17 +1931,17 @@
 
 
 <h1 id="maximum-prefix">Maximum Prefix</h1>
-<p>This parameter is configured for each eBGP session and is the simplest and easiest security measure you can use. Unfortunately, many stop here. Please do not.</p>
-<p>Maximum prefix defines a limit for the number of prefixes you accept from an eBGP peer. If the peer sends more, the eBGP session is shut down. Usually, routers keep the session down for some time, then it is automatically re-enabled. If the peer still sends more prefixes than allowed, it is shut down again.</p>
+<p>This parameter is configured for each eBGP session and is the simplest security measure one can use. Unfortunately, many stop here. Please do not.</p>
+<p>Maximum prefixes defines a limit for the number of prefixes you accept from an eBGP peer. If the peer sends more prefixes, the eBGP session can be shutdown or it can remain active but stop accepting new prefixes beyond the configured limit. If configured to shutdown the session when the configured limit is exceeded, most routers keep the session down for a period of time and then automatically re-establish the session after a delay timer has expired (in case the issue was only transient and the peer has reduced the number of prefixes they're advertising). If the peer still sends more prefixes than your configured limit, the session is automatically shutdown again. If the timer to reactivate the BGP session is too low, this results in the session continuously flapping, which is not good for network stability. Therefore some networks prefer to configure their devices not to automatically re-establish the session, but to require manual intervention.</p>
 <p>For selecting this limit, the following rules of thumb can be used:</p>
 <ul>
-<li>For sessions to <em>peers</em>, the limit should be less than the total number of prefixes in the Internet. Set it at least to ten times the normal number of prefixes your peer announces. This protects you against your peer announcing the full routing table to you, but still allows normal growth. Check and adjust from time to time (or even better: Automate this).</li>
-<li>For sessions to your <em>upstream</em> provider, you must, of course, set the limit higher than the total number of prefixes in the Internet. It must be high enough to accommodate normal growth, so either set it <em>very</em> high or check and adjust it regularly. Otherwise, there can be surprising session shutdowns. This protects you against gross misconfigurations at your upstream provider (like sending you a lot of de-aggregated prefixes).</li>
+<li>For sessions to <em>peers</em>, the limit should be less than the total number of prefixes in the Internet. This protects you against your peer announcing the full routing table to you. The recommended values to uses are the peer's prefix limits published in their PeeringDB page. You may want to add a buffer to the published limits to allow for future growth from your peer, or check and adjust from time to time (or even better, automate this).</li>
+<li>For sessions to your <em>upstream</em> providers, you must of course set the limit higher than the total number of prefixes in the Internet. It must be high enough to accommodate normal growth, so either set it <em>very</em> high or check and adjust it regularly. Otherwise, there can be surprising session shutdowns. This protects you against gross misconfigurations from your upstream provider (like sending you a lot of de-aggregated prefixes).</li>
 </ul>
-<p>If you want to automate this, at <a href="https://peeringdb.com">PeeringDB</a> networks can publish suggested values for maximum prefix.</p>
-<p>Also, keep in mind that maximum prefix for IPv4 and IPv6 are two different values.</p>
+<p>If you want to automate this, networks can publish suggested values for maximum prefix limits at <a href="https://peeringdb.com">PeeringDB</a>.</p>
+<p>Also, keep in mind that maximum prefix limits for IPv4 and IPv6 are two different values.</p>
 <p>Configuration examples:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:8"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">FRRouting</label><label for="__tabbed_1_4">Mikrotik</label><label for="__tabbed_1_5">BIRD 2/3</label><label for="__tabbed_1_6">Nokia SR OS classic CLI</label><label for="__tabbed_1_7">Juniper JunOS</label><label for="__tabbed_1_8">VyOS (&gt;= 1.4)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:10"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><input id="__tabbed_1_10" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS</label><label for="__tabbed_1_2">Cisco IOS XR</label><label for="__tabbed_1_3">FRRouting</label><label for="__tabbed_1_4">Mikrotik</label><label for="__tabbed_1_5">BIRD 2/3</label><label for="__tabbed_1_6">Nokia SR OS classic CLI</label><label for="__tabbed_1_7">Juniper JunOS</label><label for="__tabbed_1_8">VyOS (&gt;= 1.4)</label><label for="__tabbed_1_9">Arista EOS legacy</label><label for="__tabbed_1_10">Arista EOS RCF</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
@@ -2029,6 +2017,30 @@ set protocols bgp group MY_NEIGHBOR_GROUP 2001:db8::1 family inet6 unicast accep
 </code></pre></div>
 <p>It's not possible to configure a threshold value or adjust the action after limit is exceeded.</p>
 </div>
+<div class="tabbed-block">
+<p>This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent
+</code></pre></div></p>
+<p>This does not shutdown the session but stops accepting new prefixes beyond 1000 and issues a warning at 95% (950 prefixes):
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent warning-only
+</code></pre></div></p>
+</div>
+<div class="tabbed-block">
+<p>This shuts down the session when 1000 prefixes are received and issues a warning at 95% (950 prefixes):
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent
+</code></pre></div></p>
+<p>This does not shutdown the session but stops accepting new prefixes beyond 1000 and issues a warning at 95% (950 prefixes):
+<div class="highlight"><pre><span></span><code>router bgp 64500
+...
+neighbor 198.51.100.1 maximum-routes 1000 warning-limit 95 percent warning-only
+</code></pre></div></p>
+</div>
 </div>
 </div>
 
@@ -2051,7 +2063,7 @@ set protocols bgp group MY_NEIGHBOR_GROUP 2001:db8::1 family inet6 unicast accep
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="March 20, 2026 13:45:14 UTC">March 20, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 11, 2026 05:09:54 UTC">May 11, 2026</span>
   </span>
 
     
