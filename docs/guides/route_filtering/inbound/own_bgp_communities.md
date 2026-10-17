@@ -1,7 +1,6 @@
 ---
 tags:
   - Arista missing
-  - BIRD missing
   - Cisco missing
   - FRR missing
   - Huawei VRP missing
@@ -93,4 +92,40 @@ Large community
     set policy-options community CUSTOMER members large:4200000001:0:1002
     set policy-options community TEST members large:64500:0:100
     set policy-options community UPSTREAM members large:65534:0:200
+    ```
+== "Bird2"
+### Standard community
+    ```
+    protocol bgp CUSTOMER {
+      ipv4 {
+        import filter {
+          bgp_community.add((65001, 100));
+        };
+        export. filter {
+            bgp_community.add((65001, 100));
+        };
+      };
+    };
+    ```
+
+### Large community
+    ```
+    protocol bgp CUSTOMER {
+      ipv4 {
+        import filter {
+          bgp_large_community.add((65001,5,1));
+        };
+        export. filter {
+            bgp_large_community.add((65001,5,1));
+        };
+      };
+    };
+    ```
+### or via a function
+    ```
+    function set_some_community_and_accept()
+    {
+      if (net.type = NET_IP6) then bgp_large_community.add((65001,5,1));
+      accept;
+    }
     ```
