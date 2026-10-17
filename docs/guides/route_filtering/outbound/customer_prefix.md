@@ -1,7 +1,6 @@
 ---
 tags:
   - Arista missing
-  - BIRD missing
   - Cisco missing
   - Cisco IOS XR missing
   - FRR missing
@@ -86,4 +85,42 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 from community CUSTOMER
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 from route-filter ::/0 prefix-length-range /12-/48
     set policy-options policy-statement MY_OUTPUT_FILTER term CUSTOMER-PREFIXES-V6 then accept
+    ```
+
+=== "BIRD 2/3"
+    ```
+    define CUST_PREFIXES_TO_ANNOUNCE_V4 = [
+      203.0.113.0/24
+    ];
+    define CUST_PREFIXES_TO_ANNOUNCE_V6 = [
+    ];
+    define CUST_COMM = (65534,100,67);
+
+    function announce_cust_routes_v4()
+    prefix set cust_prefixes_to_announce_v4;
+    {
+      cust_prefixes_to_announce_v4 = CUST_PREFIXES_TO_ANNOUNCE_V4;
+      if (net.type = NET_IP4 && net ~ cust_prefixes_to_announce_v4 && CUST_COMM ~ bgp_large_community) then accept;
+    }
+    function announce_cust_routes_v6()
+    prefix set cust_prefixes_to_announce_v6;
+    {
+      cust_prefixes_to_announce_v6 = CUST_PREFIXES_TO_ANNOUNCE_V6;
+      if (net.type = NET_IP6 && net ~ cust_prefixes_to_announce_v6 && CUST_COMM ~ bgp_large_community) then accept;
+    }
+
+    protocol bgp example_transit {
+      ipv4 {
+        export filter {
+          announce_cust_routes_v4;
+          reject;
+        };
+      }
+      ipv6 {
+        export filter {
+          announce_cust_routes_v6;
+          reject;
+        };
+      }
+    }
     ```
