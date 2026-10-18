@@ -1,7 +1,6 @@
 ---
 tags:
   - Arista missing
-  - BIRD missing
   - Cisco missing
   - Cisco IOS XR missing
   - Huawei VRP missing
@@ -39,3 +38,15 @@ Configuration examples:
 
 === "MikroTik"
     Doesn't seem possible as of 2026-03-19
+
+=== "Bird2"
+    ```
+    protocol bgp neighbor_name {
+      ipv4 {
+        export limit 20 action disable;
+      }
+      ipv6 {
+        export limit 20 action disable;
+      }
+    }
+    ```
