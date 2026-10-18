@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2076,7 +2076,7 @@ int set transit_asns;
   transit_asns = TRANSIT_ASNS;
   if (bgp_path ~ transit_asns) then {
     # optional logging
-    # print &quot;Reject: Transit ASNs found on IXP Peering: &quot;, net, &quot; &quot;, bgp_path;
+    # print "Reject: Transit ASNs found on IXP Peering: ", net, " ", bgp_path;
     reject;
   }
 }
@@ -2102,27 +2102,27 @@ protocol bgp example_ix_rs {
 <div class="tabbed-block">
 <p>Source: <a href="https://bgpfilterguide.nlnog.net/guides/no_transit_leaks/#routeros-v7">NLNOG</a>
 <div class="highlight"><pre><span></span><code>/routing/filter/num-list
-add list=TRANSIT_ASNS range=174 comment=&quot;Cogent&quot; 
-add list=TRANSIT_ASNS range=701 comment=&quot;UUNET&quot; 
-add list=TRANSIT_ASNS range=1299 comment=&quot;Telia&quot; 
-add list=TRANSIT_ASNS range=2914 comment=&quot;NTT Ltd.&quot; 
-add list=TRANSIT_ASNS range=3257 comment=&quot;GTT Backbone&quot; 
-add list=TRANSIT_ASNS range=3320 comment=&quot;Deutsche Telekom AG (DTAG)&quot; 
-add list=TRANSIT_ASNS range=3356 comment=&quot;Level3&quot; 
-add list=TRANSIT_ASNS range=3491 comment=&quot;PCCW&quot; 
-add list=TRANSIT_ASNS range=4134 comment=&quot;Chinanet&quot; 
-add list=TRANSIT_ASNS range=5511 comment=&quot;Orange opentransit&quot; 
-add list=TRANSIT_ASNS range=6453 comment=&quot;Tata Communications&quot; 
-add list=TRANSIT_ASNS range=6461 comment=&quot;Zayo Bandwidth&quot; 
-add list=TRANSIT_ASNS range=6762 comment=&quot;Seabone / Telecom Italia&quot; 
-add list=TRANSIT_ASNS range=6830 comment=&quot;Liberty Global&quot;
-add list=TRANSIT_ASNS range=7018 comment=&quot;AT&amp;T&quot;  
+add list=TRANSIT_ASNS range=174 comment="Cogent" 
+add list=TRANSIT_ASNS range=701 comment="UUNET" 
+add list=TRANSIT_ASNS range=1299 comment="Telia" 
+add list=TRANSIT_ASNS range=2914 comment="NTT Ltd." 
+add list=TRANSIT_ASNS range=3257 comment="GTT Backbone" 
+add list=TRANSIT_ASNS range=3320 comment="Deutsche Telekom AG (DTAG)" 
+add list=TRANSIT_ASNS range=3356 comment="Level3" 
+add list=TRANSIT_ASNS range=3491 comment="PCCW" 
+add list=TRANSIT_ASNS range=4134 comment="Chinanet" 
+add list=TRANSIT_ASNS range=5511 comment="Orange opentransit" 
+add list=TRANSIT_ASNS range=6453 comment="Tata Communications" 
+add list=TRANSIT_ASNS range=6461 comment="Zayo Bandwidth" 
+add list=TRANSIT_ASNS range=6762 comment="Seabone / Telecom Italia" 
+add list=TRANSIT_ASNS range=6830 comment="Liberty Global"
+add list=TRANSIT_ASNS range=7018 comment="AT&amp;T"  
 
 /routing/filter/rule
-add chain=reject_transit rule=&quot;if (bgp-as-path [[:TRANSIT_ASNS:]]){ reject }&quot;
+add chain=reject_transit rule="if (bgp-as-path [[:TRANSIT_ASNS:]]){ reject }"
 
-add chain=CUSTOMER-IN rule=&quot;jump reject_transit&quot;
-add chain=PEERING-OUT rule=&quot;jump reject_transit&quot;
+add chain=CUSTOMER-IN rule="jump reject_transit"
+add chain=PEERING-OUT rule="jump reject_transit"
 </code></pre></div></p>
 </div>
 </div>
@@ -2147,7 +2147,7 @@ add chain=PEERING-OUT rule=&quot;jump reject_transit&quot;
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="June 30, 2026 17:07:19 UTC">June 30, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2026 08:36:48 UTC">October 18, 2026</span>
   </span>
 
     
@@ -2204,7 +2204,7 @@ add chain=PEERING-OUT rule=&quot;jump reject_transit&quot;
       <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.copy", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": {"Arista missing": "arista", "BIRD missing": "BIRD", "Cisco IOS XR missing": "Cisco", "Cisco missing": "Cisco", "FRR missing": "FRR", "Huawei VRP missing": "Huawei", "Junos missing": "Junos", "Mikrotik missing": "Mikrotik", "Nokia SR OS missing": "Nokia", "OpenBGPD missing": "OpenBGPD", "RtBrickRBFS missing": "RtBrick RBFS", "Text missing": "Text", "VyOS missing": "VyOS"}, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
