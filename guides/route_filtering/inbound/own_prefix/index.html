@@ -2036,18 +2036,6 @@
         
       
       
-        <a href="../../../../.#tag:bird-missing" class="md-tag md-tag-icon md-tag--BIRD">BIRD missing</a>
-      
-    
-      
-      
-      
-        
-        
-          
-        
-      
-      
         <a href="../../../../.#tag:cisco-missing" class="md-tag md-tag-icon md-tag--Cisco">Cisco missing</a>
       
     
@@ -2124,7 +2112,7 @@
 <h2 id="description">Description</h2>
 <p>Your own networks should be stored in lists and then used in policy for external BGP peers.</p>
 <h2 id="configuration">Configuration</h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label><label for="__tabbed_1_2">Juniper JunOS</label><label for="__tabbed_1_3">FRRouting</label><label for="__tabbed_1_4">VyOS</label><label for="__tabbed_1_5">MikroTik</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:6"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Cisco IOS XR</label><label for="__tabbed_1_2">Juniper JunOS</label><label for="__tabbed_1_3">FRRouting</label><label for="__tabbed_1_4">VyOS</label><label for="__tabbed_1_5">MikroTik</label><label for="__tabbed_1_6">Bird2</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Add your own prefixes to the list:
@@ -2213,6 +2201,45 @@ add chain=reject_own_prefixes rule=return comment="JUMP back to parent rule"
 add chain=DENOG-IN rule="jump reject_own_prefixes"
 </code></pre></div>
 </div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>define OWN_PREFIXES_V4 = [
+  &lt;PLEASE INSERT YOUR PREFIX HERE&gt;
+];
+define OWN_PREFIXES_V6 = [
+  &lt;PLEASE INSERT YOUR PREFIX HERE&gt;
+];
+
+function reject_own_prefixes_v4()
+prefix set own_prefixes_v4;
+{
+  own_prefixes_v4 = OWN_PREFIXES_V4;
+  if (net ~ own_prefixes_v4) then reject;
+}
+function reject_own_prefixes_v6()
+prefix set own_prefixes_v6;
+{
+  own_prefixes_v6 = OWN_PREFIXES_V6;
+  if (net ~ own_prefixes_v6) then reject;
+}
+
+protocol bgp neighbor_name {
+  ipv4 {
+    import filter {
+      reject_own_prefixes_v4();
+      # other filters
+      accept;
+    };
+  }
+  ipv6 {
+    import filter {
+      reject_own_prefixes_v6();
+      # other filters
+      accept;
+    };
+  }
+}
+</code></pre></div>
+</div>
 </div>
 </div>
 
@@ -2235,7 +2262,7 @@ add chain=DENOG-IN rule="jump reject_own_prefixes"
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2026 11:51:49 UTC">October 18, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 18, 2026 11:52:21 UTC">October 18, 2026</span>
   </span>
 
     
