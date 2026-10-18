@@ -1,7 +1,6 @@
 ---
 tags:
   - Arista missing
-  - BIRD missing
   - Cisco missing
   - Huawei VRP missing
   - Nokia SR OS missing
@@ -116,4 +115,44 @@ Your own networks should be stored in lists and then used in policy for external
     add chain=reject_own_prefixes rule=return comment="JUMP back to parent rule"
 
     add chain=DENOG-IN rule="jump reject_own_prefixes"
+    ```
+
+=== "Bird2"
+    ```
+    define OWN_PREFIXES_V4 = [
+      <PLEASE INSERT YOUR PREFIX HERE>
+    ];
+    define OWN_PREFIXES_V6 = [
+      <PLEASE INSERT YOUR PREFIX HERE>
+    ];
+
+    function reject_own_prefixes_v4()
+    prefix set own_prefixes_v4;
+    {
+      own_prefixes_v4 = OWN_PREFIXES_V4;
+      if (net ~ own_prefixes_v4) then reject;
+    }
+    function reject_own_prefixes_v6()
+    prefix set own_prefixes_v6;
+    {
+      own_prefixes_v6 = OWN_PREFIXES_V6;
+      if (net ~ own_prefixes_v6) then reject;
+    }
+
+    protocol bgp neighbor_name {
+      ipv4 {
+        import filter {
+          reject_own_prefixes_v4();
+          # other filters
+          accept;
+        };
+      }
+      ipv6 {
+        import filter {
+          reject_own_prefixes_v6();
+          # other filters
+          accept;
+        };
+      }
+    }
     ```
