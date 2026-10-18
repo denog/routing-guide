@@ -21,12 +21,12 @@ Add a community to routes imported from one session
     protocol bgp customer {
       ipv4 {
         import filter {
-            bgp_community.add((<your ASN>,220));
+          bgp_community.add((<your ASN>,220));
         }
       }
       ipv6 {
         import filter {
-            bgp_community.add((<your ASN>,220));
+          bgp_community.add((<your ASN>,220));
         }
       }
     }
