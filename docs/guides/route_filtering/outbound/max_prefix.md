@@ -39,7 +39,7 @@ Configuration examples:
 === "MikroTik"
     Doesn't seem possible as of 2026-03-19
 
-=== "Bird2"
+=== "Bird 2/3"
     ```
     protocol bgp neighbor_name {
       ipv4 {

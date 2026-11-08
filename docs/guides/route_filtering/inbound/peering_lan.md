@@ -81,20 +81,16 @@ and convert it to your router configuration.
       2a0c:b641:701::/64 # LocIX DUS
     ];
     function reject_ixp_prefixes4()
-    prefix set ixp_prefixes4;
     {
-      ixp_prefixes4 = IXP_PREFIXES4;
-      if (net ~ ixp_prefixes4) then {
+      if (net ~ IXP_PREFIXES4) then {
         # optional logging
         # print "Reject: IXP Prefix detected: ", net, " ", bgp_path;
         reject;
       }
     }
     function reject_ixp_prefixes6()
-    prefix set ixp_prefixes6;
     {
-      ixp_prefixes6 = IXP_PREFIXES6;
-      if (net ~ ixp_prefixes6) then {
+      if (net ~ IXP_PREFIXES6) then {
         # optional logging
         # print "Reject: IXP Prefix detected: ", net, " ", bgp_path;
         reject;

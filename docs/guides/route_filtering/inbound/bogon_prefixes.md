@@ -138,31 +138,27 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
       ::/8+,            # RFC4291 Loopback and more
       0100::/64+,       # RFC6666 Discard-Only Address Block
       2001:2::/48+,     # RFC5180 Benchmarking
-      2001:10::/28+     # RFC4843 ORCHID
+      2001:10::/28+,    # RFC4843 ORCHID
       2001:db8::/32+,   # RFC7450 Documentation
       3ffe::/16+,       # RFC3701 old 6bone
       3fff::/20+,       # RFC9637 Documentation
       5f00::/16+,       # RFC9602 SRv6 SIDs
       fc00::/7+,        # RFC4193,RFC8190 Unique-Local
-      fe80::/10+        # RFC4291 Link-Local Unicast
-      fec0::/10+        # RFC3879 old Site-Local Unicast
+      fe80::/10+,       # RFC4291 Link-Local Unicast
+      fec0::/10+,       # RFC3879 old Site-Local Unicast
       ff00::/8+         # RFC4291 Multicast
     ];
     function reject_bogon_prefixes4()
-    prefix set bogon_prefixes4;
     {
-      bogon_prefixes4 = BOGON_PREFIXES4;
-      if (net ~ bogon_prefixes4) then {
+      if (net ~ BOGON_PREFIXES4) then {
         # optional logging:
         # print "Reject: Bogon prefix: ", net, " ", bgp_path;
         reject;
       }
     }
     function reject_bogon_prefixes6()
-    prefix set bogon_prefixes6;
     {
-      bogon_prefixes6 = BOGON_PREFIXES6;
-      if (net ~ bogon_prefixes6) then {
+      if (net ~ BOGON_PREFIXES6) then {
         # optional logging:
         # print "Reject: Bogon prefix: ", net, " ", bgp_path;
         reject;

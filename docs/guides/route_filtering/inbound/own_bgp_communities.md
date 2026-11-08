@@ -93,7 +93,7 @@ Large community
     set policy-options community TEST members large:64500:0:100
     set policy-options community UPSTREAM members large:65534:0:200
     ```
-== "Bird2"
+== "Bird 2/3"
 ### Standard community
     ```
     protocol bgp CUSTOMER {

@@ -97,16 +97,12 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
     define CUST_COMM = (65534,100,67);
 
     function announce_cust_routes_v4()
-    prefix set cust_prefixes_to_announce_v4;
     {
-      cust_prefixes_to_announce_v4 = CUST_PREFIXES_TO_ANNOUNCE_V4;
-      if (net.type = NET_IP4 && net ~ cust_prefixes_to_announce_v4 && CUST_COMM ~ bgp_large_community) then accept;
+      if (net.type = NET_IP4 && net ~ CUST_PREFIXES_TO_ANNOUNCE_V4 && CUST_COMM ~ bgp_large_community) then accept;
     }
     function announce_cust_routes_v6()
-    prefix set cust_prefixes_to_announce_v6;
     {
-      cust_prefixes_to_announce_v6 = CUST_PREFIXES_TO_ANNOUNCE_V6;
-      if (net.type = NET_IP6 && net ~ cust_prefixes_to_announce_v6 && CUST_COMM ~ bgp_large_community) then accept;
+      if (net.type = NET_IP6 && net ~ CUST_PREFIXES_TO_ANNOUNCE_V6 && CUST_COMM ~ bgp_large_community) then accept;
     }
 
     protocol bgp example_transit {
