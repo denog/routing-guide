@@ -43,10 +43,8 @@ Be aware that you need to manually check the prefix list as you could peer with 
     ];
 
     function reject_transit_paths()
-    int set transit_asns;
     {
-      transit_asns = TRANSIT_ASNS;
-      if (bgp_path ~ transit_asns) then {
+      if (bgp_path ~ TRANSIT_ASNS) then {
         # optional logging
         # print "Reject: Transit ASNs found on IXP Peering: ", net, " ", bgp_path;
         reject;

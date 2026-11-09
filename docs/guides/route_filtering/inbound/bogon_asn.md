@@ -58,10 +58,8 @@ Bogon AS are autonomous systems which are used for test or demo applications. Th
       65552..131071           # IANA reserved ASNs
     ];
     function reject_bogon_asns()
-    int set bogon_asns;
     {
-      bogon_asns = BOGON_ASNS;
-      if ( bgp_path ~ bogon_asns ) then {
+      if ( bgp_path ~ BOGON_ASNS ) then {
         # optional logging:
         # print "Reject: bogon AS_PATH: ", net, " ", bgp_path;
         reject;
