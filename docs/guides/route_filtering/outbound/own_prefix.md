@@ -1,6 +1,5 @@
 ---
 tags:
-  - BIRD missing
   - Huawei VRP missing
   - Mikrotik missing
   - Nokia SR OS missing
@@ -147,3 +146,42 @@ As a network participating in the global Internet you want to tell other network
     ```
 
 [^1]: Internet eXchange Points Route Servers
+
+=== "Bird2"
+    ```
+    define PREFIXES_TO_ANNOUNCE_V4 = [
+        192.0.2.0/24
+    ];
+    define PREFIXES_TO_ANNOUNCE_V6 = [
+        2001:db8::/32
+    ];
+
+    function announce_routes_v4()
+    prefix set prefixes_to_announce_v4;
+    {
+    prefixes_to_announce_v4 = PREFIXES_TO_ANNOUNCE_V4;
+        if (net.type = NET_IP4 && net ~ prefixes_to_announce_v4) then accept;
+    }
+
+    function announce_routes_v6()
+    prefix set prefixes_to_announce_v6;
+    {
+    prefixes_to_announce_v6 = PREFIXES_TO_ANNOUNCE_V6;
+        if (net.type = NET_IP6 && net ~ prefixes_to_announce_v6) then accept;
+    }
+    
+    protocol bgp neighbor_name {
+      ipv4 {
+        export filter {
+            announce_routes_v4();
+            reject;
+        };
+      }
+      ipv6 {
+        export filter {
+            announce_routes_v6();
+            reject;
+        };
+      }
+    }
+    ```
