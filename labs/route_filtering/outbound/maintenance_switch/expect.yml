@@ -1,0 +1,13 @@
+# The switch is configured on the session to the collector. When active, the
+# DUT keeps the routes from inject but no longer advertises them.
+page: docs/guides/route_filtering/outbound/maintenance_switch.md
+cases:
+  - name: switch configured but not active, routes are advertised
+    blocks: [0]
+    accept: [203.0.113.0/24, "3fff::/20"]
+  - name: switch active, no routes are advertised to the neighbor
+    blocks: [0, 1]
+    reject: [203.0.113.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 100, test: 100}
+      - {prefix: "3fff::/20", field: local_pref, control: 100, test: 100}

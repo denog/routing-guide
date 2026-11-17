@@ -1,0 +1,56 @@
+# Check: FRR ANDs several match statements within one route-map entry. The
+# FRR examples on default_route, peering_lan and own_prefix put
+# "match ip address prefix-list" and "match ipv6 address prefix-list" into the
+# same entry. If they are ANDed, the entry matches neither IPv4 nor IPv6 routes.
+# Cases 1 and 2 use the published snippet and FAIL if the suspicion is right;
+# case 3 is the counter-check with one entry per address family.
+page: docs/guides/route_filtering/inbound/default_route.md
+tab: Cisco IOS / FRRouting
+cases:
+  - name: guide snippet, reject the default route
+    blocks: [0, 2]
+    context:
+      frr: |
+        route-map prefixes-in permit 1000
+        router bgp 64500
+          address-family ipv4 unicast
+          neighbor 198.51.100.1 route-map prefixes-in in
+          exit-address-family
+          address-family ipv6 unicast
+          neighbor 2001:db8::1 route-map prefixes-in in
+          exit-address-family
+    accept: [203.0.113.0/24, "3fff::/20"]
+    reject: [0.0.0.0/0, "::/0"]
+  - name: guide snippet, accept only the default route
+    blocks: [0, 1]
+    context:
+      frr: |
+        router bgp 64500
+          address-family ipv4 unicast
+          neighbor 198.51.100.1 route-map prefixes-in in
+          exit-address-family
+          address-family ipv6 unicast
+          neighbor 2001:db8::1 route-map prefixes-in in
+          exit-address-family
+    accept: [0.0.0.0/0, "::/0"]
+    reject: [203.0.113.0/24, "3fff::/20"]
+  - name: counter-check, one entry per address family, reject the default route
+    snippet: |
+      ip prefix-list default-route-v4 permit 0.0.0.0/0
+      ipv6 prefix-list default-route-v6 permit ::/0
+      route-map prefixes-in deny 10
+        match ip address prefix-list default-route-v4
+      route-map prefixes-in deny 20
+        match ipv6 address prefix-list default-route-v6
+    context:
+      frr: |
+        route-map prefixes-in permit 1000
+        router bgp 64500
+          address-family ipv4 unicast
+          neighbor 198.51.100.1 route-map prefixes-in in
+          exit-address-family
+          address-family ipv6 unicast
+          neighbor 2001:db8::1 route-map prefixes-in in
+          exit-address-family
+    accept: [203.0.113.0/24, "3fff::/20"]
+    reject: [0.0.0.0/0, "::/0"]

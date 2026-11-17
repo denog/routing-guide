@@ -1,0 +1,16 @@
+# Exploration, not a guide test: does StayRTR deliver ASPAs to EOS and how
+# does EOS mark/handle the paths? Lab is kept (--keep) for inspection.
+page: docs/guides/route_filtering/inbound/aspa.md
+tab: BIRD 2/3
+cases:
+  - name: ASPA exploration
+    snippet: |
+      interface Ethernet3
+          no switchport
+          ip address 198.51.100.4/31
+      router bgp 64500
+          rpki cache rpki-cache
+            host 198.51.100.5 port 3323
+          rpki as-path-validation
+            ebgp local
+    accept: [203.0.113.0/24, 192.0.2.0/24, 198.51.100.128/25]

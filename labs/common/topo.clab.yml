@@ -1,0 +1,40 @@
+# Shared topology for all guide labs:
+#   inject (AS64496) --eBGP--> dut (AS64500) --eBGP--> collector (AS64511)
+# run.py sets the environment variables below.
+name: ${RG_LAB_NAME:=rg}
+
+mgmt:
+  network: rg-mgmt
+  ipv4-subnet: 172.31.250.0/24
+  ipv6-subnet: 3fff:172:31:250::/64
+
+topology:
+  nodes:
+    dut:
+      kind: ${RG_DUT_KIND}
+      image: ${RG_DUT_IMAGE}
+      startup-config: ${RG_DUT_CONFIG}
+    inject:
+      kind: linux
+      image: ${RG_FRR_IMAGE:=quay.io/frrouting/frr:10.7.1}
+      binds:
+        - frr/daemons:/etc/frr/daemons
+        - ${RG_INJECT_CONFIG}:/etc/frr/frr.conf
+      exec:
+        - sysctl -w net.ipv6.conf.all.disable_ipv6=0
+        - ip addr add 198.51.100.1/31 dev eth1
+        - ip addr add 2001:db8::1/64 dev eth1
+    collector:
+      kind: linux
+      image: ${RG_FRR_IMAGE:=quay.io/frrouting/frr:10.7.1}
+      binds:
+        - frr/daemons:/etc/frr/daemons
+        - frr/collector.conf:/etc/frr/frr.conf
+      exec:
+        - sysctl -w net.ipv6.conf.all.disable_ipv6=0
+        - ip addr add 198.51.100.3/31 dev eth1
+        - ip addr add 2001:db8:1::3/64 dev eth1
+
+  links:
+    - endpoints: ["inject:eth1", "dut:eth1"]
+    - endpoints: ["dut:eth2", "collector:eth1"]

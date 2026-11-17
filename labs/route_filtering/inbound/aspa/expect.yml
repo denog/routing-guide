@@ -1,0 +1,15 @@
+# inject (AS64496) is a customer of the DUT. rtr.json: ASPA 64497 -> [64496],
+# 64498 -> [64499]. Paths as received by the DUT:
+#   64496 64497        valid   (203.0.113.0/24, 3fff:100::/32)
+#   64496 64497 64498  invalid (192.0.2.0/24, 3fff::/20), 64497 is no provider of 64498
+#   64496 64510        unknown (198.51.100.128/25), no ASPA for 64510
+page: docs/guides/route_filtering/inbound/aspa.md
+cases:
+  - name: drop ASPA invalid routes from a customer
+    context:
+      arista: |
+        interface Ethernet3
+          no switchport
+          ip address 198.51.100.4/31
+    accept: [203.0.113.0/24, 198.51.100.128/25, "3fff:100::/32"]
+    reject: [192.0.2.0/24, "3fff::/20"]

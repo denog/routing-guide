@@ -1,0 +1,20 @@
+# inject originates everything with AS64496. rtr.json makes
+#   valid:     203.0.113.0/24, 3fff::/20
+#   invalid:   192.0.2.0/24 (wrong origin), 203.0.113.128/25 (longer than
+#              maxLength), 3fff:100::/32 (wrong origin)
+#   not-found: 198.51.100.128/25, 2001:db8:100::/48
+page: docs/guides/route_filtering/inbound/rpki.md
+cases:
+  - name: drop invalid, prefer valid over not-found
+    context:
+      arista: |
+        interface Ethernet3
+          no switchport
+          ip address 198.51.100.4/31
+    accept: [203.0.113.0/24, 3fff::/20, 198.51.100.128/25, "2001:db8:100::/48"]
+    reject: [192.0.2.0/24, 203.0.113.128/25, "3fff:100::/32"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 100, test: 200}
+      - {prefix: "3fff::/20", field: local_pref, control: 100, test: 200}
+      - {prefix: 198.51.100.128/25, field: local_pref, control: 100, test: 100}
+      - {prefix: "2001:db8:100::/48", field: local_pref, control: 100, test: 100}

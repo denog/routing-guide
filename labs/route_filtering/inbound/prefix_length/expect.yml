@@ -1,0 +1,21 @@
+# Guide page and expected result at the collector once the snippet is applied.
+# Without the snippet (control run) every announced prefix must arrive.
+page: docs/guides/route_filtering/inbound/prefix_length.md
+cases:
+  - name: reject too short and too long prefixes
+    context:
+      arista: route-map example-in permit 1000
+      vyos: set policy route-map example-in rule 1000 action permit
+    accept:
+      - 0.0.0.0/0
+      - 10.0.0.0/8
+      - 203.0.113.0/24
+      - 3fff::/16
+      - 3fff::/20
+      - 3fff:0:1::/48
+    reject:
+      - 10.0.0.0/7          # shorter than /8
+      - 203.0.113.128/25    # longer than /24
+      - 192.0.2.1/32        # longer than /24
+      - 3ffe::/15           # shorter than /16
+      - 3fff:0:1:1::/64     # longer than /48

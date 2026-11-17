@@ -1,0 +1,49 @@
+# TCP-AO on EOS does not support separate receive and transmit lifetimes
+# (Arista TOI "BGP TCP Authentication Option (TCP-AO)"); with different ones
+# the profile has "no valid secrets" and the session stays down with
+# UnsupportedTcpAuthConfig (tested with vEOS 4.36.3M). The examples use the
+# single lifetime form.
+page: docs/guides/control_plane_protection/keyring.md
+cases:
+  # The guide example switches to key 2 on 2026-01-01, so key 2 is in use now.
+  - name: guide example, key 2 is the current key
+    dut: {blocks: [0]}
+    peer: |
+      management security
+        session shared-secret profile bgp-keyring
+          secret 1 0 oldsecretpassword 2025-01-01 00:00:00 2026-01-02 00:00:00
+          secret 2 0 newsecretpassword 2026-01-01 00:00:00 infinite
+      router bgp 64496
+        neighbor 198.51.100.0 password shared-secret profile bgp-keyring algorithm aes-128-cmac-96
+    expect:
+      established: true
+      neighbor: ["^TCP-AO Authentication:", "Current key ID: 2"]
+      profile:
+        name: bgp-keyring
+        match: ["Current transmit secret: ID: 2"]
+  # Counter-check with the same structure, but times relative to now
+  # ({t+N} = DUT clock + N seconds): key 2 starts at t+300, key 1 ends at
+  # t+480. The session must stay up while the keys change over.
+  - name: key rotation while the session is up
+    dut:
+      snippet: |
+        management security
+          session shared-secret profile bgp-keyring
+            secret 1 0 oldsecretpassword {t+0} {t+480}
+            secret 2 0 newsecretpassword {t+300} infinite
+        router bgp 64500
+          neighbor 198.51.100.1 password shared-secret profile bgp-keyring algorithm aes-128-cmac-96
+    peer: |
+      management security
+        session shared-secret profile bgp-keyring
+          secret 1 0 oldsecretpassword {t+0} {t+480}
+          secret 2 0 newsecretpassword {t+300} infinite
+      router bgp 64496
+        neighbor 198.51.100.0 password shared-secret profile bgp-keyring algorithm aes-128-cmac-96
+    expect:
+      established: true
+      rotation: {wait_until: 540}
+      neighbor: ["^TCP-AO Authentication:", "Current key ID: 2"]
+      profile:
+        name: bgp-keyring
+        match: ["Current transmit secret: ID: 2"]
