@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
   - FRR missing
@@ -31,3 +30,18 @@ Add a community to routes imported from one session
       }
     }
     ```
+
+=== "Arista EOS"
+    Add a community to routes imported from one session, existing communities are kept (`additive`):
+    ```
+    route-map customer-in permit 10
+       set community 64500:220 additive
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map customer-in in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map customer-in in
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

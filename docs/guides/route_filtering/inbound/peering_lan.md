@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Huawei VRP missing
   - Junos missing
   - Mikrotik missing
@@ -177,3 +176,28 @@ and convert it to your router configuration.
     ```
 
 [^1]: Internet eXchange Point
+
+=== "Arista EOS"
+    The route-map needs further `permit` entries, otherwise all other routes are denied as well.
+    ```
+    ! DE-CIX Frankfurt
+    ip prefix-list ipv4-ixplans
+       seq 10 permit 80.81.192.0/21 le 32
+    !
+    ! DE-CIX Frankfurt
+    ipv6 prefix-list ipv6-ixplans
+       seq 10 permit 2001:7f8::/64 le 128
+    !
+    route-map prefixes-in deny 10
+       match ip address prefix-list ipv4-ixplans
+    route-map prefixes-in deny 20
+       match ipv6 address prefix-list ipv6-ixplans
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map prefixes-in in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map prefixes-in in
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

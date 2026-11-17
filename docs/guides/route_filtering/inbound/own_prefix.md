@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Huawei VRP missing
   - Nokia SR OS missing
@@ -156,3 +155,26 @@ Your own networks should be stored in lists and then used in policy for external
       }
     }
     ```
+
+=== "Arista EOS"
+    Replace 203.0.113.0/24 and 3fff:100::/32 with your own prefixes. The route-map needs further `permit` entries, otherwise all other routes are denied as well.
+    ```
+    ip prefix-list own-v4
+       seq 10 permit 203.0.113.0/24 le 32
+    !
+    ipv6 prefix-list own-v6
+       seq 10 permit 3fff:100::/32 le 128
+    !
+    route-map prefixes-in deny 10
+       match ip address prefix-list own-v4
+    route-map prefixes-in deny 20
+       match ipv6 address prefix-list own-v6
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map prefixes-in in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map prefixes-in in
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

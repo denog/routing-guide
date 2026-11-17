@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
   - FRR missing
@@ -67,3 +66,16 @@ Unfortunately this is not widely implemented.
     }
     ```
     Note that TCP-AO authentication is not supported on dynamic BGP sessions.
+
+=== "Arista EOS"
+    Keys are configured in a shared secret profile under `management security`; `infinite` means the key never expires. EOS supports the algorithms `aes-128-cmac-96`, `hmac-sha1-96` and `hmac-sha-256`.
+    ```
+    management security
+       session shared-secret profile bgp-ao
+          secret 1 0 mysecretpassword infinite
+    !
+    router bgp 64500
+       neighbor 198.51.100.1 password shared-secret profile bgp-ao algorithm aes-128-cmac-96
+    ```
+
+    See the EOS manual: [Session Management Commands](https://www.arista.com/en/um-eos/eos-session-management-commands) (shared secret profiles) and the Arista TOI [BGP TCP Authentication Option (TCP-AO)](https://www.arista.com/en/support/toi/eos-4-28-2f/16087-bgp-tcp-authentication-option-tcp-ao) (Arista account required).

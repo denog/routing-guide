@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - FRR missing
   - Huawei VRP missing
@@ -129,3 +128,36 @@ Large community
       accept;
     }
     ```
+
+=== "Arista EOS"
+    Lists matching your own standard and large communities (replace 64500 with your ASN):
+    ```
+    ip community-list regexp own-communities permit _64500:
+    ip large-community-list regexp own-large-communities permit _64500:
+    ```
+
+    If you want to drop the prefix. The route-map needs further `permit` entries, otherwise all other routes are denied as well:
+    ```
+    route-map peer-in deny 10
+       match community own-communities
+    route-map peer-in deny 20
+       match large-community own-large-communities
+    ```
+
+    If you want to delete the communities and accept the prefix:
+    ```
+    route-map peer-in permit 10
+       set community community-list own-communities delete
+       set large-community large-community-list own-large-communities delete
+    ```
+
+    Apply the route-map to the neighbors:
+    ```
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map peer-in in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map peer-in in
+    ```
+
+    See the EOS manual: [Border Gateway Protocol (BGP)](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp) (community lists) and [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

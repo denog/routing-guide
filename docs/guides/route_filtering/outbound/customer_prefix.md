@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
   - FRR missing
@@ -120,3 +119,52 @@ Please make sure to filter the prefixes of your BGP customers directly on the BG
       }
     }
     ```
+
+=== "Arista EOS"
+    Prefix lists with the prefixes of your customer:
+    ```
+    ip prefix-list customer-prefixes-v4
+       seq 10 permit 203.0.113.0/24
+    !
+    ipv6 prefix-list customer-prefixes-v6
+       seq 10 permit 3fff:100::/32
+    ```
+
+    Static approach, announce only the prefixes in the lists to the upstream:
+    ```
+    route-map upstream-out permit 10
+       match ip address prefix-list customer-prefixes-v4
+    route-map upstream-out permit 20
+       match ipv6 address prefix-list customer-prefixes-v6
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.3 route-map upstream-out out
+       address-family ipv6
+          neighbor 2001:db8:1::3 route-map upstream-out out
+    ```
+
+    Dynamic approach with BGP communities, tag the prefixes on the customer session and announce everything tagged to the upstream:
+    ```
+    ip community-list customer-routes permit 64500:100
+    !
+    route-map customer-in permit 10
+       match ip address prefix-list customer-prefixes-v4
+       set community 64500:100 additive
+    route-map customer-in permit 20
+       match ipv6 address prefix-list customer-prefixes-v6
+       set community 64500:100 additive
+    !
+    route-map upstream-out permit 10
+       match community customer-routes
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map customer-in in
+          neighbor 198.51.100.3 route-map upstream-out out
+       address-family ipv6
+          neighbor 2001:db8::1 route-map customer-in in
+          neighbor 2001:db8:1::3 route-map upstream-out out
+    ```
+
+    See the EOS manual: [Border Gateway Protocol (BGP)](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp) (community lists) and [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

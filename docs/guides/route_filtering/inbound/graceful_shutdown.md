@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
   - Huawei VRP missing
@@ -54,3 +53,11 @@ BGP-Graceful-Shutdown is a mechanism defined in [RFC6198](https://www.rfc-editor
     ```
     set protocols bgp parameters graceful-shutdown
     ```
+
+=== "Arista EOS"
+    EOS honors the graceful shutdown community without any configuration: received routes carrying it get local preference 0. This cannot be disabled. Check the local preference of such a route with:
+    ```
+    show ip bgp 203.0.113.0/24
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps) (`set community`, graceful shutdown).
