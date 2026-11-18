@@ -1,0 +1,11 @@
+# Tests the "Arista EOS RCF" tab. See checks/eos_rcf_bogons for the errors
+# of the example before it was fixed.
+#   IPv4 bogons: 10.0.0.0/8, 192.168.1.0/24 (entries with "le 32")
+#   IPv6 bogons: fc00::/7, 2002::/16 (exact entries of BOGONS_v6)
+#   no bogons:   1.0.0.0/24, 2a00::/12
+page: docs/guides/route_filtering/inbound/bogon_prefixes.md
+tab: Arista EOS RCF
+cases:
+  - name: reject IPv4 and IPv6 bogons, accept other routes
+    accept: [1.0.0.0/24, "2a00::/12"]
+    reject: [10.0.0.0/8, 192.168.1.0/24, "fc00::/7", "2002::/16"]
