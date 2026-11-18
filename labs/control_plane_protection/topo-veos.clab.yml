@@ -1,0 +1,29 @@
+# Two vEOS VMs for session protection tests (TCP-AO needs a kernel TCP stack
+# with TCP-AO, which the cEOS container does not have on this host).
+name: ${RG_LAB_NAME:=rg-veos}
+
+mgmt:
+  network: rg-mgmt
+  ipv4-subnet: 172.31.250.0/24
+  ipv6-subnet: 3fff:172:31:250::/64
+
+topology:
+  kinds:
+    arista_veos:
+      image: ${RG_VEOS_IMAGE:=vrnetlab/arista_veos:4.36.3M}
+      env:
+        # QEMU with "-cpu host" fails on this host with "failed to set MSR
+        # 0x345" (perf capabilities); disabling the virtual PMU avoids it.
+        QEMU_CPU: host,level=9,pmu=off
+        # with the default 2 GB / 2 vCPUs the VM stayed unresponsive after boot
+        QEMU_MEMORY: "4096"
+        QEMU_SMP: "4"
+  nodes:
+    dut:
+      kind: arista_veos
+      startup-config: base/dut.cfg
+    peer:
+      kind: arista_veos
+      startup-config: base/peer.cfg
+  links:
+    - endpoints: ["dut:eth1", "peer:eth1"]

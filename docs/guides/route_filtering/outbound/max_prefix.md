@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
   - Huawei VRP missing
@@ -49,4 +48,11 @@ Configuration examples:
         export limit 20 action disable;
       }
     }
+    ```
+
+=== "Arista EOS"
+    Unlike FRRouting, EOS does not just stop sending: if more than 1000 routes would be advertised to the neighbor in an address family, the session is shut down (Cease notification) and stays idle.
+    ```
+    router bgp 64500
+       neighbor 198.51.100.3 maximum-advertised-routes 1000
     ```

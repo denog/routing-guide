@@ -384,7 +384,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         return prefix match prefix_list_v4 BOGONS_v4;
     }
     function bogon_v6() {
-        return prefix match prefix_list_v4 BOGONS_v4;
+        return prefix match prefix_list_v6 BOGONS_v6;
     }
     function example_in() {
         if bogon_v4() {
@@ -392,6 +392,7 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
         } else if bogon_v6() {
             exit false;
         }
+        return true;
     }
     EOF
           compile
@@ -405,6 +406,8 @@ In IPv6, there is a [similar list at IANA](http://www.iana.org/assignments/ipv6-
        address-family ipv4
           neighbor 198.51.100.1 rcf in example_in()
     ```
+
+    See the EOS manual: [Routing Control Functions](https://www.arista.com/en/um-eos/eos-routing-control-functions) and [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps) (prefix lists).
 
 === "VyOS"
     VyOS has two modes (operational and configuration mode). Enter configuration mode with

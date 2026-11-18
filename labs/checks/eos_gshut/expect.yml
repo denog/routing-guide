@@ -1,0 +1,15 @@
+# Exploration, not a guide test: how does EOS treat a received GSHUT
+# community without any configuration? The expected values are guesses; the
+# report shows the actual values. The literal snippet is a no-op.
+page: docs/guides/route_filtering/inbound/graceful_shutdown.md
+tab: FRR
+cases:
+  - name: received GSHUT without configuration
+    snippet: ip community-list rg-noop permit 64511:1
+    accept: [203.0.113.0/24, 192.0.2.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 100}
+      - {prefix: "3fff::/20", field: local_pref, control: 100}
+      - {prefix: 192.0.2.0/24, field: local_pref, control: 100}
+      - {prefix: 203.0.113.0/24, field: communities, control: ["64496:1", "graceful-shutdown"]}
+      - {prefix: 192.0.2.0/24, field: communities, control: ["64496:1"]}

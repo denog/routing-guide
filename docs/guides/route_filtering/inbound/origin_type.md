@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - BIRD missing
   - Cisco missing
   - Huawei VRP missing
@@ -55,3 +54,17 @@ It is currently not possible to skip the evaluation of *Origin Type* in best pat
     set policy route-map import-all rule 100 action permit
     set policy route-map import-all rule 100 set origin igp
     ```
+
+=== "Arista EOS"
+    ```
+    route-map import-all permit 100
+       set origin igp
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map import-all in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map import-all in
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

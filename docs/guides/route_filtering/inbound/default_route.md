@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Huawei VRP missing
   - Nokia SR OS missing
   - OpenBGPD missing
@@ -163,3 +162,39 @@ On the other hand, if you want the full routing table, you should not accept any
     add chain=DENOG-IN rule="if ( afi ipv4 && dst == 0.0.0.0/0 ) { reject }"
     add chain=DENOG-IN rule="if ( afi ipv6 && dst == ::/0 ) { reject }"
     ```
+
+=== "Arista EOS"
+    ```
+    ip prefix-list default-route-v4
+       seq 10 permit 0.0.0.0/0
+    !
+    ipv6 prefix-list default-route-v6
+       seq 10 permit ::/0
+    ```
+
+    Route-Map statement for allowing *only* default routes in:
+    ```
+    route-map prefixes-in permit 10
+       match ip address prefix-list default-route-v4
+    route-map prefixes-in permit 20
+       match ipv6 address prefix-list default-route-v6
+    ```
+
+    Route-Map statement for *not* allowing default routes in. The route-map needs further `permit` entries, otherwise all other routes are denied as well:
+    ```
+    route-map prefixes-in deny 10
+       match ip address prefix-list default-route-v4
+    route-map prefixes-in deny 20
+       match ipv6 address prefix-list default-route-v6
+    ```
+
+    Apply the route-map to the neighbors:
+    ```
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map prefixes-in in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map prefixes-in in
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

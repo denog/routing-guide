@@ -1,0 +1,7 @@
+page: docs/guides/route_filtering/inbound/peering_lan.md
+cases:
+  - name: reject the peering LAN and more specifics
+    context:
+      arista: route-map prefixes-in permit 1000
+    accept: [203.0.113.0/24, "3fff::/20"]
+    reject: [80.81.192.0/21, 80.81.193.0/24, "2001:7f8::/64", "2001:7f8:0:0:1::/80"]

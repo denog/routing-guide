@@ -1,0 +1,25 @@
+# DUT gets the snippet from the guide, the peer the mirrored config.
+page: docs/guides/control_plane_protection/tcp-authentication-option.md
+cases:
+  - name: TCP-AO with the same key on both sides
+    dut: {blocks: [0]}
+    peer: |
+      management security
+        session shared-secret profile bgp-ao
+          secret 1 0 mysecretpassword infinite
+      router bgp 64496
+        neighbor 198.51.100.0 password shared-secret profile bgp-ao algorithm aes-128-cmac-96
+    expect:
+      established: true
+      neighbor: ["^TCP-AO Authentication:", "MAC algorithm: aes-128-cmac-96", "Current key ID: 1"]
+  - name: wrong key on the peer, session must stay down
+    dut: {blocks: [0]}
+    peer: |
+      management security
+        session shared-secret profile bgp-ao
+          secret 1 0 wrongpassword infinite
+      router bgp 64496
+        neighbor 198.51.100.0 password shared-secret profile bgp-ao algorithm aes-128-cmac-96
+    expect:
+      established: false
+      wait: 180

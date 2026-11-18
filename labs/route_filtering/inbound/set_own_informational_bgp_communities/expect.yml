@@ -1,0 +1,7 @@
+page: docs/guides/route_filtering/inbound/set_own_informational_bgp_communities.md
+cases:
+  - name: add an informational community, keep existing ones
+    accept: [203.0.113.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: communities, control: ["64496:1"], test: ["64496:1", "64500:220"]}
+      - {prefix: "3fff::/20", field: communities, control: [], test: ["64500:220"]}

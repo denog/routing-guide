@@ -1,0 +1,18 @@
+# AS64496 (inject) is the locked peer with a direct session to the DUT. The
+# collector (AS64511) is another eBGP neighbor that leaks routes via 64496.
+#   from inject, direct:          203.0.113.0/24, 3fff::/20      accepted
+#   from collector via 64496:     192.0.2.0/24, 3fff:100::/32    rejected
+#   from collector, other path:   198.51.100.128/25              accepted
+# Checked on the DUT (local_pref None = DUT has no such route).
+page: docs/guides/route_filtering/inbound/peer_locking.md
+cases:
+  - name: reject the locked ASN except on its direct session
+    context:
+      arista: route-map peer-in permit 1000
+    accept: [203.0.113.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 192.0.2.0/24, field: local_pref, control: 100, test: null}
+      - {prefix: "3fff:100::/32", field: local_pref, control: 100, test: null}
+      - {prefix: 198.51.100.128/25, field: local_pref, control: 100, test: 100}
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 100, test: 100}
+      - {prefix: "3fff::/20", field: local_pref, control: 100, test: 100}

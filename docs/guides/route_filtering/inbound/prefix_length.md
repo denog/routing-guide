@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - FRR missing
   - Huawei VRP missing
   - OpenBGPD missing
@@ -176,3 +175,28 @@ Configuration examples:
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 then trace
     set policy-options policy-statement MY_INPUT_FILTER term MAX-LEN-PREFIXES-V6 then reject
     ```
+
+=== "Arista EOS"
+    Matching prefixes are denied; the default route is not matched (`ge 1`) and stays accepted.
+    ```
+    ip prefix-list PREFIX_LENGTH_v4
+       seq 10 permit 0.0.0.0/0 ge 25 le 32
+       seq 20 permit 0.0.0.0/0 ge 1 le 7
+    !
+    ipv6 prefix-list PREFIX_LENGTH_v6
+       seq 10 permit ::/0 ge 49 le 128
+       seq 20 permit ::/0 ge 1 le 15
+    !
+    route-map example-in deny 20
+       match ip address prefix-list PREFIX_LENGTH_v4
+    route-map example-in deny 22
+       match ipv6 address prefix-list PREFIX_LENGTH_v6
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map example-in in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map example-in in
+    ```
+
+    See the EOS manual: [ACLs and Route Maps](https://www.arista.com/en/um-eos/eos-acls-and-route-maps).

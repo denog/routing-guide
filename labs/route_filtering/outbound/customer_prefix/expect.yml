@@ -1,0 +1,14 @@
+# inject is the BGP customer (customer prefixes 203.0.113.0/24, 3fff:100::/32),
+# the collector is the upstream.
+page: docs/guides/route_filtering/outbound/customer_prefix.md
+cases:
+  - name: static approach with prefix lists
+    blocks: [0, 1]
+    accept: [203.0.113.0/24, "3fff:100::/32"]
+    reject: [192.0.2.0/24, "3fff:200::/32"]
+  - name: dynamic approach with a customer community
+    blocks: [0, 2]
+    accept: [203.0.113.0/24, "3fff:100::/32"]
+    reject: [192.0.2.0/24, "3fff:200::/32"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: communities, control: [], test: ["64500:100"]}

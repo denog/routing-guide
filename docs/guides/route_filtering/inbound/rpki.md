@@ -1,6 +1,5 @@
 ---
 tags:
-  - Arista missing
   - Cisco missing
   - Cisco IOS XR missing
   - Huawei VRP missing
@@ -133,3 +132,30 @@ With RPKI it is possible to validate the origin AS of a BGP announcement. This i
 
     add chain=DENOG-IN rule="jump check_rpki"
     ```
+
+=== "Arista EOS"
+    ```
+    router bgp 64500
+       rpki cache rpki-cache
+          host 198.51.100.5 port 3323
+       rpki origin-validation
+          ebgp local
+    !
+    ! drop invalid prefixes
+    route-map rpki deny 10
+       match origin-as validity invalid
+    route-map rpki permit 20
+       match origin-as validity not-found
+       set local-preference 100
+    route-map rpki permit 30
+       match origin-as validity valid
+       set local-preference 200
+    !
+    router bgp 64500
+       address-family ipv4
+          neighbor 198.51.100.1 route-map rpki in
+       address-family ipv6
+          neighbor 2001:db8::1 route-map rpki in
+    ```
+
+    See the Arista TOI [BGP Validation with Resource Public Key Infrastructure (RPKI)](https://www.arista.com/en/support/toi/eos-4-24-0f/14470-bgp-prefix-origin-validation-with-resource-public-key-infrastructure-rpki) (Arista account required).

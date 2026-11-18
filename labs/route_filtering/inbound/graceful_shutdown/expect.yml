@@ -1,0 +1,12 @@
+# The Arista tab states that EOS honors GSHUT without configuration, so the
+# case applies no config and checks the local preference in both phases.
+page: docs/guides/route_filtering/inbound/graceful_shutdown.md
+cases:
+  - name: received GSHUT gets local preference 0 without configuration
+    snippet: ""
+    accept: [203.0.113.0/24, 192.0.2.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 0, test: 0}
+      - {prefix: "3fff::/20", field: local_pref, control: 0, test: 0}
+      - {prefix: 192.0.2.0/24, field: local_pref, control: 100, test: 100}
+      - {prefix: 203.0.113.0/24, field: communities, control: ["64496:1", "graceful-shutdown"]}

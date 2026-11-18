@@ -1,0 +1,9 @@
+{
+  "roas": [
+    {"prefix": "3fff:ffff::/32", "maxLength": 32, "asn": 64511}
+  ],
+  "aspas": [
+    {"customer_asid": 64497, "providers": [64496]},
+    {"customer_asid": 64498, "providers": [64499]}
+  ]
+}

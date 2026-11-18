@@ -1,0 +1,7 @@
+page: docs/guides/route_filtering/inbound/own_prefix.md
+cases:
+  - name: reject own prefixes and more specifics
+    context:
+      arista: route-map prefixes-in permit 1000
+    accept: [192.0.2.0/24, "3fff:200::/32"]
+    reject: [203.0.113.0/24, 203.0.113.128/25, "3fff:100::/32", "3fff:100:1::/48"]

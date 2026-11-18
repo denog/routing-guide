@@ -1,0 +1,15 @@
+# The switch is configured on the session to inject. When active, the DUT
+# must no longer accept the routes from inject (local_pref None = no route).
+page: docs/guides/route_filtering/inbound/maintenance_switch.md
+cases:
+  - name: switch configured but not active, routes are accepted
+    blocks: [0]
+    accept: [203.0.113.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 100, test: 100}
+  - name: switch active, routes from the neighbor are rejected
+    blocks: [0, 1]
+    reject: [203.0.113.0/24, "3fff::/20"]
+    attributes:
+      - {prefix: 203.0.113.0/24, field: local_pref, control: 100, test: null}
+      - {prefix: "3fff::/20", field: local_pref, control: 100, test: null}

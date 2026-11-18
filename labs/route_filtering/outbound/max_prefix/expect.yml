@@ -1,0 +1,12 @@
+# inject announces 1005 IPv4 routes, more than the configured limit of 1000.
+# EOS then shuts the IPv4 session to the collector down and keeps it idle;
+# the IPv6 session to the same collector is not affected.
+page: docs/guides/route_filtering/outbound/max_prefix.md
+cases:
+  - name: limit exceeded, session to the neighbor is shut down
+    accept: ["3fff::/20", "3fff:100::/32"]
+    attributes:
+      - {prefix: ipv4, field: route_count, control: 1005, test: 0}
+      - {prefix: ipv6, field: route_count, control: 2, test: 2}
+      - {prefix: 198.51.100.2, field: session_state, control: Established, test: Idle}
+      - {prefix: "2001:db8:1::2", field: session_state, control: Established, test: Established}
