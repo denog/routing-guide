@@ -4,7 +4,6 @@ tags:
   - BIRD missing
   - Cisco missing
   - Huawei VRP missing
-  - Junos missing
   - Nokia SR OS missing
   - OpenBGPD missing
   - RtBrick RBFS missing
@@ -36,6 +35,10 @@ It is currently not possible to skip the evaluation of *Origin Type* in best pat
     route-policy import-all
       set origin igp
     end-policy
+    ```
+=== "Juniper JunOS"
+    ```
+    set policy-options policy-statement import-all term set-origin-igp then origin igp
     ```
 === "FRRouting"
     ```
