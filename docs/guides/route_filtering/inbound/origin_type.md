@@ -37,6 +37,10 @@ It is currently not possible to skip the evaluation of *Origin Type* in best pat
       set origin igp
     end-policy
     ```
+=== "Juniper JunOS"
+    ```
+    set policy-options policy-statement import-all term set-origin-igp then origin igp
+    ```
 === "FRRouting"
     ```
     route-map import-all permit 100
