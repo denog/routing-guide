@@ -4,7 +4,6 @@ tags:
   - BIRD missing
   - Cisco missing
   - Huawei VRP missing
-  - Junos missing
   - Nokia SR OS missing
   - OpenBGPD missing
   - RtBrick RBFS missing
